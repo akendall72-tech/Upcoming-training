@@ -1,377 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agri-Service Training Enrollment Report</title>
-<style>
-  :root {
-    --green-900: #0f2b1f;
-    --green-800: #16382a;
-    --green-700: #1f4d38;
-    --green-600: #2c6b4d;
-    --green-500: #3d8a66;
-    --gold-500: #c79a2b;
-    --gold-400: #dcb84a;
-    --gold-100: #faf3df;
-    --bg: #f4f5f2;
-    --card: #ffffff;
-    --text: #1f2a24;
-    --muted: #64716a;
-    --border: #e2e6e1;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.5;
-  }
-  .header {
-    background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 55%, var(--green-600) 100%);
-    color: #fff;
-    padding: 40px 32px 32px;
-    position: relative;
-    overflow: hidden;
-  }
-  .header::after {
-    content: '';
-    position: absolute;
-    right: -60px; top: -60px;
-    width: 260px; height: 260px;
-    border-radius: 50%;
-    background: rgba(220,184,74,0.12);
-  }
-  .header-inner { max-width: 1180px; margin: 0 auto; position: relative; z-index: 1; }
-  .eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 12px;
-    color: var(--gold-400);
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .header h1 {
-    margin: 0 0 6px;
-    font-size: 30px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
-  .header .sub {
-    color: rgba(255,255,255,0.75);
-    font-size: 14px;
-  }
-  .summary-grid {
-    max-width: 1180px;
-    margin: -28px auto 0;
-    padding: 0 32px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    position: relative;
-    z-index: 2;
-  }
-  .summary-card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 18px 20px;
-    box-shadow: 0 4px 18px rgba(15,43,31,0.10);
-    border-top: 3px solid var(--gold-500);
-  }
-  .summary-card .num {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--green-800);
-  }
-  .summary-card .label {
-    font-size: 12.5px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: 2px;
-  }
-  main {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 44px 32px 60px;
-  }
-  section { margin-bottom: 48px; }
-  .section-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--green-800);
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-title .rule {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-  .section-desc {
-    color: var(--muted);
-    font-size: 13.5px;
-    margin-bottom: 20px;
-  }
-
-  /* Class accordion */
-  .class-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 12px;
-    overflow: hidden;
-    transition: box-shadow .15s ease;
-  }
-  .class-card:hover { box-shadow: 0 2px 10px rgba(15,43,31,0.07); }
-  .class-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-    padding: 16px 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    font: inherit;
-    color: inherit;
-  }
-  .class-title-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
-  }
-  .chevron {
-    color: var(--gold-500);
-    font-size: 13px;
-    transition: transform .18s ease;
-    display: inline-block;
-  }
-  .class-header[aria-expanded="true"] .chevron { transform: rotate(90deg); }
-  .class-title {
-    font-weight: 700;
-    font-size: 15.5px;
-    color: var(--green-800);
-  }
-  .class-meta {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    font-size: 12.5px;
-    color: var(--muted);
-  }
-  .class-header-seats {
-    min-width: 160px;
-    text-align: right;
-    flex-shrink: 0;
-  }
-  .seat-count { font-size: 13px; color: var(--text); margin-bottom: 4px; }
-  .seat-bar {
-    width: 160px;
-    height: 6px;
-    border-radius: 4px;
-    background: #e7ece8;
-    overflow: hidden;
-    margin-left: auto;
-  }
-  .seat-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--green-500), var(--gold-500));
-    border-radius: 4px;
-  }
-  .seat-avail { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
-  .class-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .25s ease;
-    background: #fbfbf9;
-    border-top: 1px solid transparent;
-  }
-  .class-body.open {
-    border-top: 1px solid var(--border);
-  }
-  .class-body-inner { padding: 16px 20px 20px; }
-
-  .badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 9px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-  .badge-upcoming { background: var(--gold-100); color: var(--gold-500); border: 1px solid var(--gold-400); }
-  .badge-completed { background: #e9f2ec; color: var(--green-600); border: 1px solid var(--green-500); }
-  .badge-cancelled { background: #fbeaea; color: #b3352c; border: 1px solid #e08a83; }
-
-  .roster-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-  .roster-table th {
-    text-align: left;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-    padding: 6px 10px;
-    border-bottom: 1px solid var(--border);
-  }
-  .roster-table td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #eef1ee;
-  }
-  .roster-table tr:last-child td { border-bottom: none; }
-  .col-num { color: var(--muted); width: 28px; }
-  .col-name { font-weight: 600; }
-  .roster-table a { color: var(--green-600); text-decoration: none; }
-  .roster-table a:hover { text-decoration: underline; }
-  .empty-roster { color: var(--muted); font-size: 13px; font-style: italic; margin: 4px 0; }
-
-  /* Location (store) tabs */
-  .tab-bar {
-    display: flex;
-    gap: 6px;
-    border-bottom: 2px solid var(--border);
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  .tab-btn {
-    background: none;
-    border: none;
-    padding: 10px 18px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -2px;
-    font: inherit;
-  }
-  .tab-btn .tab-count {
-    background: var(--border);
-    color: var(--text);
-    font-size: 11px;
-    padding: 1px 7px;
-    border-radius: 20px;
-    margin-left: 6px;
-  }
-  .tab-btn.active {
-    color: var(--green-800);
-    border-bottom-color: var(--gold-500);
-  }
-  .tab-btn.active .tab-count { background: var(--gold-100); color: var(--gold-500); }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-  .loc-summary {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 14px;
-  }
-  .loc-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--card);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(15,43,31,0.06);
-  }
-  .loc-table thead th {
-    background: var(--green-800);
-    color: #fff;
-    text-align: left;
-    font-size: 11.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    padding: 10px 16px;
-  }
-  .loc-table tbody td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    font-size: 13.5px;
-    vertical-align: top;
-  }
-  .loc-table tbody tr:last-child td { border-bottom: none; }
-  .loc-class-title { font-weight: 700; color: var(--green-800); }
-  .loc-class-sub { font-size: 12px; color: var(--muted); margin-top: 3px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-
-  footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    padding: 24px;
-  }
-
-  @media (max-width: 720px) {
-    .summary-grid { grid-template-columns: repeat(2, 1fr); }
-    .class-header { flex-direction: column; align-items: flex-start; }
-    .class-header-seats { text-align: left; width: 100%; }
-    .seat-bar { margin-left: 0; }
-  }
-</style>
-</head>
-<body>
-
-<div class="header">
-  <div class="header-inner">
-    <div class="eyebrow">AGRI-SERVICE, LLC &middot; Training Department</div>
-    <h1>Training Class Enrollment Report</h1>
-    <div class="sub">Open Seat Report exported Aug 03, 2026 MDT &nbsp;&middot;&nbsp; In-Class Event Report exported Aug 04, 2026 MDT</div>
-  </div>
-</div>
-
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agri-Service Training Enrollment Report</title><style>
+:root { --green-900:#0f2b1f; --green-800:#16382a; --green-700:#1f4d38; --green-600:#2c6b4d; --green-500:#3d8a66;
+  --gold-500:#c79a2b; --gold-400:#dcb84a; --gold-100:#faf3df; --bg:#f4f5f2; --card:#ffffff; --text:#1f2a24; --muted:#64716a; --border:#e2e6e1; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+.header { background:linear-gradient(135deg,var(--green-900) 0%,var(--green-700) 55%,var(--green-600) 100%); color:#fff; padding:40px 32px 32px; position:relative; overflow:hidden; }
+.header::after { content:''; position:absolute; right:-60px; top:-60px; width:260px; height:260px; border-radius:50%; background:rgba(220,184,74,0.12); }
+.header-inner { max-width:1180px; margin:0 auto; position:relative; z-index:1; }
+.eyebrow { text-transform:uppercase; letter-spacing:0.12em; font-size:12px; color:var(--gold-400); font-weight:700; margin-bottom:8px; }
+.header h1 { margin:0 0 6px; font-size:30px; font-weight:700; letter-spacing:-0.01em; }
+.header .sub { color:rgba(255,255,255,0.75); font-size:14px; }
+.summary-grid { max-width:1180px; margin:-28px auto 0; padding:0 32px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; position:relative; z-index:2; }
+.summary-card { background:var(--card); border-radius:12px; padding:18px 20px; box-shadow:0 4px 18px rgba(15,43,31,0.10); border-top:3px solid var(--gold-500); }
+.summary-card .num { font-size:26px; font-weight:700; color:var(--green-800); }
+.summary-card .label { font-size:12.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:2px; }
+main { max-width:1180px; margin:0 auto; padding:44px 32px 60px; }
+section { margin-bottom:48px; }
+.section-title { font-size:20px; font-weight:700; color:var(--green-800); margin-bottom:4px; display:flex; align-items:center; gap:10px; }
+.section-title .rule { flex:1; height:1px; background:var(--border); }
+.section-desc { color:var(--muted); font-size:13.5px; margin-bottom:20px; }
+.class-card { background:var(--card); border:1px solid var(--border); border-radius:10px; margin-bottom:12px; overflow:hidden; transition:box-shadow .15s ease; }
+.class-card:hover { box-shadow:0 2px 10px rgba(15,43,31,0.07); }
+.class-header { width:100%; display:flex; justify-content:space-between; align-items:center; gap:24px; padding:16px 20px; background:none; border:none; cursor:pointer; text-align:left; font:inherit; color:inherit; }
+.class-title-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.chevron { color:var(--gold-500); font-size:13px; transition:transform .18s ease; display:inline-block; }
+.class-header[aria-expanded="true"] .chevron { transform:rotate(90deg); }
+.class-title { font-weight:700; font-size:15.5px; color:var(--green-800); }
+.class-meta { display:flex; gap:16px; flex-wrap:wrap; font-size:12.5px; color:var(--muted); }
+.class-header-seats { min-width:160px; text-align:right; flex-shrink:0; }
+.seat-count { font-size:13px; color:var(--text); margin-bottom:4px; }
+.seat-bar { width:160px; height:6px; border-radius:4px; background:#e7ece8; overflow:hidden; margin-left:auto; }
+.seat-bar-fill { height:100%; background:linear-gradient(90deg,var(--green-500),var(--gold-500)); border-radius:4px; }
+.seat-avail { font-size:11.5px; color:var(--muted); margin-top:4px; }
+.class-body { max-height:0; overflow:hidden; transition:max-height .25s ease; background:#fbfbf9; border-top:1px solid transparent; }
+.class-body.open { border-top:1px solid var(--border); }
+.class-body-inner { padding:16px 20px 20px; }
+.badge { display:inline-block; font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.03em; }
+.badge-upcoming { background:var(--gold-100); color:var(--gold-500); border:1px solid var(--gold-400); }
+.badge-completed { background:#e9f2ec; color:var(--green-600); border:1px solid var(--green-500); }
+.badge-cancelled { background:#fbeaea; color:#b3352c; border:1px solid #e08a83; }
+.roster-table { width:100%; border-collapse:collapse; font-size:13.5px; }
+.roster-table th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); padding:6px 10px; border-bottom:1px solid var(--border); }
+.roster-table td { padding:8px 10px; border-bottom:1px solid #eef1ee; }
+.roster-table tr:last-child td { border-bottom:none; }
+.col-num { color:var(--muted); width:28px; }
+.col-name { font-weight:600; }
+.roster-table a { color:var(--green-600); text-decoration:none; }
+.roster-table a:hover { text-decoration:underline; }
+.empty-roster { color:var(--muted); font-size:13px; font-style:italic; margin:4px 0; }
+.tab-bar { display:flex; gap:6px; border-bottom:2px solid var(--border); margin-bottom:20px; flex-wrap:wrap; }
+.tab-btn { background:none; border:none; padding:10px 18px; font-size:14px; font-weight:600; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; font:inherit; }
+.tab-btn .tab-count { background:var(--border); color:var(--text); font-size:11px; padding:1px 7px; border-radius:20px; margin-left:6px; }
+.tab-btn.active { color:var(--green-800); border-bottom-color:var(--gold-500); }
+.tab-btn.active .tab-count { background:var(--gold-100); color:var(--gold-500); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+.loc-summary { font-size:13px; color:var(--muted); margin-bottom:14px; }
+.loc-table { width:100%; border-collapse:collapse; background:var(--card); border-radius:10px; overflow:hidden; box-shadow:0 1px 4px rgba(15,43,31,0.06); }
+.loc-table thead th { background:var(--green-800); color:#fff; text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; padding:10px 16px; }
+.loc-table tbody td { padding:12px 16px; border-bottom:1px solid var(--border); font-size:13.5px; vertical-align:top; }
+.loc-table tbody tr:last-child td { border-bottom:none; }
+.loc-class-title { font-weight:700; color:var(--green-800); }
+.loc-class-sub { font-size:12px; color:var(--muted); margin-top:3px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
+@media (max-width:720px) { .summary-grid{grid-template-columns:repeat(2,1fr);} .class-header{flex-direction:column;align-items:flex-start;} .class-header-seats{text-align:left;width:100%;} .seat-bar{margin-left:0;} }
+</style></head><body>
+<div class="header"><div class="header-inner">
+  <div class="eyebrow">AGRI-SERVICE, LLC &middot; Training Department</div>
+  <h1>Training Class Enrollment Report</h1>
+  <div class="sub">Open Seat Report exported Aug 10, 2026 MDT &nbsp;&middot;&nbsp; In-Class Event Report exported Aug 10, 2026 MDT</div>
+</div></div>
 <div class="summary-grid">
   <div class="summary-card"><div class="num">8</div><div class="label">Upcoming Classes</div></div>
   <div class="summary-card"><div class="num">23</div><div class="label">Total Registered</div></div>
   <div class="summary-card"><div class="num">72</div><div class="label">Open Seats</div></div>
   <div class="summary-card"><div class="num">7</div><div class="label">Stores Represented</div></div>
 </div>
-
 <main>
   <section>
     <div class="section-title">All Classes<div class="rule"></div></div>
     <div class="section-desc">Click a class to view its enrolled roster.</div>
-
+    
     <div class="class-card" data-city="Pasco">
       <button class="class-header" data-target="class-0" aria-expanded="false">
-        <div class="class-header-main">
-          <div class="class-title-row">
-            <span class="chevron">&#9656;</span>
-            <span class="class-title">Lifting and Rigging</span>
-            <span class="badge badge-upcoming">Upcoming</span>
-          </div>
-          <div class="class-meta">
-            <span class="meta-item">&#128197; Aug 11, 2026</span>
-            <span class="meta-item">&#128205; Pasco</span>
-            <span class="meta-item">&#127891; Anna Perkins, Ken Haider, Andrew Kendall</span>
-          </div>
-        </div>
-        <div class="class-header-seats">
-          <div class="seat-count"><strong>1</strong> / 12 enrolled</div>
-          <div class="seat-bar"><div class="seat-bar-fill" style="width:8%"></div></div>
-          <div class="seat-avail">11 seats open</div>
-        </div>
-      </button>
-      <div class="class-body" id="class-0">
-        <div class="class-body-inner">
-          <table class="roster-table">
-      <thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead>
-      <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Simon Castillo</td>
-          <td class="col-store">16 - Moses Lake</td>
-          <td class="col-email"><a href="mailto:simoncastillo@agri-service.com">simoncastillo@agri-service.com</a></td>
-        </tr></tbody>
-    </table>
-        </div>
-      </div>
-    </div>
-    <div class="class-card" data-city="Pasco">
-      <button class="class-header" data-target="class-1" aria-expanded="false">
         <div class="class-header-main">
           <div class="class-title-row">
             <span class="chevron">&#9656;</span>
@@ -390,33 +102,57 @@
           <div class="seat-avail">7 seats open</div>
         </div>
       </button>
-      <div class="class-body" id="class-1">
-        <div class="class-body-inner">
-          <table class="roster-table">
-      <thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead>
-      <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Patrick Anderson</td>
-          <td class="col-store">10 - Marsing</td>
-          <td class="col-email"><a href="mailto:patrickanderson@agri-service.com">patrickanderson@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Jeffrey Gardiner</td>
-          <td class="col-store">13 - Pasco</td>
-          <td class="col-email"><a href="mailto:jeffreygardiner@agri-service.com">jeffreygardiner@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">3</td>
-          <td class="col-name">Rick Rosman</td>
-          <td class="col-store">16 - Moses Lake</td>
-          <td class="col-email"><a href="mailto:rickrosman@agri-service.com">rickrosman@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">4</td>
-          <td class="col-name">Victor Valencia Villarreal</td>
-          <td class="col-store">13 - Pasco</td>
-          <td class="col-email"><a href="mailto:victorvalencia@agri-service.com">victorvalencia@agri-service.com</a></td>
-        </tr></tbody>
-    </table>
+      <div class="class-body" id="class-0">
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Patrick Anderson</td>
+      <td class="col-store">10 - Marsing</td>
+      <td class="col-email"><a href="mailto:patrickanderson@agri-service.com">patrickanderson@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Jeffrey Gardiner</td>
+      <td class="col-store">13 - Pasco</td>
+      <td class="col-email"><a href="mailto:jeffreygardiner@agri-service.com">jeffreygardiner@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Rick Rosman</td>
+      <td class="col-store">16 - Moses Lake</td>
+      <td class="col-email"><a href="mailto:rickrosman@agri-service.com">rickrosman@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">Victor Valencia Villarreal</td>
+      <td class="col-store">13 - Pasco</td>
+      <td class="col-email"><a href="mailto:victorvalencia@agri-service.com">victorvalencia@agri-service.com</a></td>
+    </tr></tbody></table></div>
+      </div>
+    </div>
+    <div class="class-card" data-city="Pasco">
+      <button class="class-header" data-target="class-1" aria-expanded="false">
+        <div class="class-header-main">
+          <div class="class-title-row">
+            <span class="chevron">&#9656;</span>
+            <span class="class-title">Lifting and Rigging</span>
+            <span class="badge badge-upcoming">Upcoming</span>
+          </div>
+          <div class="class-meta">
+            <span class="meta-item">&#128197; Sep 9, 2026</span>
+            <span class="meta-item">&#128205; Pasco</span>
+            <span class="meta-item">&#127891; Anna Perkins, Ken Haider, Andrew Kendall</span>
+          </div>
         </div>
+        <div class="class-header-seats">
+          <div class="seat-count"><strong>1</strong> / 12 enrolled</div>
+          <div class="seat-bar"><div class="seat-bar-fill" style="width:8%"></div></div>
+          <div class="seat-avail">11 seats open</div>
+        </div>
+      </button>
+      <div class="class-body" id="class-1">
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Simon Castillo</td>
+      <td class="col-store">16 - Moses Lake</td>
+      <td class="col-email"><a href="mailto:simoncastillo@agri-service.com">simoncastillo@agri-service.com</a></td>
+    </tr></tbody></table></div>
       </div>
     </div>
     <div class="class-card" data-city="Blackfoot">
@@ -440,37 +176,32 @@
         </div>
       </button>
       <div class="class-body" id="class-2">
-        <div class="class-body-inner">
-          <table class="roster-table">
-      <thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead>
-      <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Logan Buck</td>
-          <td class="col-store">04 - Heyburn</td>
-          <td class="col-email"><a href="mailto:loganbuck@agri-service.com">loganbuck@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Chris Dolcini</td>
-          <td class="col-store">07 - Sugar City</td>
-          <td class="col-email"><a href="mailto:christopherdolcini@agri-service.com">christopherdolcini@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">3</td>
-          <td class="col-name">Darius Maxfield</td>
-          <td class="col-store">04 - Heyburn</td>
-          <td class="col-email"><a href="mailto:dariusmaxfield@agri-service.com">dariusmaxfield@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">4</td>
-          <td class="col-name">George Upton</td>
-          <td class="col-store">11 - Blackfoot</td>
-          <td class="col-email"><a href="mailto:georgeupton@agri-service.com">georgeupton@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">5</td>
-          <td class="col-name">Jason Weimer</td>
-          <td class="col-store">07 - Sugar City</td>
-          <td class="col-email"><a href="mailto:jasonweimer@agri-service.com">jasonweimer@agri-service.com</a></td>
-        </tr></tbody>
-    </table>
-        </div>
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Logan Buck</td>
+      <td class="col-store">04 - Heyburn</td>
+      <td class="col-email"><a href="mailto:loganbuck@agri-service.com">loganbuck@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Chris Dolcini</td>
+      <td class="col-store">07 - Sugar City</td>
+      <td class="col-email"><a href="mailto:christopherdolcini@agri-service.com">christopherdolcini@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Darius Maxfield</td>
+      <td class="col-store">04 - Heyburn</td>
+      <td class="col-email"><a href="mailto:dariusmaxfield@agri-service.com">dariusmaxfield@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">George Upton</td>
+      <td class="col-store">11 - Blackfoot</td>
+      <td class="col-email"><a href="mailto:georgeupton@agri-service.com">georgeupton@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">5</td>
+      <td class="col-name">Jason Weimer</td>
+      <td class="col-store">07 - Sugar City</td>
+      <td class="col-email"><a href="mailto:jasonweimer@agri-service.com">jasonweimer@agri-service.com</a></td>
+    </tr></tbody></table></div>
       </div>
     </div>
     <div class="class-card" data-city="Heyburn">
@@ -494,27 +225,22 @@
         </div>
       </button>
       <div class="class-body" id="class-3">
-        <div class="class-body-inner">
-          <table class="roster-table">
-      <thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead>
-      <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Gilbert Alvarado-Rios</td>
-          <td class="col-store">01 - Twin Falls</td>
-          <td class="col-email"><a href="mailto:gilbertalvarado@agri-service.com">gilbertalvarado@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Terry Hanson</td>
-          <td class="col-store">01 - Twin Falls</td>
-          <td class="col-email"><a href="mailto:terryhanson@agri-service.com">terryhanson@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">3</td>
-          <td class="col-name">Lance Walker</td>
-          <td class="col-store">01 - Twin Falls</td>
-          <td class="col-email"><a href="mailto:lancewalker@agri-service.com">lancewalker@agri-service.com</a></td>
-        </tr></tbody>
-    </table>
-        </div>
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Gilbert Alvarado-Rios</td>
+      <td class="col-store">01 - Twin Falls</td>
+      <td class="col-email"><a href="mailto:gilbertalvarado@agri-service.com">gilbertalvarado@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Terry Hanson</td>
+      <td class="col-store">01 - Twin Falls</td>
+      <td class="col-email"><a href="mailto:terryhanson@agri-service.com">terryhanson@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Lance Walker</td>
+      <td class="col-store">01 - Twin Falls</td>
+      <td class="col-email"><a href="mailto:lancewalker@agri-service.com">lancewalker@agri-service.com</a></td>
+    </tr></tbody></table></div>
       </div>
     </div>
     <div class="class-card" data-city="Pasco">
@@ -538,37 +264,32 @@
         </div>
       </button>
       <div class="class-body" id="class-4">
-        <div class="class-body-inner">
-          <table class="roster-table">
-      <thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead>
-      <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">James Bruinekool</td>
-          <td class="col-store">13 - Pasco</td>
-          <td class="col-email"><a href="mailto:jamesbruinekool@agri-service.com">jamesbruinekool@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Robin Crowner</td>
-          <td class="col-store">13 - Pasco</td>
-          <td class="col-email"><a href="mailto:robincrowner@agri-service.com">robincrowner@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">3</td>
-          <td class="col-name">Jaycob Scott</td>
-          <td class="col-store">13 - Pasco</td>
-          <td class="col-email"><a href="mailto:jaycobscott@agri-service.com">jaycobscott@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">4</td>
-          <td class="col-name">Anthony Sugai</td>
-          <td class="col-store">10 - Marsing</td>
-          <td class="col-email"><a href="mailto:anthonysugai@agri-service.com">anthonysugai@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">5</td>
-          <td class="col-name">Kevin Willman</td>
-          <td class="col-store">13 - Pasco</td>
-          <td class="col-email"><a href="mailto:kevinwillman@agri-service.com">kevinwillman@agri-service.com</a></td>
-        </tr></tbody>
-    </table>
-        </div>
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">James Bruinekool</td>
+      <td class="col-store">13 - Pasco</td>
+      <td class="col-email"><a href="mailto:jamesbruinekool@agri-service.com">jamesbruinekool@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Robin Crowner</td>
+      <td class="col-store">13 - Pasco</td>
+      <td class="col-email"><a href="mailto:robincrowner@agri-service.com">robincrowner@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Jaycob Scott</td>
+      <td class="col-store">13 - Pasco</td>
+      <td class="col-email"><a href="mailto:jaycobscott@agri-service.com">jaycobscott@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">Anthony Sugai</td>
+      <td class="col-store">10 - Marsing</td>
+      <td class="col-email"><a href="mailto:anthonysugai@agri-service.com">anthonysugai@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">5</td>
+      <td class="col-name">Kevin Willman</td>
+      <td class="col-store">13 - Pasco</td>
+      <td class="col-email"><a href="mailto:kevinwillman@agri-service.com">kevinwillman@agri-service.com</a></td>
+    </tr></tbody></table></div>
       </div>
     </div>
     <div class="class-card" data-city="Blackfoot">
@@ -592,32 +313,27 @@
         </div>
       </button>
       <div class="class-body" id="class-5">
-        <div class="class-body-inner">
-          <table class="roster-table">
-      <thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead>
-      <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Dakota Gilbert</td>
-          <td class="col-store">11 - Blackfoot</td>
-          <td class="col-email"><a href="mailto:dakotagilbert@agri-service.com">dakotagilbert@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Zane Lemmon</td>
-          <td class="col-store">07 - Sugar City</td>
-          <td class="col-email"><a href="mailto:zanelemmon@agri-service.com">zanelemmon@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">3</td>
-          <td class="col-name">Jaime Martinez</td>
-          <td class="col-store">11 - Blackfoot</td>
-          <td class="col-email"><a href="mailto:jaimemartinez@agri-service.com">jaimemartinez@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">4</td>
-          <td class="col-name">Patrick Swenson</td>
-          <td class="col-store">10 - Marsing</td>
-          <td class="col-email"><a href="mailto:patrickswenson@agri-service.com">patrickswenson@agri-service.com</a></td>
-        </tr></tbody>
-    </table>
-        </div>
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Dakota Gilbert</td>
+      <td class="col-store">11 - Blackfoot</td>
+      <td class="col-email"><a href="mailto:dakotagilbert@agri-service.com">dakotagilbert@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Zane Lemmon</td>
+      <td class="col-store">07 - Sugar City</td>
+      <td class="col-email"><a href="mailto:zanelemmon@agri-service.com">zanelemmon@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Jaime Martinez</td>
+      <td class="col-store">11 - Blackfoot</td>
+      <td class="col-email"><a href="mailto:jaimemartinez@agri-service.com">jaimemartinez@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">Patrick Swenson</td>
+      <td class="col-store">10 - Marsing</td>
+      <td class="col-email"><a href="mailto:patrickswenson@agri-service.com">patrickswenson@agri-service.com</a></td>
+    </tr></tbody></table></div>
       </div>
     </div>
     <div class="class-card" data-city="Twin Falls">
@@ -641,17 +357,12 @@
         </div>
       </button>
       <div class="class-body" id="class-6">
-        <div class="class-body-inner">
-          <table class="roster-table">
-      <thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead>
-      <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Lupe Alvarado</td>
-          <td class="col-store">01 - Twin Falls</td>
-          <td class="col-email"><a href="mailto:lupealvarado@agri-service.com">lupealvarado@agri-service.com</a></td>
-        </tr></tbody>
-    </table>
-        </div>
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Lupe Alvarado</td>
+      <td class="col-store">01 - Twin Falls</td>
+      <td class="col-email"><a href="mailto:lupealvarado@agri-service.com">lupealvarado@agri-service.com</a></td>
+    </tr></tbody></table></div>
       </div>
     </div>
     <div class="class-card" data-city="Heyburn">
@@ -665,7 +376,7 @@
           <div class="class-meta">
             <span class="meta-item">&#128197; Feb 3, 2027</span>
             <span class="meta-item">&#128205; Heyburn</span>
-
+            
           </div>
         </div>
         <div class="class-header-seats">
@@ -675,276 +386,240 @@
         </div>
       </button>
       <div class="class-body" id="class-7">
-        <div class="class-body-inner">
-          <p class="empty-roster">No one is currently enrolled in this session.</p>
-        </div>
+        <div class="class-body-inner"><p class="empty-roster">No one is currently enrolled in this session.</p></div>
       </div>
     </div>
   </section>
-
   <section>
     <div class="section-title">Enrollment by Store<div class="rule"></div></div>
     <div class="section-desc">Select a store to see which employees from that location are registered for training, and which class.</div>
     <div class="tab-bar"><button class="tab-btn active" data-tab="loc-0">Twin Falls <span class="tab-count">4</span></button><button class="tab-btn " data-tab="loc-1">Heyburn <span class="tab-count">2</span></button><button class="tab-btn " data-tab="loc-2">Sugar City <span class="tab-count">3</span></button><button class="tab-btn " data-tab="loc-3">Marsing <span class="tab-count">3</span></button><button class="tab-btn " data-tab="loc-4">Blackfoot <span class="tab-count">3</span></button><button class="tab-btn " data-tab="loc-5">Pasco <span class="tab-count">6</span></button><button class="tab-btn " data-tab="loc-6">Moses Lake <span class="tab-count">2</span></button></div>
     <div class="tab-panel active" id="loc-0">
       <div class="loc-summary">4 students enrolled from Twin Falls</div>
-      <table class="loc-table">
-        <thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead>
-        <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Gilbert Alvarado-Rios</td>
-          <td>
-            <div class="loc-class-title">2026 Trimble PTx Steering 1</div>
-            <div class="loc-class-sub">Oct 14, 2026 &ndash; Oct 15, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:gilbertalvarado@agri-service.com">gilbertalvarado@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Lance Walker</td>
-          <td>
-            <div class="loc-class-title">2026 Trimble PTx Steering 1</div>
-            <div class="loc-class-sub">Oct 14, 2026 &ndash; Oct 15, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:lancewalker@agri-service.com">lancewalker@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">3</td>
-          <td class="col-name">Lupe Alvarado</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
-            <div class="loc-class-sub">Dec 8, 2026 &ndash; Dec 10, 2026 &middot; &#128205; Twin Falls &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:lupealvarado@agri-service.com">lupealvarado@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">4</td>
-          <td class="col-name">Terry Hanson</td>
-          <td>
-            <div class="loc-class-title">2026 Trimble PTx Steering 1</div>
-            <div class="loc-class-sub">Oct 14, 2026 &ndash; Oct 15, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:terryhanson@agri-service.com">terryhanson@agri-service.com</a></td>
-        </tr></tbody>
-      </table>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Gilbert Alvarado-Rios</td>
+      <td>
+        <div class="loc-class-title">2026 Trimble PTx Steering 1</div>
+        <div class="loc-class-sub">Oct 14, 2026 &ndash; Oct 15, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:gilbertalvarado@agri-service.com">gilbertalvarado@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Lance Walker</td>
+      <td>
+        <div class="loc-class-title">2026 Trimble PTx Steering 1</div>
+        <div class="loc-class-sub">Oct 14, 2026 &ndash; Oct 15, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:lancewalker@agri-service.com">lancewalker@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Lupe Alvarado</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
+        <div class="loc-class-sub">Dec 8, 2026 &ndash; Dec 10, 2026 &middot; &#128205; Twin Falls &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:lupealvarado@agri-service.com">lupealvarado@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">Terry Hanson</td>
+      <td>
+        <div class="loc-class-title">2026 Trimble PTx Steering 1</div>
+        <div class="loc-class-sub">Oct 14, 2026 &ndash; Oct 15, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:terryhanson@agri-service.com">terryhanson@agri-service.com</a></td>
+    </tr></tbody></table>
     </div><div class="tab-panel " id="loc-1">
       <div class="loc-summary">2 students enrolled from Heyburn</div>
-      <table class="loc-table">
-        <thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead>
-        <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Darius Maxfield</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:dariusmaxfield@agri-service.com">dariusmaxfield@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Logan Buck</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:loganbuck@agri-service.com">loganbuck@agri-service.com</a></td>
-        </tr></tbody>
-      </table>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Darius Maxfield</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:dariusmaxfield@agri-service.com">dariusmaxfield@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Logan Buck</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:loganbuck@agri-service.com">loganbuck@agri-service.com</a></td>
+    </tr></tbody></table>
     </div><div class="tab-panel " id="loc-2">
       <div class="loc-summary">3 students enrolled from Sugar City</div>
-      <table class="loc-table">
-        <thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead>
-        <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Chris Dolcini</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:christopherdolcini@agri-service.com">christopherdolcini@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Jason Weimer</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:jasonweimer@agri-service.com">jasonweimer@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">3</td>
-          <td class="col-name">Zane Lemmon</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:zanelemmon@agri-service.com">zanelemmon@agri-service.com</a></td>
-        </tr></tbody>
-      </table>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Chris Dolcini</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:christopherdolcini@agri-service.com">christopherdolcini@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Jason Weimer</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:jasonweimer@agri-service.com">jasonweimer@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Zane Lemmon</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:zanelemmon@agri-service.com">zanelemmon@agri-service.com</a></td>
+    </tr></tbody></table>
     </div><div class="tab-panel " id="loc-3">
       <div class="loc-summary">3 students enrolled from Marsing</div>
-      <table class="loc-table">
-        <thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead>
-        <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Anthony Sugai</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Oct 27, 2026 &ndash; Oct 29, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:anthonysugai@agri-service.com">anthonysugai@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Patrick Anderson</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
-            <div class="loc-class-sub">Aug 25, 2026 &ndash; Aug 27, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:patrickanderson@agri-service.com">patrickanderson@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">3</td>
-          <td class="col-name">Patrick Swenson</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:patrickswenson@agri-service.com">patrickswenson@agri-service.com</a></td>
-        </tr></tbody>
-      </table>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Anthony Sugai</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Oct 27, 2026 &ndash; Oct 29, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:anthonysugai@agri-service.com">anthonysugai@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Patrick Anderson</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
+        <div class="loc-class-sub">Aug 25, 2026 &ndash; Aug 27, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:patrickanderson@agri-service.com">patrickanderson@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Patrick Swenson</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:patrickswenson@agri-service.com">patrickswenson@agri-service.com</a></td>
+    </tr></tbody></table>
     </div><div class="tab-panel " id="loc-4">
       <div class="loc-summary">3 students enrolled from Blackfoot</div>
-      <table class="loc-table">
-        <thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead>
-        <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Dakota Gilbert</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:dakotagilbert@agri-service.com">dakotagilbert@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">George Upton</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:georgeupton@agri-service.com">georgeupton@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">3</td>
-          <td class="col-name">Jaime Martinez</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:jaimemartinez@agri-service.com">jaimemartinez@agri-service.com</a></td>
-        </tr></tbody>
-      </table>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Dakota Gilbert</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:dakotagilbert@agri-service.com">dakotagilbert@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">George Upton</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:georgeupton@agri-service.com">georgeupton@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Jaime Martinez</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:jaimemartinez@agri-service.com">jaimemartinez@agri-service.com</a></td>
+    </tr></tbody></table>
     </div><div class="tab-panel " id="loc-5">
       <div class="loc-summary">6 students enrolled from Pasco</div>
-      <table class="loc-table">
-        <thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead>
-        <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">James Bruinekool</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Oct 27, 2026 &ndash; Oct 29, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:jamesbruinekool@agri-service.com">jamesbruinekool@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Jaycob Scott</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Oct 27, 2026 &ndash; Oct 29, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:jaycobscott@agri-service.com">jaycobscott@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">3</td>
-          <td class="col-name">Jeffrey Gardiner</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
-            <div class="loc-class-sub">Aug 25, 2026 &ndash; Aug 27, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:jeffreygardiner@agri-service.com">jeffreygardiner@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">4</td>
-          <td class="col-name">Kevin Willman</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Oct 27, 2026 &ndash; Oct 29, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:kevinwillman@agri-service.com">kevinwillman@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">5</td>
-          <td class="col-name">Robin Crowner</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-            <div class="loc-class-sub">Oct 27, 2026 &ndash; Oct 29, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:robincrowner@agri-service.com">robincrowner@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">6</td>
-          <td class="col-name">Victor Valencia Villarreal</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
-            <div class="loc-class-sub">Aug 25, 2026 &ndash; Aug 27, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:victorvalencia@agri-service.com">victorvalencia@agri-service.com</a></td>
-        </tr></tbody>
-      </table>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">James Bruinekool</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Oct 27, 2026 &ndash; Oct 29, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:jamesbruinekool@agri-service.com">jamesbruinekool@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Jaycob Scott</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Oct 27, 2026 &ndash; Oct 29, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:jaycobscott@agri-service.com">jaycobscott@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Jeffrey Gardiner</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
+        <div class="loc-class-sub">Aug 25, 2026 &ndash; Aug 27, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:jeffreygardiner@agri-service.com">jeffreygardiner@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">Kevin Willman</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Oct 27, 2026 &ndash; Oct 29, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:kevinwillman@agri-service.com">kevinwillman@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">5</td>
+      <td class="col-name">Robin Crowner</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Oct 27, 2026 &ndash; Oct 29, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:robincrowner@agri-service.com">robincrowner@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">6</td>
+      <td class="col-name">Victor Valencia Villarreal</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
+        <div class="loc-class-sub">Aug 25, 2026 &ndash; Aug 27, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:victorvalencia@agri-service.com">victorvalencia@agri-service.com</a></td>
+    </tr></tbody></table>
     </div><div class="tab-panel " id="loc-6">
       <div class="loc-summary">2 students enrolled from Moses Lake</div>
-      <table class="loc-table">
-        <thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead>
-        <tbody><tr>
-          <td class="col-num">1</td>
-          <td class="col-name">Rick Rosman</td>
-          <td>
-            <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
-            <div class="loc-class-sub">Aug 25, 2026 &ndash; Aug 27, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:rickrosman@agri-service.com">rickrosman@agri-service.com</a></td>
-        </tr><tr>
-          <td class="col-num">2</td>
-          <td class="col-name">Simon Castillo</td>
-          <td>
-            <div class="loc-class-title">Lifting and Rigging</div>
-            <div class="loc-class-sub">Aug 11, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-          </td>
-          <td class="col-email"><a href="mailto:simoncastillo@agri-service.com">simoncastillo@agri-service.com</a></td>
-        </tr></tbody>
-      </table>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Rick Rosman</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
+        <div class="loc-class-sub">Aug 25, 2026 &ndash; Aug 27, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:rickrosman@agri-service.com">rickrosman@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Simon Castillo</td>
+      <td>
+        <div class="loc-class-title">Lifting and Rigging</div>
+        <div class="loc-class-sub">Sep 9, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:simoncastillo@agri-service.com">simoncastillo@agri-service.com</a></td>
+    </tr></tbody></table>
     </div>
   </section>
 </main>
-
 <footer>Generated for Agri-Service, LLC &middot; Source: Open Seat Report &amp; In-Class Event Report</footer>
-
 <script>
-  document.querySelectorAll('.class-header').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var body = document.getElementById(btn.dataset.target);
-      var isOpen = body.classList.contains('open');
-      if (isOpen) {
-        body.style.maxHeight = null;
-        body.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-      } else {
-        body.classList.add('open');
-        body.style.maxHeight = body.scrollHeight + 'px';
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    });
+document.querySelectorAll('.class-header').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var body = document.getElementById(btn.dataset.target);
+    var isOpen = body.classList.contains('open');
+    if (isOpen) { body.style.maxHeight = null; body.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+    else { body.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; btn.setAttribute('aria-expanded','true'); }
   });
-
-  document.querySelectorAll('.tab-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var tabId = btn.dataset.tab;
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById(tabId).classList.add('active');
-    });
+});
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var tabId = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
   });
+});
 </script>
-
-</body>
-</html>
+</body></html>
