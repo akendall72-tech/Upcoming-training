@@ -66,23 +66,44 @@ section { margin-bottom:48px; }
 .loc-table tbody tr:last-child td { border-bottom:none; }
 .loc-class-title { font-weight:700; color:var(--green-800); }
 .loc-class-sub { font-size:12px; color:var(--muted); margin-top:3px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.agco-table { width:100%; border-collapse:collapse; background:var(--card); border-radius:10px; overflow:hidden; box-shadow:0 1px 4px rgba(15,43,31,0.06); }
+.agco-table thead th { background:var(--green-800); color:#fff; text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; padding:10px 16px; white-space:nowrap; }
+.agco-table thead th.sortable { cursor:pointer; user-select:none; }
+.agco-table thead th.sortable:hover { background:var(--green-700); }
+.agco-table thead th .sort-arrow { display:inline-block; width:10px; font-size:10px; color:var(--gold-400); }
+.agco-table tbody td { padding:11px 16px; border-bottom:1px solid var(--border); font-size:13.5px; vertical-align:top; }
+.agco-table tbody tr:last-child td { border-bottom:none; }
+.agco-table tbody tr:hover { background:#fbfbf9; }
+.agco-open { color:var(--muted); font-size:12px; }
+.main-tab-bar { display:flex; gap:8px; border-bottom:2px solid var(--border); margin-bottom:28px; flex-wrap:wrap; }
+.main-tab-btn { background:none; border:none; padding:12px 20px; font-size:15px; font-weight:700; color:var(--muted); cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; font:inherit; }
+.main-tab-btn .tab-count { background:var(--border); color:var(--text); font-size:11.5px; font-weight:700; padding:2px 8px; border-radius:20px; margin-left:7px; }
+.main-tab-btn.active { color:var(--green-800); border-bottom-color:var(--gold-500); }
+.main-tab-btn.active .tab-count { background:var(--gold-100); color:var(--gold-500); }
+.main-tab-btn:hover:not(.active) { color:var(--green-700); }
+.main-tab-panel { display:none; }
+.main-tab-panel.active { display:block; }
 footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
 @media (max-width:720px) { .summary-grid{grid-template-columns:repeat(2,1fr);} .class-header{flex-direction:column;align-items:flex-start;} .class-header-seats{text-align:left;width:100%;} .seat-bar{margin-left:0;} }
 </style></head><body>
 <div class="header"><div class="header-inner">
   <div class="eyebrow">AGRI-SERVICE, LLC &middot; Training Department</div>
   <h1>Training Class Enrollment Report</h1>
-  <div class="sub">Open Seat Report exported Aug 13, 2026 MDT &nbsp;&middot;&nbsp; In-Class Event Report exported Aug 13, 2026 MDT</div>
+  <div class="sub">Open Seat Report exported Aug 14, 2026 MDT &nbsp;&middot;&nbsp; In-Class Event Report exported Aug 14, 2026 MDT</div>
 </div></div>
 <div class="summary-grid">
   <div class="summary-card"><div class="num">9</div><div class="label">Upcoming Classes</div></div>
-  <div class="summary-card"><div class="num">22</div><div class="label">Total Registered</div></div>
-  <div class="summary-card"><div class="num">85</div><div class="label">Open Seats</div></div>
+  <div class="summary-card"><div class="num">23</div><div class="label">Total Registered</div></div>
+  <div class="summary-card"><div class="num">78</div><div class="label">Open Seats</div></div>
   <div class="summary-card"><div class="num">7</div><div class="label">Stores Represented</div></div>
 </div>
 <main>
-  <section>
-    <div class="section-title">All Classes<div class="rule"></div></div>
+  <div class="main-tab-bar">
+    <button class="main-tab-btn active" data-main-tab="main-classes">Internal Agri-Service Classes <span class="tab-count">9</span></button>
+    <button class="main-tab-btn" data-main-tab="main-stores">Enrollment by Store <span class="tab-count">7</span></button>
+    <button class="main-tab-btn" data-main-tab="main-agco">AGCO Training Classes <span class="tab-count">55</span></button>
+  </div>
+  <div class="main-tab-panel active" id="main-classes">
     <div class="section-desc">Click a class to view its enrolled roster.</div>
     
     <div class="class-card" data-city="Pasco">
@@ -200,10 +221,10 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
           </div>
         </div>
         <div class="class-header-seats">
-          <div class="seat-count"><strong>5</strong> / 12 enrolled</div>
-          <div class="seat-bar"><div class="seat-bar-fill" style="width:42%"></div></div>
-          <div class="seat-avail">7 seats open</div>
-          <a class="email-btn" href="mailto:?bcc=loganbuck%40agri-service.com,christopherdolcini%40agri-service.com,dariusmaxfield%40agri-service.com,georgeupton%40agri-service.com,jasonweimer%40agri-service.com&subject=2026%20Fendt%20Track%20Tractors%20Level%204%20-%20Sep%2015%2C%202026%20-%20Sep%2017%2C%202026" title="Email all enrolled students" onclick="event.stopPropagation();">&#9993; Email Class</a>
+          <div class="seat-count"><strong>4</strong> / 12 enrolled</div>
+          <div class="seat-bar"><div class="seat-bar-fill" style="width:33%"></div></div>
+          <div class="seat-avail">8 seats open</div>
+          <a class="email-btn" href="mailto:?bcc=loganbuck%40agri-service.com,christopherdolcini%40agri-service.com,georgeupton%40agri-service.com,jasonweimer%40agri-service.com&subject=2026%20Fendt%20Track%20Tractors%20Level%204%20-%20Sep%2015%2C%202026%20-%20Sep%2017%2C%202026" title="Email all enrolled students" onclick="event.stopPropagation();">&#9993; Email Class</a>
         </div>
       </div>
       <div class="class-body" id="class-3">
@@ -219,16 +240,11 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       <td class="col-email"><a href="mailto:christopherdolcini@agri-service.com">christopherdolcini@agri-service.com</a></td>
     </tr><tr>
       <td class="col-num">3</td>
-      <td class="col-name">Darius Maxfield</td>
-      <td class="col-store">04 - Heyburn</td>
-      <td class="col-email"><a href="mailto:dariusmaxfield@agri-service.com">dariusmaxfield@agri-service.com</a></td>
-    </tr><tr>
-      <td class="col-num">4</td>
       <td class="col-name">George Upton</td>
       <td class="col-store">11 - Blackfoot</td>
       <td class="col-email"><a href="mailto:georgeupton@agri-service.com">georgeupton@agri-service.com</a></td>
     </tr><tr>
-      <td class="col-num">5</td>
+      <td class="col-num">4</td>
       <td class="col-name">Jason Weimer</td>
       <td class="col-store">07 - Sugar City</td>
       <td class="col-email"><a href="mailto:jasonweimer@agri-service.com">jasonweimer@agri-service.com</a></td>
@@ -365,33 +381,43 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
     </tr></tbody></table></div>
       </div>
     </div>
-    <div class="class-card" data-city="Twin Falls">
+    <div class="class-card" data-city="Heyburn">
       <div class="class-header" data-target="class-7" aria-expanded="false" role="button" tabindex="0">
         <div class="class-header-main">
           <div class="class-title-row">
             <span class="chevron">&#9656;</span>
-            <span class="class-title">2026 Fendt Wheeled Tractors Level 4</span>
+            <span class="class-title">Parts Solutions for PTx Guidance ILT</span>
             <span class="badge badge-upcoming">Upcoming</span>
           </div>
           <div class="class-meta">
-            <span class="meta-item">&#128197; Dec 8, 2026 &ndash; Dec 10, 2026</span>
-            <span class="meta-item">&#128205; Twin Falls</span>
+            <span class="meta-item">&#128197; Dec 9, 2026</span>
+            <span class="meta-item">&#128205; Heyburn</span>
             <span class="meta-item">&#127891; Andrew Kendall</span>
           </div>
         </div>
         <div class="class-header-seats">
-          <div class="seat-count"><strong>1</strong> / 12 enrolled</div>
-          <div class="seat-bar"><div class="seat-bar-fill" style="width:8%"></div></div>
-          <div class="seat-avail">11 seats open</div>
-          <a class="email-btn" href="mailto:?bcc=lupealvarado%40agri-service.com&subject=2026%20Fendt%20Wheeled%20Tractors%20Level%204%20-%20Dec%208%2C%202026%20-%20Dec%2010%2C%202026" title="Email all enrolled students" onclick="event.stopPropagation();">&#9993; Email Class</a>
+          <div class="seat-count"><strong>3</strong> / 6 enrolled</div>
+          <div class="seat-bar"><div class="seat-bar-fill" style="width:50%"></div></div>
+          <div class="seat-avail">3 seats open</div>
+          <a class="email-btn" href="mailto:?bcc=Tylerdeuel%40agri-service.com,benhunsaker%40agri-service.com,rjjimenez%40agri-service.com&subject=Parts%20Solutions%20for%20PTx%20Guidance%20ILT%20-%20Dec%209%2C%202026" title="Email all enrolled students" onclick="event.stopPropagation();">&#9993; Email Class</a>
         </div>
       </div>
       <div class="class-body" id="class-7">
         <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
-      <td class="col-name">Lupe Alvarado</td>
+      <td class="col-name">Tyler Deuel</td>
       <td class="col-store">01 - Twin Falls</td>
-      <td class="col-email"><a href="mailto:lupealvarado@agri-service.com">lupealvarado@agri-service.com</a></td>
+      <td class="col-email"><a href="mailto:Tylerdeuel@agri-service.com">Tylerdeuel@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Ben Hunsaker</td>
+      <td class="col-store">11 - Blackfoot</td>
+      <td class="col-email"><a href="mailto:benhunsaker@agri-service.com">benhunsaker@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">RJ Jimenez-Noguez</td>
+      <td class="col-store">11 - Blackfoot</td>
+      <td class="col-email"><a href="mailto:rjjimenez@agri-service.com">rjjimenez@agri-service.com</a></td>
     </tr></tbody></table></div>
       </div>
     </div>
@@ -420,11 +446,10 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
         <div class="class-body-inner"><p class="empty-roster">No one is currently enrolled in this session.</p></div>
       </div>
     </div>
-  </section>
-  <section>
-    <div class="section-title">Enrollment by Store<div class="rule"></div></div>
+  </div>
+  <div class="main-tab-panel" id="main-stores">
     <div class="section-desc">Select a store to see which employees from that location are registered for training, and which class.</div>
-    <div class="tab-bar"><button class="tab-btn active" data-tab="loc-0">Twin Falls <span class="tab-count">4</span></button><button class="tab-btn " data-tab="loc-1">Heyburn <span class="tab-count">2</span></button><button class="tab-btn " data-tab="loc-2">Sugar City <span class="tab-count">3</span></button><button class="tab-btn " data-tab="loc-3">Marsing <span class="tab-count">2</span></button><button class="tab-btn " data-tab="loc-4">Blackfoot <span class="tab-count">3</span></button><button class="tab-btn " data-tab="loc-5">Pasco <span class="tab-count">6</span></button><button class="tab-btn " data-tab="loc-6">Moses Lake <span class="tab-count">2</span></button></div>
+    <div class="tab-bar"><button class="tab-btn active" data-tab="loc-0">Twin Falls <span class="tab-count">4</span></button><button class="tab-btn " data-tab="loc-1">Heyburn <span class="tab-count">1</span></button><button class="tab-btn " data-tab="loc-2">Sugar City <span class="tab-count">3</span></button><button class="tab-btn " data-tab="loc-3">Marsing <span class="tab-count">2</span></button><button class="tab-btn " data-tab="loc-4">Blackfoot <span class="tab-count">5</span></button><button class="tab-btn " data-tab="loc-5">Pasco <span class="tab-count">6</span></button><button class="tab-btn " data-tab="loc-6">Moses Lake <span class="tab-count">2</span></button></div>
     <div class="tab-panel active" id="loc-0">
       <div class="loc-summary">4 students enrolled from Twin Falls</div>
       <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
@@ -445,33 +470,25 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       <td class="col-email"><a href="mailto:lancewalker@agri-service.com">lancewalker@agri-service.com</a></td>
     </tr><tr>
       <td class="col-num">3</td>
-      <td class="col-name">Lupe Alvarado</td>
-      <td>
-        <div class="loc-class-title">2026 Fendt Wheeled Tractors Level 4</div>
-        <div class="loc-class-sub">Dec 8, 2026 &ndash; Dec 10, 2026 &middot; &#128205; Twin Falls &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-      </td>
-      <td class="col-email"><a href="mailto:lupealvarado@agri-service.com">lupealvarado@agri-service.com</a></td>
-    </tr><tr>
-      <td class="col-num">4</td>
       <td class="col-name">Terry Hanson</td>
       <td>
         <div class="loc-class-title">2026 Trimble PTx Steering 1</div>
         <div class="loc-class-sub">Oct 14, 2026 &ndash; Oct 15, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
       </td>
       <td class="col-email"><a href="mailto:terryhanson@agri-service.com">terryhanson@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">Tyler Deuel</td>
+      <td>
+        <div class="loc-class-title">Parts Solutions for PTx Guidance ILT</div>
+        <div class="loc-class-sub">Dec 9, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:Tylerdeuel@agri-service.com">Tylerdeuel@agri-service.com</a></td>
     </tr></tbody></table>
     </div><div class="tab-panel " id="loc-1">
-      <div class="loc-summary">2 students enrolled from Heyburn</div>
+      <div class="loc-summary">1 student enrolled from Heyburn</div>
       <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
-      <td class="col-name">Darius Maxfield</td>
-      <td>
-        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
-        <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
-      </td>
-      <td class="col-email"><a href="mailto:dariusmaxfield@agri-service.com">dariusmaxfield@agri-service.com</a></td>
-    </tr><tr>
-      <td class="col-num">2</td>
       <td class="col-name">Logan Buck</td>
       <td>
         <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
@@ -526,9 +543,17 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       <td class="col-email"><a href="mailto:patrickswenson@agri-service.com">patrickswenson@agri-service.com</a></td>
     </tr></tbody></table>
     </div><div class="tab-panel " id="loc-4">
-      <div class="loc-summary">3 students enrolled from Blackfoot</div>
+      <div class="loc-summary">5 students enrolled from Blackfoot</div>
       <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
+      <td class="col-name">Ben Hunsaker</td>
+      <td>
+        <div class="loc-class-title">Parts Solutions for PTx Guidance ILT</div>
+        <div class="loc-class-sub">Dec 9, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:benhunsaker@agri-service.com">benhunsaker@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
       <td class="col-name">Dakota Gilbert</td>
       <td>
         <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
@@ -536,7 +561,7 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       </td>
       <td class="col-email"><a href="mailto:dakotagilbert@agri-service.com">dakotagilbert@agri-service.com</a></td>
     </tr><tr>
-      <td class="col-num">2</td>
+      <td class="col-num">3</td>
       <td class="col-name">George Upton</td>
       <td>
         <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
@@ -544,13 +569,21 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       </td>
       <td class="col-email"><a href="mailto:georgeupton@agri-service.com">georgeupton@agri-service.com</a></td>
     </tr><tr>
-      <td class="col-num">3</td>
+      <td class="col-num">4</td>
       <td class="col-name">Jaime Martinez</td>
       <td>
         <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
         <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
       </td>
       <td class="col-email"><a href="mailto:jaimemartinez@agri-service.com">jaimemartinez@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">5</td>
+      <td class="col-name">RJ Jimenez-Noguez</td>
+      <td>
+        <div class="loc-class-title">Parts Solutions for PTx Guidance ILT</div>
+        <div class="loc-class-sub">Dec 9, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:rjjimenez@agri-service.com">rjjimenez@agri-service.com</a></td>
     </tr></tbody></table>
     </div><div class="tab-panel " id="loc-5">
       <div class="loc-summary">6 students enrolled from Pasco</div>
@@ -623,7 +656,350 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       <td class="col-email"><a href="mailto:simoncastillo@agri-service.com">simoncastillo@agri-service.com</a></td>
     </tr></tbody></table>
     </div>
-  </section>
+  </div>
+  <div class="main-tab-panel" id="main-agco">
+    <div class="section-desc">Upcoming AGCO factory training classes from the 2026 Technical Training Catalog. Click a column header to sort &mdash; sorted by date by default. These are not Agri-Service-run classes and are not included in the summary counts above.</div>
+    <table class="agco-table" id="agco-table">
+        <thead><tr>
+          <th>Class</th>
+          <th class="sortable" data-key="machine" data-type="text">Machine Type <span class="sort-arrow"></span></th>
+          <th>Location</th>
+          <th class="sortable active" data-key="date" data-type="date">Start Date <span class="sort-arrow">&#9650;</span></th>
+          <th>Seats</th>
+        </tr></thead>
+        <tbody><tr data-machine="General / Cross-Platform" data-date="2026-08-18T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Electrical &amp; Hydraulics</td>
+      <td>General / Cross-Platform</td>
+      <td>Hesston KS</td>
+      <td>Aug 18, 2026 &ndash; Aug 21, 2026</td>
+      <td><span class="badge badge-cancelled" style="background:#fbeaea;color:#b3352c;border-color:#e08a83;">Full</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-08-18T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Engines &amp; Powertrain</td>
+      <td>General / Cross-Platform</td>
+      <td>Hesston KS</td>
+      <td>Aug 18, 2026 &ndash; Aug 21, 2026</td>
+      <td>9 of 10 enrolled <span class="agco-open">(1 open)</span></td>
+    </tr><tr data-machine="Gleaner" data-date="2026-08-18T00:00:00">
+      <td class="col-name">Level 4 Foundation: Gleaner Combines (2026)</td>
+      <td>Gleaner</td>
+      <td>Jackson MN</td>
+      <td>Aug 18, 2026 &ndash; Aug 20, 2026</td>
+      <td>5 of 10 enrolled <span class="agco-open">(5 open)</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-09-01T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Electrical &amp; Hydraulics</td>
+      <td>General / Cross-Platform</td>
+      <td>Woodstock ON</td>
+      <td>Sep 1, 2026 &ndash; Sep 4, 2026</td>
+      <td><span class="badge badge-cancelled" style="background:#fbeaea;color:#b3352c;border-color:#e08a83;">Full</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-09-08T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Electrical &amp; Hydraulics</td>
+      <td>General / Cross-Platform</td>
+      <td>Woodstock ON</td>
+      <td>Sep 8, 2026 &ndash; Sep 11, 2026</td>
+      <td>5 of 8 enrolled <span class="agco-open">(3 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-09-08T00:00:00">
+      <td class="col-name">Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)</td>
+      <td>Massey Ferguson</td>
+      <td>Mont-Joli QC</td>
+      <td>Sep 8, 2026 &ndash; Sep 10, 2026</td>
+      <td>2 of 10 enrolled <span class="agco-open">(8 open)</span></td>
+    </tr><tr data-machine="RAVEN Technology" data-date="2026-09-08T00:00:00">
+      <td class="col-name">Level 5 Professional: RAVEN Fendt Rogator Liquid Application Technology in the Field Operation and Troubleshooting</td>
+      <td>RAVEN Technology</td>
+      <td>Jackson MN</td>
+      <td>Sep 8, 2026 &ndash; Sep 10, 2026</td>
+      <td>0 of 6 enrolled <span class="agco-open">(6 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson &amp; Fendt" data-date="2026-09-09T00:00:00">
+      <td class="col-name">Level 4 Foundation: MF &amp; FT Planters (2026)</td>
+      <td>Massey Ferguson &amp; Fendt</td>
+      <td>Champaign IL</td>
+      <td>Sep 9, 2026 &ndash; Sep 10, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-09-15T00:00:00">
+      <td class="col-name">Level 4 Foundation: MF Low Horsepower Tractors (2026)</td>
+      <td>Massey Ferguson</td>
+      <td>Hesston KS</td>
+      <td>Sep 15, 2026 &ndash; Sep 17, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="RAVEN Technology" data-date="2026-09-15T00:00:00">
+      <td class="col-name">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</td>
+      <td>RAVEN Technology</td>
+      <td>Edgewood MD</td>
+      <td>Sep 15, 2026 &ndash; Sep 17, 2026</td>
+      <td>2 of 10 enrolled <span class="agco-open">(8 open)</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-09-22T00:00:00">
+      <td class="col-name">2026 Level 4 Foundation: Technology</td>
+      <td>General / Cross-Platform</td>
+      <td>Hesston KS</td>
+      <td>Sep 22, 2026 &ndash; Sep 24, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-09-22T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Electrical &amp; Hydraulics</td>
+      <td>General / Cross-Platform</td>
+      <td>Jackson MN</td>
+      <td>Sep 22, 2026 &ndash; Sep 25, 2026</td>
+      <td><span class="badge badge-cancelled" style="background:#fbeaea;color:#b3352c;border-color:#e08a83;">Full</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-10-06T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Electrical &amp; Hydraulics</td>
+      <td>General / Cross-Platform</td>
+      <td>Mont-Joli QC</td>
+      <td>Oct 6, 2026 &ndash; Oct 9, 2026</td>
+      <td>3 of 10 enrolled <span class="agco-open">(7 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-10-06T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: Massey Ferguson Low Horsepower</td>
+      <td>Massey Ferguson</td>
+      <td>Duluth GA</td>
+      <td>Oct 6, 2026 &ndash; Oct 8, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-10-06T00:00:00">
+      <td class="col-name">2026 Level 4 Foundation: Technology</td>
+      <td>General / Cross-Platform</td>
+      <td>Champaign IL</td>
+      <td>Oct 6, 2026 &ndash; Oct 8, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-10-06T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Electrical &amp; Hydraulics</td>
+      <td>General / Cross-Platform</td>
+      <td>Champaign IL</td>
+      <td>Oct 6, 2026 &ndash; Oct 9, 2026</td>
+      <td>6 of 10 enrolled <span class="agco-open">(4 open)</span></td>
+    </tr><tr data-machine="Fendt" data-date="2026-10-06T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: Fendt Wheel Tractors</td>
+      <td>Fendt</td>
+      <td>Hesston KS</td>
+      <td>Oct 6, 2026 &ndash; Oct 8, 2026</td>
+      <td>2 of 10 enrolled <span class="agco-open">(8 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson &amp; Fendt" data-date="2026-10-13T00:00:00">
+      <td class="col-name">Level 4 Foundation: MF &amp; FT Planters (2026)</td>
+      <td>Massey Ferguson &amp; Fendt</td>
+      <td>Hesston KS</td>
+      <td>Oct 13, 2026 &ndash; Oct 14, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Fendt" data-date="2026-10-13T00:00:00">
+      <td class="col-name">Level 4 Foundation: Fendt Wheel Tractors (2026)</td>
+      <td>Fendt</td>
+      <td>Champaign IL</td>
+      <td>Oct 13, 2026 &ndash; Oct 15, 2026</td>
+      <td>3 of 10 enrolled <span class="agco-open">(7 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-10-13T00:00:00">
+      <td class="col-name">Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)</td>
+      <td>Massey Ferguson</td>
+      <td>Hesston KS</td>
+      <td>Oct 13, 2026 &ndash; Oct 15, 2026</td>
+      <td>1 of 10 enrolled <span class="agco-open">(9 open)</span></td>
+    </tr><tr data-machine="TerraGator" data-date="2026-10-13T00:00:00">
+      <td class="col-name">Level 4 Foundation: TerraGator C Series (2026)</td>
+      <td>TerraGator</td>
+      <td>Jackson MN</td>
+      <td>Oct 13, 2026 &ndash; Oct 15, 2026</td>
+      <td>1 of 10 enrolled <span class="agco-open">(9 open)</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-10-19T00:00:00">
+      <td class="col-name">2026 Level 3: Application of Technical Theory</td>
+      <td>General / Cross-Platform</td>
+      <td>Hesston KS</td>
+      <td>Oct 19, 2026 &ndash; Oct 23, 2026</td>
+      <td>2 of 30 enrolled <span class="agco-open">(28 open)</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-10-19T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Electrical &amp; Hydraulics</td>
+      <td>General / Cross-Platform</td>
+      <td>Jackson MN</td>
+      <td>Oct 19, 2026 &ndash; Oct 22, 2026</td>
+      <td>6 of 10 enrolled <span class="agco-open">(4 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-10-27T00:00:00">
+      <td class="col-name">Level 4 Foundation: MF Low Horsepower Tractors (2026)</td>
+      <td>Massey Ferguson</td>
+      <td>Edgewood MD</td>
+      <td>Oct 27, 2026 &ndash; Oct 29, 2026</td>
+      <td>2 of 10 enrolled <span class="agco-open">(8 open)</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-11-02T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Electrical &amp; Hydraulics</td>
+      <td>General / Cross-Platform</td>
+      <td>Hesston KS</td>
+      <td>Nov 2, 2026 &ndash; Nov 5, 2026</td>
+      <td><span class="badge badge-cancelled" style="background:#fbeaea;color:#b3352c;border-color:#e08a83;">Full</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-11-02T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Engines &amp; Powertrain</td>
+      <td>General / Cross-Platform</td>
+      <td>Hesston KS</td>
+      <td>Nov 2, 2026 &ndash; Nov 5, 2026</td>
+      <td><span class="badge badge-cancelled" style="background:#fbeaea;color:#b3352c;border-color:#e08a83;">Full</span></td>
+    </tr><tr data-machine="IDEAL Combines" data-date="2026-11-02T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: IDEAL Combines</td>
+      <td>IDEAL Combines</td>
+      <td>Champaign IL</td>
+      <td>Nov 2, 2026 &ndash; Nov 4, 2026</td>
+      <td>2 of 10 enrolled <span class="agco-open">(8 open)</span></td>
+    </tr><tr data-machine="Fendt" data-date="2026-11-03T00:00:00">
+      <td class="col-name">Level 4 Foundation: Fendt 900 Rogator (2026)</td>
+      <td>Fendt</td>
+      <td>Champaign IL</td>
+      <td>Nov 3, 2026 &ndash; Nov 5, 2026</td>
+      <td>1 of 10 enrolled <span class="agco-open">(9 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-11-03T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</td>
+      <td>Massey Ferguson</td>
+      <td>Champaign IL</td>
+      <td>Nov 3, 2026 &ndash; Nov 5, 2026</td>
+      <td>2 of 10 enrolled <span class="agco-open">(8 open)</span></td>
+    </tr><tr data-machine="IDEAL Combines" data-date="2026-11-04T00:00:00">
+      <td class="col-name">Level 4 Foundation: IDEAL Combines (2026)</td>
+      <td>IDEAL Combines</td>
+      <td>Champaign IL</td>
+      <td>Nov 4, 2026 &ndash; Nov 6, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-11-10T00:00:00">
+      <td class="col-name">2026 Level 5 Professional: Electrical &amp; Hydraulics</td>
+      <td>General / Cross-Platform</td>
+      <td>Mont-Joli QC</td>
+      <td>Nov 10, 2026 &ndash; Nov 13, 2026</td>
+      <td>4 of 10 enrolled <span class="agco-open">(6 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-11-10T00:00:00">
+      <td class="col-name">Level 4 Foundation: MF Low Horsepower Tractors (2026)</td>
+      <td>Massey Ferguson</td>
+      <td>Champaign IL</td>
+      <td>Nov 10, 2026 &ndash; Nov 12, 2026</td>
+      <td>3 of 10 enrolled <span class="agco-open">(7 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-11-10T00:00:00">
+      <td class="col-name">Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)</td>
+      <td>Massey Ferguson</td>
+      <td>Champaign IL</td>
+      <td>Nov 10, 2026 &ndash; Nov 12, 2026</td>
+      <td>2 of 10 enrolled <span class="agco-open">(8 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-11-17T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</td>
+      <td>Massey Ferguson</td>
+      <td>Hesston KS</td>
+      <td>Nov 17, 2026 &ndash; Nov 19, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="TerraGator" data-date="2026-11-17T00:00:00">
+      <td class="col-name">Level 4 Foundation: TerraGator C Series (2026)</td>
+      <td>TerraGator</td>
+      <td>Jackson MN</td>
+      <td>Nov 17, 2026 &ndash; Nov 19, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="RAVEN Technology" data-date="2026-11-17T00:00:00">
+      <td class="col-name">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</td>
+      <td>RAVEN Technology</td>
+      <td>Woodstock ON</td>
+      <td>Nov 17, 2026 &ndash; Nov 19, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Fendt" data-date="2026-11-18T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: FT Momentum Planters</td>
+      <td>Fendt</td>
+      <td>Hesston KS</td>
+      <td>Nov 18, 2026 &ndash; Nov 19, 2026</td>
+      <td>1 of 10 enrolled <span class="agco-open">(9 open)</span></td>
+    </tr><tr data-machine="Fendt" data-date="2026-12-01T00:00:00">
+      <td class="col-name">Level 4 Foundation: Fendt Wheel Tractors (2026)</td>
+      <td>Fendt</td>
+      <td>Mont-Joli QC</td>
+      <td>Dec 1, 2026 &ndash; Dec 3, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Balers (Cross-Platform)" data-date="2026-12-01T00:00:00">
+      <td class="col-name">Level 4 Foundation: Square Balers (2026)</td>
+      <td>Balers (Cross-Platform)</td>
+      <td>Hesston KS</td>
+      <td>Dec 1, 2026 &ndash; Dec 2, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-12-01T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</td>
+      <td>Massey Ferguson</td>
+      <td>Hesston KS</td>
+      <td>Dec 1, 2026 &ndash; Dec 3, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-12-02T00:00:00">
+      <td class="col-name">Level 4 Foundation: MF Low Horsepower Tractors (2026)</td>
+      <td>Massey Ferguson</td>
+      <td>Duluth GA</td>
+      <td>Dec 2, 2026 &ndash; Dec 4, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-12-03T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: MF Commercial Round Balers 4100V</td>
+      <td>Massey Ferguson</td>
+      <td>Hesston KS</td>
+      <td>Dec 3, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-12-04T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: MF RB146/156 Round Balers</td>
+      <td>Massey Ferguson</td>
+      <td>Hesston KS</td>
+      <td>Dec 4, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-12-07T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: Massey Ferguson Low Horsepower</td>
+      <td>Massey Ferguson</td>
+      <td>Duluth GA</td>
+      <td>Dec 7, 2026 &ndash; Dec 9, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Fendt" data-date="2026-12-08T00:00:00">
+      <td class="col-name">Level 4 Foundation: Fendt 900 Rogator (2026)</td>
+      <td>Fendt</td>
+      <td>Jackson MN</td>
+      <td>Dec 8, 2026 &ndash; Dec 10, 2026</td>
+      <td>4 of 10 enrolled <span class="agco-open">(6 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson &amp; Fendt" data-date="2026-12-08T00:00:00">
+      <td class="col-name">Level 4 Foundation: MF &amp; FT Planters (2026)</td>
+      <td>Massey Ferguson &amp; Fendt</td>
+      <td>Champaign IL</td>
+      <td>Dec 8, 2026 &ndash; Dec 9, 2026</td>
+      <td>3 of 10 enrolled <span class="agco-open">(7 open)</span></td>
+    </tr><tr data-machine="Fendt" data-date="2026-12-08T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: Fendt Wheel Tractors</td>
+      <td>Fendt</td>
+      <td>Hesston KS</td>
+      <td>Dec 8, 2026 &ndash; Dec 10, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-12-08T00:00:00">
+      <td class="col-name">Level 4 Foundation: MF Windrowers (2026)</td>
+      <td>Massey Ferguson</td>
+      <td>Hesston KS</td>
+      <td>Dec 8, 2026 &ndash; Dec 9, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-12-08T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</td>
+      <td>Massey Ferguson</td>
+      <td>Hesston KS</td>
+      <td>Dec 8, 2026 &ndash; Dec 10, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="IDEAL Combines" data-date="2026-12-09T00:00:00">
+      <td class="col-name">Level 4 Foundation: IDEAL Combines (2026)</td>
+      <td>IDEAL Combines</td>
+      <td>Jackson MN</td>
+      <td>Dec 9, 2026 &ndash; Dec 11, 2026</td>
+      <td>3 of 10 enrolled <span class="agco-open">(7 open)</span></td>
+    </tr><tr data-machine="Fendt" data-date="2026-12-10T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: FT Momentum Planters</td>
+      <td>Fendt</td>
+      <td>Champaign IL</td>
+      <td>Dec 10, 2026 &ndash; Dec 11, 2026</td>
+      <td>1 of 10 enrolled <span class="agco-open">(9 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-12-10T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: MF Commercial Round Balers 4100V</td>
+      <td>Massey Ferguson</td>
+      <td>Hesston KS</td>
+      <td>Dec 10, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="Massey Ferguson" data-date="2026-12-11T00:00:00">
+      <td class="col-name">2026 Level 6 Expert: MF RB146/156 Round Balers</td>
+      <td>Massey Ferguson</td>
+      <td>Hesston KS</td>
+      <td>Dec 11, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="General / Cross-Platform" data-date="2026-12-15T00:00:00">
+      <td class="col-name">2026 Level 4 Foundation: Technology</td>
+      <td>General / Cross-Platform</td>
+      <td>Hesston KS</td>
+      <td>Dec 15, 2026 &ndash; Dec 17, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr><tr data-machine="RAVEN Technology" data-date="2026-12-15T00:00:00">
+      <td class="col-name">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</td>
+      <td>RAVEN Technology</td>
+      <td>Dealer Facility (NACA__DLRFC)</td>
+      <td>Dec 15, 2026 &ndash; Dec 17, 2026</td>
+      <td>0 of 10 enrolled <span class="agco-open">(10 open)</span></td>
+    </tr></tbody>
+      </table>
+  </div>
 </main>
 <footer>Generated for Agri-Service, LLC &middot; Source: Open Seat Report &amp; In-Class Event Report</footer>
 <script>
@@ -652,5 +1028,50 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
     document.getElementById(tabId).classList.add('active');
   });
 });
+document.querySelectorAll('.main-tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var tabId = btn.dataset.mainTab;
+    document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.main-tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  });
+});
+(function() {
+  var table = document.getElementById('agco-table');
+  if (!table) return;
+  var tbody = table.querySelector('tbody');
+  var headers = table.querySelectorAll('th.sortable');
+  var state = { key: 'date', dir: 'asc' };
+  function render() {
+    var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+    rows.sort(function(a, b) {
+      var av, bv;
+      if (state.key === 'date') { av = a.dataset.date; bv = b.dataset.date; }
+      else { av = a.dataset.machine.toLowerCase(); bv = b.dataset.machine.toLowerCase(); }
+      if (av < bv) return state.dir === 'asc' ? -1 : 1;
+      if (av > bv) return state.dir === 'asc' ? 1 : -1;
+      return 0;
+    });
+    rows.forEach(function(r) { tbody.appendChild(r); });
+    headers.forEach(function(h) {
+      var arrow = h.querySelector('.sort-arrow');
+      if (h.dataset.key === state.key) {
+        h.classList.add('active');
+        arrow.innerHTML = state.dir === 'asc' ? '&#9650;' : '&#9660;';
+      } else {
+        h.classList.remove('active');
+        arrow.innerHTML = '';
+      }
+    });
+  }
+  headers.forEach(function(h) {
+    h.addEventListener('click', function() {
+      if (state.key === h.dataset.key) { state.dir = state.dir === 'asc' ? 'desc' : 'asc'; }
+      else { state.key = h.dataset.key; state.dir = 'asc'; }
+      render();
+    });
+  });
+})();
 </script>
 </body></html>
