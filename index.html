@@ -15,8 +15,14 @@ body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .summary-card { background:var(--card); border-radius:12px; padding:18px 20px; box-shadow:0 4px 18px rgba(15,43,31,0.10); border-top:3px solid var(--gold-500); }
 .summary-card .num { font-size:26px; font-weight:700; color:var(--green-800); }
 .summary-card .label { font-size:12.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:2px; }
-main { max-width:1180px; margin:0 auto; padding:44px 32px 60px; }
-section { margin-bottom:48px; }
+.main-tab-bar { max-width:1180px; margin:24px auto 0; padding:0 32px; display:flex; gap:6px; flex-wrap:wrap; border-bottom:2px solid var(--border); }
+.main-tab-btn { background:none; border:none; padding:12px 20px; font-size:14.5px; font-weight:700; color:var(--muted); cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; font-family:inherit; display:flex; align-items:center; gap:8px; }
+.main-tab-btn .main-tab-count { background:var(--border); color:var(--text); font-size:11px; font-weight:700; padding:1px 8px; border-radius:20px; }
+.main-tab-btn.active { color:var(--green-800); border-bottom-color:var(--gold-500); }
+.main-tab-btn.active .main-tab-count { background:var(--gold-100); color:var(--gold-500); }
+main { max-width:1180px; margin:0 auto; padding:20px 32px 60px; }
+.main-tab-panel { display:none; margin-bottom:48px; }
+.main-tab-panel.active { display:block; }
 .section-title { font-size:20px; font-weight:700; color:var(--green-800); margin-bottom:4px; display:flex; align-items:center; gap:10px; }
 .section-title .rule { flex:1; height:1px; background:var(--border); }
 .section-desc { color:var(--muted); font-size:13.5px; margin-bottom:20px; }
@@ -30,6 +36,7 @@ section { margin-bottom:48px; }
 .email-class-btn.disabled { background:#c7cdc9; color:#8a938c; pointer-events:none; cursor:default; }
 .request-reg-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 18px; background:var(--gold-500); color:var(--green-900); border:none; text-decoration:none; font-size:12.5px; font-weight:600; white-space:nowrap; cursor:pointer; font-family:inherit; transition:background .15s ease; }
 .request-reg-btn:hover { background:var(--gold-400); }
+.request-reg-btn.table-btn { flex:none; display:inline-flex; width:auto; padding:6px 14px; font-size:11.5px; border-radius:6px; }
 .class-title-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
 .chevron { color:var(--gold-500); font-size:13px; transition:transform .18s ease; display:inline-block; }
 .class-header[aria-expanded="true"] .chevron { transform:rotate(90deg); }
@@ -70,6 +77,16 @@ section { margin-bottom:48px; }
 .loc-table tbody tr:last-child td { border-bottom:none; }
 .loc-class-title { font-weight:700; color:var(--green-800); }
 .loc-class-sub { font-size:12px; color:var(--muted); margin-top:3px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.agco-controls { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+.agco-search { flex:1; min-width:220px; padding:9px 14px; border:1px solid var(--border); border-radius:8px; font-size:13.5px; font-family:inherit; }
+.agco-status-filter { padding:9px 14px; border:1px solid var(--border); border-radius:8px; font-size:13.5px; font-family:inherit; background:var(--card); }
+.agco-table { width:100%; border-collapse:collapse; background:var(--card); border-radius:10px; overflow:hidden; box-shadow:0 1px 4px rgba(15,43,31,0.06); }
+.agco-table thead th { background:var(--green-800); color:#fff; text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; padding:10px 16px; }
+.agco-table tbody td { padding:12px 16px; border-bottom:1px solid var(--border); font-size:13.5px; vertical-align:top; }
+.agco-table tbody tr:last-child td { border-bottom:none; }
+.agco-empty { color:var(--muted); font-size:13px; font-style:italic; margin:14px 4px; }
+.program-tag { display:inline-block; font-size:10.5px; font-weight:700; padding:2px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.03em; background:#eef1ee; color:var(--green-700); border:1px solid var(--border); white-space:nowrap; }
+.program-tag.raven { background:var(--gold-100); color:var(--gold-500); border-color:var(--gold-400); }
 footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
 @media (max-width:720px) { .summary-grid{grid-template-columns:repeat(2,1fr);} .class-card-top{flex-direction:column;} .class-header{flex-direction:column;align-items:flex-start;} .class-header-seats{text-align:left;width:100%;} .seat-bar{margin-left:0;} .class-card-actions{flex-direction:row;} .email-class-btn,.request-reg-btn{padding:10px;} }
 </style></head><body>
@@ -84,8 +101,13 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
   <div class="summary-card"><div class="num">59</div><div class="label">Open Seats</div></div>
   <div class="summary-card"><div class="num">7</div><div class="label">Stores Represented</div></div>
 </div>
+<div class="main-tab-bar">
+  <button type="button" class="main-tab-btn active" data-maintab="all-classes">All Classes <span class="main-tab-count">7</span></button>
+  <button type="button" class="main-tab-btn" data-maintab="store-enrollment">Enrollment by Store <span class="main-tab-count">7</span></button>
+  <button type="button" class="main-tab-btn" data-maintab="agco-open-seats">AGCO Open Seat Report <span class="main-tab-count">53</span></button>
+</div>
 <main>
-  <section>
+  <section id="all-classes" class="main-tab-panel active">
     <div class="section-title">All Classes<div class="rule"></div></div>
     <div class="section-desc">Click a class to view its enrolled roster. Use "Email Class" to message everyone currently registered, or "Request Registration" to ask the training team to sign someone up.</div>
     
@@ -395,7 +417,7 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       </div>
     </div>
   </section>
-  <section>
+  <section id="store-enrollment" class="main-tab-panel">
     <div class="section-title">Enrollment by Store<div class="rule"></div></div>
     <div class="section-desc">Select a store to see which employees from that location are registered for training, and which class.</div>
     <div class="tab-bar"><button class="tab-btn active" data-tab="loc-0">Twin Falls <span class="tab-count">4</span></button><button class="tab-btn " data-tab="loc-1">Heyburn <span class="tab-count">1</span></button><button class="tab-btn " data-tab="loc-2">Sugar City <span class="tab-count">3</span></button><button class="tab-btn " data-tab="loc-3">Marsing <span class="tab-count">1</span></button><button class="tab-btn " data-tab="loc-4">Blackfoot <span class="tab-count">5</span></button><button class="tab-btn " data-tab="loc-5">Pasco <span class="tab-count">4</span></button><button class="tab-btn " data-tab="loc-6">Moses Lake <span class="tab-count">1</span></button></div>
@@ -574,8 +596,396 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
     </tr></tbody></table>
     </div>
   </section>
+  <section id="agco-open-seats" class="main-tab-panel">
+    <div class="section-title">AGCO Open Seat Report<div class="rule"></div></div>
+    <div class="section-desc">Live seat availability across AGCO Academy's national technical training catalog as of 8-27-26 &mdash; 53 sessions, 49 with open seats. From the Technical Training Catalog. Search by class or location, or filter by seat status.</div>
+    <div class="agco-controls">
+      <input type="text" id="agco-search" class="agco-search" placeholder="Search by class title or location..." oninput="agcoFilterTable()">
+      <select id="agco-status-filter" class="agco-status-filter" onchange="agcoFilterTable()">
+        <option value="all">All classes</option>
+        <option value="open">Open seats only</option>
+        <option value="full">Full only</option>
+      </select>
+    </div>
+    <table class="agco-table" id="agco-table">
+      <thead><tr><th>Program</th><th>Class</th><th>Location</th><th>Dates</th><th>Seats</th><th>Action</th></tr></thead>
+      <tbody><tr data-search="level 5 professional: electrical &amp; hydraulics woodstock on - agco woodstock pdc 1400 commerce way unit c woodstock on n4v 0c5 agco" data-status="full">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5</td>
+      <td>Sep 1, 2026 &ndash; Sep 4, 2026</td>
+      <td><span class="badge badge-cancelled">Full</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5" data-dates="Sep 1, 2026 - Sep 4, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics woodstock on - agco woodstock pdc 1400 commerce way unit c woodstock on n4v 0c5 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5</td>
+      <td>Sep 8, 2026 &ndash; Sep 11, 2026</td>
+      <td><span class="badge badge-upcoming">1 open (7/8)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5" data-dates="Sep 8, 2026 - Sep 11, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: massey ferguson hhp (5s - 9s series) (2026) mont-joli qc - centre de formation professionelle mont-joli - mitis -2445 rue principale st. joseph-de-lepage, qc g5h 3n5 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)</div><div class="loc-class-sub">&#128204; French class at Mont Joli</div></td>
+      <td>Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5</td>
+      <td>Sep 8, 2026 &ndash; Sep 10, 2026</td>
+      <td><span class="badge badge-upcoming">6 open (9/15)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)" data-city="Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5" data-dates="Sep 8, 2026 - Sep 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf &amp; ft planters (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF &amp; FT Planters (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Sep 9, 2026 &ndash; Sep 10, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF &amp; FT Planters (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Sep 9, 2026 - Sep 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: raven fendt 900 rogator liquid application technology edgewood md - agco assemby center 103 fulfillment drive, edgewood md 21040 raven" data-status="open">
+      <td><span class="program-tag raven">Raven</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</div></td>
+      <td>Edgewood MD - AGCO Assemby Center 103 Fulfillment Drive, Edgewood MD 21040</td>
+      <td>Sep 15, 2026 &ndash; Sep 17, 2026</td>
+      <td><span class="badge badge-completed">7 open (3/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology" data-city="Edgewood MD - AGCO Assemby Center 103 Fulfillment Drive, Edgewood MD 21040" data-dates="Sep 15, 2026 - Sep 17, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 4 foundation: technology hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 4 Foundation: Technology</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Sep 22, 2026 &ndash; Sep 24, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 4 Foundation: Technology" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Sep 22, 2026 - Sep 24, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics jackson mn - agco jackson training center 202 industrial park, jackson mn 56143 agco" data-status="full">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Sep 22, 2026 &ndash; Sep 25, 2026</td>
+      <td><span class="badge badge-cancelled">Full</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143" data-dates="Sep 22, 2026 - Sep 25, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics mont-joli qc - centre de formation professionelle mont-joli - mitis -2445 rue principale st. joseph-de-lepage, qc g5h 3n5 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div><div class="loc-class-sub">&#128204; French class at Mont Joli</div></td>
+      <td>Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5</td>
+      <td>Oct 6, 2026 &ndash; Oct 9, 2026</td>
+      <td><span class="badge badge-upcoming">5 open (10/15)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5" data-dates="Oct 6, 2026 - Oct 9, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson low horsepower duluth ga - agco global learning center (glc) 4570 river green parkway suite 140 duluth ga 30096 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson Low Horsepower</div></td>
+      <td>Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096</td>
+      <td>Oct 6, 2026 &ndash; Oct 8, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson Low Horsepower" data-city="Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096" data-dates="Oct 6, 2026 - Oct 8, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 4 foundation: technology champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 4 Foundation: Technology</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Oct 6, 2026 &ndash; Oct 8, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 4 Foundation: Technology" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Oct 6, 2026 - Oct 8, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Oct 6, 2026 &ndash; Oct 9, 2026</td>
+      <td><span class="badge badge-upcoming">4 open (6/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Oct 6, 2026 - Oct 9, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: fendt wheel tractors hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Fendt Wheel Tractors</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Oct 6, 2026 &ndash; Oct 8, 2026</td>
+      <td><span class="badge badge-completed">8 open (2/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Fendt Wheel Tractors" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Oct 6, 2026 - Oct 8, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf &amp; ft planters (2026) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF &amp; FT Planters (2026)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Oct 13, 2026 &ndash; Oct 14, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF &amp; FT Planters (2026)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Oct 13, 2026 - Oct 14, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: fendt wheel tractors (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Fendt Wheel Tractors (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Oct 13, 2026 &ndash; Oct 15, 2026</td>
+      <td><span class="badge badge-upcoming">4 open (6/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Fendt Wheel Tractors (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Oct 13, 2026 - Oct 15, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: massey ferguson hhp (5s - 9s series) (2026) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Oct 13, 2026 &ndash; Oct 15, 2026</td>
+      <td><span class="badge badge-completed">6 open (4/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Oct 13, 2026 - Oct 15, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: terragator c series (2026) jackson mn - agco jackson training center 202 industrial park, jackson mn 56143 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: TerraGator C Series (2026)</div></td>
+      <td>Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Oct 13, 2026 &ndash; Oct 15, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: TerraGator C Series (2026)" data-city="Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143" data-dates="Oct 13, 2026 - Oct 15, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 3: application of technical theory hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 3: Application of Technical Theory</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Oct 19, 2026 &ndash; Oct 23, 2026</td>
+      <td><span class="badge badge-completed">27 open (3/30)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 3: Application of Technical Theory" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Oct 19, 2026 - Oct 23, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics jackson mn - agco jackson training center 202 industrial park, jackson mn 56143 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Oct 19, 2026 &ndash; Oct 22, 2026</td>
+      <td><span class="badge badge-upcoming">2 open (8/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143" data-dates="Oct 19, 2026 - Oct 22, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf low horsepower tractors (2026) edgewood md - agco assemby center 103 fulfillment drive, edgewood md 21040 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF Low Horsepower Tractors (2026)</div></td>
+      <td>Edgewood MD - AGCO Assemby Center 103 Fulfillment Drive, Edgewood MD 21040</td>
+      <td>Oct 27, 2026 &ndash; Oct 29, 2026</td>
+      <td><span class="badge badge-completed">8 open (2/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF Low Horsepower Tractors (2026)" data-city="Edgewood MD - AGCO Assemby Center 103 Fulfillment Drive, Edgewood MD 21040" data-dates="Oct 27, 2026 - Oct 29, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="full">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Nov 2, 2026 &ndash; Nov 5, 2026</td>
+      <td><span class="badge badge-cancelled">Full</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Nov 2, 2026 - Nov 5, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: engines &amp; powertrain hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="full">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Engines &amp; Powertrain</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Nov 2, 2026 &ndash; Nov 5, 2026</td>
+      <td><span class="badge badge-cancelled">Full</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Engines &amp; Powertrain" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Nov 2, 2026 - Nov 5, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: ideal combines champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: IDEAL Combines</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 2, 2026 &ndash; Nov 4, 2026</td>
+      <td><span class="badge badge-completed">8 open (2/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: IDEAL Combines" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 2, 2026 - Nov 4, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: fendt 900 rogator (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Fendt 900 Rogator (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 3, 2026 &ndash; Nov 5, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Fendt 900 Rogator (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 3, 2026 - Nov 5, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson hhp (5s - 9s series) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 3, 2026 &ndash; Nov 5, 2026</td>
+      <td><span class="badge badge-completed">8 open (2/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 3, 2026 - Nov 5, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: ideal combines (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: IDEAL Combines (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 4, 2026 &ndash; Nov 6, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: IDEAL Combines (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 4, 2026 - Nov 6, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics mont-joli qc - centre de formation professionelle mont-joli - mitis -2445 rue principale st. joseph-de-lepage, qc g5h 3n5 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div><div class="loc-class-sub">&#128204; French class at Mont Joli</div></td>
+      <td>Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5</td>
+      <td>Nov 10, 2026 &ndash; Nov 13, 2026</td>
+      <td><span class="badge badge-upcoming">3 open (12/15)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5" data-dates="Nov 10, 2026 - Nov 13, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf 500r sprayer (2026) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF 500R Sprayer (2026)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Nov 10, 2026 &ndash; Nov 12, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF 500R Sprayer (2026)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Nov 10, 2026 - Nov 12, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf low horsepower tractors (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF Low Horsepower Tractors (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 10, 2026 &ndash; Nov 12, 2026</td>
+      <td><span class="badge badge-completed">7 open (3/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF Low Horsepower Tractors (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 10, 2026 - Nov 12, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: massey ferguson hhp (5s - 9s series) (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 10, 2026 &ndash; Nov 12, 2026</td>
+      <td><span class="badge badge-completed">8 open (2/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 10, 2026 - Nov 12, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson hhp (5s - 9s series) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Nov 17, 2026 &ndash; Nov 19, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Nov 17, 2026 - Nov 19, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: terragator c series (2026) jackson mn - agco jackson training center 202 industrial park, jackson mn 56143 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: TerraGator C Series (2026)</div></td>
+      <td>Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Nov 17, 2026 &ndash; Nov 19, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: TerraGator C Series (2026)" data-city="Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143" data-dates="Nov 17, 2026 - Nov 19, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: raven fendt 900 rogator liquid application technology woodstock on - agco woodstock pdc 1400 commerce way unit c woodstock on n4v 0c5 raven" data-status="open">
+      <td><span class="program-tag raven">Raven</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</div></td>
+      <td>Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5</td>
+      <td>Nov 17, 2026 &ndash; Nov 19, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology" data-city="Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5" data-dates="Nov 17, 2026 - Nov 19, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: ft momentum planters hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: FT Momentum Planters</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Nov 18, 2026 &ndash; Nov 19, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: FT Momentum Planters" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Nov 18, 2026 - Nov 19, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: fendt wheel tractors (2026) mont-joli qc - centre de formation professionelle mont-joli - mitis -2445 rue principale st. joseph-de-lepage, qc g5h 3n5 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Fendt Wheel Tractors (2026)</div><div class="loc-class-sub">&#128204; French class at Mont Joli</div></td>
+      <td>Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5</td>
+      <td>Dec 1, 2026 &ndash; Dec 3, 2026</td>
+      <td><span class="badge badge-completed">10 open (5/15)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Fendt Wheel Tractors (2026)" data-city="Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5" data-dates="Dec 1, 2026 - Dec 3, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: square balers (2026) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Square Balers (2026)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 1, 2026 &ndash; Dec 2, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Square Balers (2026)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 1, 2026 - Dec 2, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson hhp (5s - 9s series) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 1, 2026 &ndash; Dec 3, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 1, 2026 - Dec 3, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf low horsepower tractors (2026) duluth ga - agco global learning center (glc) 4570 river green parkway suite 140 duluth ga 30096 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF Low Horsepower Tractors (2026)</div></td>
+      <td>Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096</td>
+      <td>Dec 2, 2026 &ndash; Dec 4, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF Low Horsepower Tractors (2026)" data-city="Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096" data-dates="Dec 2, 2026 - Dec 4, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: mf commercial round balers 4100v hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: MF Commercial Round Balers 4100V</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 3, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: MF Commercial Round Balers 4100V" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 3, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: mf rb146/156 round balers hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: MF RB146/156 Round Balers</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 4, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: MF RB146/156 Round Balers" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 4, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson low horsepower duluth ga - agco global learning center (glc) 4570 river green parkway suite 140 duluth ga 30096 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson Low Horsepower</div></td>
+      <td>Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096</td>
+      <td>Dec 7, 2026 &ndash; Dec 9, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson Low Horsepower" data-city="Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096" data-dates="Dec 7, 2026 - Dec 9, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: fendt 900 rogator (2026) jackson mn - agco jackson training center 202 industrial park, jackson mn 56143 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Fendt 900 Rogator (2026)</div></td>
+      <td>Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Dec 8, 2026 &ndash; Dec 10, 2026</td>
+      <td><span class="badge badge-completed">7 open (3/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Fendt 900 Rogator (2026)" data-city="Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143" data-dates="Dec 8, 2026 - Dec 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf &amp; ft planters (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF &amp; FT Planters (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Dec 8, 2026 &ndash; Dec 9, 2026</td>
+      <td><span class="badge badge-completed">7 open (3/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF &amp; FT Planters (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Dec 8, 2026 - Dec 9, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: fendt wheel tractors hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Fendt Wheel Tractors</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 8, 2026 &ndash; Dec 10, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Fendt Wheel Tractors" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 8, 2026 - Dec 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf windrowers (2026) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF Windrowers (2026)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 8, 2026 &ndash; Dec 9, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF Windrowers (2026)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 8, 2026 - Dec 9, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson hhp (5s - 9s series) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 8, 2026 &ndash; Dec 10, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 8, 2026 - Dec 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: ideal combines (2026) jackson mn - agco jackson engineering center 202 industrial park, jackson mn 56143 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: IDEAL Combines (2026)</div></td>
+      <td>Jackson MN - AGCO Jackson Engineering Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Dec 9, 2026 &ndash; Dec 11, 2026</td>
+      <td><span class="badge badge-completed">7 open (3/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: IDEAL Combines (2026)" data-city="Jackson MN - AGCO Jackson Engineering Center 202 Industrial Park, Jackson MN 56143" data-dates="Dec 9, 2026 - Dec 11, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: ft momentum planters champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: FT Momentum Planters</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Dec 10, 2026 &ndash; Dec 11, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: FT Momentum Planters" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Dec 10, 2026 - Dec 11, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: mf commercial round balers 4100v hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: MF Commercial Round Balers 4100V</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 10, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: MF Commercial Round Balers 4100V" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: mf rb146/156 round balers hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: MF RB146/156 Round Balers</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 11, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: MF RB146/156 Round Balers" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 11, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 4 foundation: technology hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 4 Foundation: Technology</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 15, 2026 &ndash; Dec 17, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 4 Foundation: Technology" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 15, 2026 - Dec 17, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: raven fendt 900 rogator liquid application technology naca__ dealer facility raven" data-status="open">
+      <td><span class="program-tag raven">Raven</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</div><div class="loc-class-sub">&#128204; Trochu</div></td>
+      <td>NACA__ Dealer Facility</td>
+      <td>Dec 15, 2026 &ndash; Dec 17, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology" data-city="NACA__ Dealer Facility" data-dates="Dec 15, 2026 - Dec 17, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: raven fendt 900 rogator liquid application technology naca__ dealer facility raven" data-status="open">
+      <td><span class="program-tag raven">Raven</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</div><div class="loc-class-sub">&#128204; Full Line - Saskatoon</div></td>
+      <td>NACA__ Dealer Facility</td>
+      <td>Date TBD</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology" data-city="NACA__ Dealer Facility" data-dates="Date TBD">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: raven terragator amp, r1/r2, 720 granular application technology naca__ dealer facility raven" data-status="open">
+      <td><span class="program-tag raven">Raven</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: RAVEN Terragator AMP, R1/R2, 720 Granular Application Technology</div><div class="loc-class-sub">&#128204; AgWest</div></td>
+      <td>NACA__ Dealer Facility</td>
+      <td>Date TBD</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: RAVEN Terragator AMP, R1/R2, 720 Granular Application Technology" data-city="NACA__ Dealer Facility" data-dates="Date TBD">&#128221; Request</button></td>
+    </tr></tbody>
+    </table>
+    <p class="agco-empty" id="agco-empty" style="display:none;">No classes match your search.</p>
+  </section>
 </main>
-<footer>Generated for Agri-Service, LLC &middot; Source: Open Seat Report &amp; In-Class Event Report</footer>
+<footer>Generated for Agri-Service, LLC &middot; Source: Open Seat Report, In-Class Event Report &amp; Technical Training Catalog</footer>
 <script>
 document.querySelectorAll('.class-header').forEach(function(btn) {
   btn.addEventListener('click', function() {
@@ -610,5 +1020,29 @@ document.querySelectorAll('.request-reg-btn').forEach(function(btn) {
     window.location.href = href;
   });
 });
+document.querySelectorAll('.main-tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var target = btn.dataset.maintab;
+    document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.main-tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(target).classList.add('active');
+  });
+});
+function agcoFilterTable() {
+  var q = document.getElementById('agco-search').value.trim().toLowerCase();
+  var statusF = document.getElementById('agco-status-filter').value;
+  var rows = document.querySelectorAll('#agco-table tbody tr');
+  var shown = 0;
+  rows.forEach(function(tr) {
+    var matchQ = !q || tr.dataset.search.indexOf(q) !== -1;
+    var matchS = statusF === 'all' || tr.dataset.status === statusF;
+    var show = matchQ && matchS;
+    tr.style.display = show ? '' : 'none';
+    if (show) shown++;
+  });
+  var emptyEl = document.getElementById('agco-empty');
+  if (emptyEl) emptyEl.style.display = shown === 0 ? 'block' : 'none';
+}
 </script>
 </body></html>
