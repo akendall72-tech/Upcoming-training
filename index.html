@@ -22,7 +22,14 @@ section { margin-bottom:48px; }
 .section-desc { color:var(--muted); font-size:13.5px; margin-bottom:20px; }
 .class-card { background:var(--card); border:1px solid var(--border); border-radius:10px; margin-bottom:12px; overflow:hidden; transition:box-shadow .15s ease; }
 .class-card:hover { box-shadow:0 2px 10px rgba(15,43,31,0.07); }
-.class-header { width:100%; display:flex; justify-content:space-between; align-items:center; gap:24px; padding:16px 20px; background:none; border:none; cursor:pointer; text-align:left; font:inherit; color:inherit; }
+.class-card-top { display:flex; align-items:stretch; }
+.class-header { flex:1; min-width:0; display:flex; justify-content:space-between; align-items:center; gap:24px; padding:16px 20px; background:none; border:none; cursor:pointer; text-align:left; font:inherit; color:inherit; }
+.class-card-actions { flex-shrink:0; display:flex; flex-direction:column; }
+.email-class-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:0 18px; background:var(--green-700); color:#fff; text-decoration:none; font-size:12.5px; font-weight:600; white-space:nowrap; transition:background .15s ease; }
+.email-class-btn:hover { background:var(--green-600); }
+.email-class-btn.disabled { background:#c7cdc9; color:#8a938c; pointer-events:none; cursor:default; }
+.request-reg-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 18px; background:var(--gold-500); color:var(--green-900); border:none; text-decoration:none; font-size:12.5px; font-weight:600; white-space:nowrap; cursor:pointer; font-family:inherit; transition:background .15s ease; }
+.request-reg-btn:hover { background:var(--gold-400); }
 .class-title-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
 .chevron { color:var(--gold-500); font-size:13px; transition:transform .18s ease; display:inline-block; }
 .class-header[aria-expanded="true"] .chevron { transform:rotate(90deg); }
@@ -64,7 +71,7 @@ section { margin-bottom:48px; }
 .loc-class-title { font-weight:700; color:var(--green-800); }
 .loc-class-sub { font-size:12px; color:var(--muted); margin-top:3px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
-@media (max-width:720px) { .summary-grid{grid-template-columns:repeat(2,1fr);} .class-header{flex-direction:column;align-items:flex-start;} .class-header-seats{text-align:left;width:100%;} .seat-bar{margin-left:0;} }
+@media (max-width:720px) { .summary-grid{grid-template-columns:repeat(2,1fr);} .class-card-top{flex-direction:column;} .class-header{flex-direction:column;align-items:flex-start;} .class-header-seats{text-align:left;width:100%;} .seat-bar{margin-left:0;} .class-card-actions{flex-direction:row;} .email-class-btn,.request-reg-btn{padding:10px;} }
 </style></head><body>
 <div class="header"><div class="header-inner">
   <div class="eyebrow">AGRI-SERVICE, LLC &middot; Training Department</div>
@@ -80,28 +87,34 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
 <main>
   <section>
     <div class="section-title">All Classes<div class="rule"></div></div>
-    <div class="section-desc">Click a class to view its enrolled roster.</div>
+    <div class="section-desc">Click a class to view its enrolled roster. Use "Email Class" to message everyone currently registered, or "Request Registration" to ask the training team to sign someone up.</div>
     
     <div class="class-card" data-city="Pasco">
-      <button class="class-header" data-target="class-0" aria-expanded="false">
-        <div class="class-header-main">
-          <div class="class-title-row">
-            <span class="chevron">&#9656;</span>
-            <span class="class-title">Lifting and Rigging</span>
-            <span class="badge badge-upcoming">Upcoming</span>
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-0" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">Lifting and Rigging</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Sep 9, 2026</span>
+              <span class="meta-item">&#128205; Pasco</span>
+              <span class="meta-item">&#127891; Anna Perkins, Ken Haider, Andrew Kendall</span>
+            </div>
           </div>
-          <div class="class-meta">
-            <span class="meta-item">&#128197; Sep 9, 2026</span>
-            <span class="meta-item">&#128205; Pasco</span>
-            <span class="meta-item">&#127891; Anna Perkins, Ken Haider, Andrew Kendall</span>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>1</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:8%"></div></div>
+            <div class="seat-avail">11 seats open</div>
           </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=simoncastillo@agri-service.com&amp;subject=Lifting%20and%20Rigging%20%E2%80%94%20Sep%209%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="Lifting and Rigging" data-city="Pasco" data-dates="Sep 9, 2026">&#128221; Request Registration</button>
         </div>
-        <div class="class-header-seats">
-          <div class="seat-count"><strong>1</strong> / 12 enrolled</div>
-          <div class="seat-bar"><div class="seat-bar-fill" style="width:8%"></div></div>
-          <div class="seat-avail">11 seats open</div>
-        </div>
-      </button>
+      </div>
       <div class="class-body" id="class-0">
         <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
@@ -112,25 +125,31 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       </div>
     </div>
     <div class="class-card" data-city="Blackfoot">
-      <button class="class-header" data-target="class-1" aria-expanded="false">
-        <div class="class-header-main">
-          <div class="class-title-row">
-            <span class="chevron">&#9656;</span>
-            <span class="class-title">2026 Fendt Track Tractors Level 4</span>
-            <span class="badge badge-upcoming">Upcoming</span>
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-1" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">2026 Fendt Track Tractors Level 4</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Sep 15, 2026 &ndash; Sep 17, 2026</span>
+              <span class="meta-item">&#128205; Blackfoot</span>
+              <span class="meta-item">&#127891; Andrew Kendall</span>
+            </div>
           </div>
-          <div class="class-meta">
-            <span class="meta-item">&#128197; Sep 15, 2026 &ndash; Sep 17, 2026</span>
-            <span class="meta-item">&#128205; Blackfoot</span>
-            <span class="meta-item">&#127891; Andrew Kendall</span>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>4</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:33%"></div></div>
+            <div class="seat-avail">8 seats open</div>
           </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=loganbuck@agri-service.com,christopherdolcini@agri-service.com,georgeupton@agri-service.com,jasonweimer@agri-service.com&amp;subject=2026%20Fendt%20Track%20Tractors%20Level%204%20%E2%80%94%20Sep%2015%2C%202026%20-%20Sep%2017%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="2026 Fendt Track Tractors Level 4" data-city="Blackfoot" data-dates="Sep 15, 2026 - Sep 17, 2026">&#128221; Request Registration</button>
         </div>
-        <div class="class-header-seats">
-          <div class="seat-count"><strong>4</strong> / 12 enrolled</div>
-          <div class="seat-bar"><div class="seat-bar-fill" style="width:33%"></div></div>
-          <div class="seat-avail">8 seats open</div>
-        </div>
-      </button>
+      </div>
       <div class="class-body" id="class-1">
         <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
@@ -156,25 +175,31 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       </div>
     </div>
     <div class="class-card" data-city="Heyburn">
-      <button class="class-header" data-target="class-2" aria-expanded="false">
-        <div class="class-header-main">
-          <div class="class-title-row">
-            <span class="chevron">&#9656;</span>
-            <span class="class-title">2026 Trimble PTx Steering 1</span>
-            <span class="badge badge-upcoming">Upcoming</span>
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-2" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">2026 Trimble PTx Steering 1</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Oct 14, 2026 &ndash; Oct 15, 2026</span>
+              <span class="meta-item">&#128205; Heyburn</span>
+              <span class="meta-item">&#127891; Andrew Kendall</span>
+            </div>
           </div>
-          <div class="class-meta">
-            <span class="meta-item">&#128197; Oct 14, 2026 &ndash; Oct 15, 2026</span>
-            <span class="meta-item">&#128205; Heyburn</span>
-            <span class="meta-item">&#127891; Andrew Kendall</span>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>3</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:25%"></div></div>
+            <div class="seat-avail">9 seats open</div>
           </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=gilbertalvarado@agri-service.com,terryhanson@agri-service.com,lancewalker@agri-service.com&amp;subject=2026%20Trimble%20PTx%20Steering%201%20%E2%80%94%20Oct%2014%2C%202026%20-%20Oct%2015%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="2026 Trimble PTx Steering 1" data-city="Heyburn" data-dates="Oct 14, 2026 - Oct 15, 2026">&#128221; Request Registration</button>
         </div>
-        <div class="class-header-seats">
-          <div class="seat-count"><strong>3</strong> / 12 enrolled</div>
-          <div class="seat-bar"><div class="seat-bar-fill" style="width:25%"></div></div>
-          <div class="seat-avail">9 seats open</div>
-        </div>
-      </button>
+      </div>
       <div class="class-body" id="class-2">
         <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
@@ -195,25 +220,31 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       </div>
     </div>
     <div class="class-card" data-city="Pasco">
-      <button class="class-header" data-target="class-3" aria-expanded="false">
-        <div class="class-header-main">
-          <div class="class-title-row">
-            <span class="chevron">&#9656;</span>
-            <span class="class-title">2026 Fendt Track Tractors Level 4</span>
-            <span class="badge badge-upcoming">Upcoming</span>
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-3" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">2026 Fendt Track Tractors Level 4</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Nov 3, 2026 &ndash; Nov 5, 2026</span>
+              <span class="meta-item">&#128205; Pasco</span>
+              <span class="meta-item">&#127891; Andrew Kendall</span>
+            </div>
           </div>
-          <div class="class-meta">
-            <span class="meta-item">&#128197; Nov 3, 2026 &ndash; Nov 5, 2026</span>
-            <span class="meta-item">&#128205; Pasco</span>
-            <span class="meta-item">&#127891; Andrew Kendall</span>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>4</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:33%"></div></div>
+            <div class="seat-avail">8 seats open</div>
           </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=jamesbruinekool@agri-service.com,robincrowner@agri-service.com,jaycobscott@agri-service.com,kevinwillman@agri-service.com&amp;subject=2026%20Fendt%20Track%20Tractors%20Level%204%20%E2%80%94%20Nov%203%2C%202026%20-%20Nov%205%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="2026 Fendt Track Tractors Level 4" data-city="Pasco" data-dates="Nov 3, 2026 - Nov 5, 2026">&#128221; Request Registration</button>
         </div>
-        <div class="class-header-seats">
-          <div class="seat-count"><strong>4</strong> / 12 enrolled</div>
-          <div class="seat-bar"><div class="seat-bar-fill" style="width:33%"></div></div>
-          <div class="seat-avail">8 seats open</div>
-        </div>
-      </button>
+      </div>
       <div class="class-body" id="class-3">
         <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
@@ -239,25 +270,31 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       </div>
     </div>
     <div class="class-card" data-city="Blackfoot">
-      <button class="class-header" data-target="class-4" aria-expanded="false">
-        <div class="class-header-main">
-          <div class="class-title-row">
-            <span class="chevron">&#9656;</span>
-            <span class="class-title">2026 Fendt Track Tractors Level 4</span>
-            <span class="badge badge-upcoming">Upcoming</span>
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-4" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">2026 Fendt Track Tractors Level 4</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Nov 17, 2026 &ndash; Nov 19, 2026</span>
+              <span class="meta-item">&#128205; Blackfoot</span>
+              <span class="meta-item">&#127891; Andrew Kendall</span>
+            </div>
           </div>
-          <div class="class-meta">
-            <span class="meta-item">&#128197; Nov 17, 2026 &ndash; Nov 19, 2026</span>
-            <span class="meta-item">&#128205; Blackfoot</span>
-            <span class="meta-item">&#127891; Andrew Kendall</span>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>4</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:33%"></div></div>
+            <div class="seat-avail">8 seats open</div>
           </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=dakotagilbert@agri-service.com,zanelemmon@agri-service.com,jaimemartinez@agri-service.com,patrickswenson@agri-service.com&amp;subject=2026%20Fendt%20Track%20Tractors%20Level%204%20%E2%80%94%20Nov%2017%2C%202026%20-%20Nov%2019%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="2026 Fendt Track Tractors Level 4" data-city="Blackfoot" data-dates="Nov 17, 2026 - Nov 19, 2026">&#128221; Request Registration</button>
         </div>
-        <div class="class-header-seats">
-          <div class="seat-count"><strong>4</strong> / 12 enrolled</div>
-          <div class="seat-bar"><div class="seat-bar-fill" style="width:33%"></div></div>
-          <div class="seat-avail">8 seats open</div>
-        </div>
-      </button>
+      </div>
       <div class="class-body" id="class-4">
         <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
@@ -283,25 +320,31 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       </div>
     </div>
     <div class="class-card" data-city="Heyburn">
-      <button class="class-header" data-target="class-5" aria-expanded="false">
-        <div class="class-header-main">
-          <div class="class-title-row">
-            <span class="chevron">&#9656;</span>
-            <span class="class-title">Parts Solutions for PTx Guidance ILT</span>
-            <span class="badge badge-upcoming">Upcoming</span>
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-5" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">Parts Solutions for PTx Guidance ILT</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Dec 9, 2026</span>
+              <span class="meta-item">&#128205; Heyburn</span>
+              <span class="meta-item">&#127891; Andrew Kendall</span>
+            </div>
           </div>
-          <div class="class-meta">
-            <span class="meta-item">&#128197; Dec 9, 2026</span>
-            <span class="meta-item">&#128205; Heyburn</span>
-            <span class="meta-item">&#127891; Andrew Kendall</span>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>3</strong> / 6 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:50%"></div></div>
+            <div class="seat-avail">3 seats open</div>
           </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=Tylerdeuel@agri-service.com,benhunsaker@agri-service.com,rjjimenez@agri-service.com&amp;subject=Parts%20Solutions%20for%20PTx%20Guidance%20ILT%20%E2%80%94%20Dec%209%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="Parts Solutions for PTx Guidance ILT" data-city="Heyburn" data-dates="Dec 9, 2026">&#128221; Request Registration</button>
         </div>
-        <div class="class-header-seats">
-          <div class="seat-count"><strong>3</strong> / 6 enrolled</div>
-          <div class="seat-bar"><div class="seat-bar-fill" style="width:50%"></div></div>
-          <div class="seat-avail">3 seats open</div>
-        </div>
-      </button>
+      </div>
       <div class="class-body" id="class-5">
         <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
@@ -322,25 +365,31 @@ footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
       </div>
     </div>
     <div class="class-card" data-city="Heyburn">
-      <button class="class-header" data-target="class-6" aria-expanded="false">
-        <div class="class-header-main">
-          <div class="class-title-row">
-            <span class="chevron">&#9656;</span>
-            <span class="class-title">Lifting and Rigging</span>
-            <span class="badge badge-upcoming">Upcoming</span>
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-6" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">Lifting and Rigging</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Feb 3, 2027</span>
+              <span class="meta-item">&#128205; Heyburn</span>
+              
+            </div>
           </div>
-          <div class="class-meta">
-            <span class="meta-item">&#128197; Feb 3, 2027</span>
-            <span class="meta-item">&#128205; Heyburn</span>
-            
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>0</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:0%"></div></div>
+            <div class="seat-avail">12 seats open</div>
           </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn disabled" href="#" aria-disabled="true" tabindex="-1" title="No students enrolled">&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="Lifting and Rigging" data-city="Heyburn" data-dates="Feb 3, 2027">&#128221; Request Registration</button>
         </div>
-        <div class="class-header-seats">
-          <div class="seat-count"><strong>0</strong> / 12 enrolled</div>
-          <div class="seat-bar"><div class="seat-bar-fill" style="width:0%"></div></div>
-          <div class="seat-avail">12 seats open</div>
-        </div>
-      </button>
+      </div>
       <div class="class-body" id="class-6">
         <div class="class-body-inner"><p class="empty-roster">No one is currently enrolled in this session.</p></div>
       </div>
@@ -543,6 +592,22 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById(tabId).classList.add('active');
+  });
+});
+document.querySelectorAll('.request-reg-btn').forEach(function(btn) {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var title = btn.dataset.title, city = btn.dataset.city, dates = btn.dataset.dates;
+    var name = window.prompt('Who needs to be registered for "' + title + '" (' + dates + ')?');
+    if (!name || !name.trim()) return;
+    var subject = 'Registration Request: ' + title + ' — ' + dates;
+    var body = 'Please register the following person for this class:\n\n' +
+      'Name: ' + name.trim() + '\n\n' +
+      'Class: ' + title + '\n' +
+      'Location: ' + city + '\n' +
+      'Dates: ' + dates;
+    var href = 'mailto:andrewkendall@agri-service.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = href;
   });
 });
 </script>
