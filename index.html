@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forklift Certification Expiration Report</title><style>
+<title>Agri-Service Training Enrollment Report</title><style>
 :root { --green-900:#0f2b1f; --green-800:#16382a; --green-700:#1f4d38; --green-600:#2c6b4d; --green-500:#3d8a66;
-  --gold-500:#c79a2b; --gold-400:#dcb84a; --gold-100:#faf3df; --bg:#f4f5f2; --card:#ffffff; --text:#1f2a24; --muted:#64716a; --border:#e2e6e1;
-  --red-600:#b3352c; --red-100:#fbeaea; --blue-600:#3a6ea5; --blue-100:#e9f0f7; }
+  --gold-500:#c79a2b; --gold-400:#dcb84a; --gold-100:#faf3df; --bg:#f4f5f2; --card:#ffffff; --text:#1f2a24; --muted:#64716a; --border:#e2e6e1; }
 * { box-sizing:border-box; }
 body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
 .header { background:linear-gradient(135deg,var(--green-900) 0%,var(--green-700) 55%,var(--green-600) 100%); color:#fff; padding:40px 32px 32px; position:relative; overflow:hidden; }
@@ -12,1926 +11,1077 @@ body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
 .eyebrow { text-transform:uppercase; letter-spacing:0.12em; font-size:12px; color:var(--gold-400); font-weight:700; margin-bottom:8px; }
 .header h1 { margin:0 0 6px; font-size:30px; font-weight:700; letter-spacing:-0.01em; }
 .header .sub { color:rgba(255,255,255,0.75); font-size:14px; }
-.summary-grid { max-width:1180px; margin:-28px auto 0; padding:0 32px; display:grid; grid-template-columns:repeat(6,1fr); gap:16px; position:relative; z-index:2; }
-.summary-card { background:var(--card); border-radius:12px; padding:18px 18px; box-shadow:0 4px 18px rgba(15,43,31,0.10); border-top:3px solid var(--gold-500); }
-.summary-card.alert { border-top-color:var(--red-600); background:linear-gradient(180deg,var(--red-100) 0%,var(--card) 55%); }
+.summary-grid { max-width:1180px; margin:-28px auto 0; padding:0 32px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; position:relative; z-index:2; }
+.summary-card { background:var(--card); border-radius:12px; padding:18px 20px; box-shadow:0 4px 18px rgba(15,43,31,0.10); border-top:3px solid var(--gold-500); }
 .summary-card .num { font-size:26px; font-weight:700; color:var(--green-800); }
-.summary-card.alert .num { color:var(--red-600); }
-.summary-card .label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:2px; }
-main { max-width:1180px; margin:0 auto; padding:44px 32px 60px; }
-section { margin-bottom:48px; }
+.summary-card .label { font-size:12.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:2px; }
+.main-tab-bar { max-width:1180px; margin:24px auto 0; padding:0 32px; display:flex; gap:6px; flex-wrap:wrap; border-bottom:2px solid var(--border); }
+.main-tab-btn { background:none; border:none; padding:12px 20px; font-size:14.5px; font-weight:700; color:var(--muted); cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; font-family:inherit; display:flex; align-items:center; gap:8px; }
+.main-tab-btn .main-tab-count { background:var(--border); color:var(--text); font-size:11px; font-weight:700; padding:1px 8px; border-radius:20px; }
+.main-tab-btn.active { color:var(--green-800); border-bottom-color:var(--gold-500); }
+.main-tab-btn.active .main-tab-count { background:var(--gold-100); color:var(--gold-500); }
+main { max-width:1180px; margin:0 auto; padding:20px 32px 60px; }
+.main-tab-panel { display:none; margin-bottom:48px; }
+.main-tab-panel.active { display:block; }
 .section-title { font-size:20px; font-weight:700; color:var(--green-800); margin-bottom:4px; display:flex; align-items:center; gap:10px; }
-.section-title.alert-title { color:var(--red-600); }
 .section-title .rule { flex:1; height:1px; background:var(--border); }
 .section-desc { color:var(--muted); font-size:13.5px; margin-bottom:20px; }
-.table-wrap { overflow-x:auto; background:var(--card); border-radius:10px; box-shadow:0 1px 4px rgba(15,43,31,0.06); }
-.data-table { width:100%; border-collapse:collapse; font-size:13.5px; min-width:640px; }
-.data-table thead th { background:var(--green-800); color:#fff; text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; padding:10px 14px; cursor:pointer; white-space:nowrap; user-select:none; }
-.data-table thead th:hover { background:var(--green-700); }
-.sort-arrow::after { content:'\2195'; margin-left:6px; opacity:0.5; font-size:10px; }
-.data-table tbody td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
-.data-table tbody tr:last-child td { border-bottom:none; }
-.data-table tbody tr:hover { background:#fafbf9; }
-.data-table tbody tr[data-status="notcert"] td:first-child, .data-table tbody tr[data-status="expired"] td:first-child { box-shadow:inset 3px 0 0 var(--red-600); }
-.data-table tbody tr[data-status="inprogress"] td:first-child { box-shadow:inset 3px 0 0 var(--blue-600); }
-.col-num { color:var(--muted); width:32px; }
-.col-name { font-weight:600; color:var(--green-800); white-space:nowrap; }
-.sub-note { font-size:11px; color:var(--muted); margin-top:2px; }
-.badge { display:inline-block; font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.03em; white-space:nowrap; }
-.badge-expired { background:var(--red-100); color:var(--red-600); border:1px solid #e08a83; }
-.badge-expiring { background:var(--gold-100); color:var(--gold-500); border:1px solid var(--gold-400); }
-.badge-current { background:#e9f2ec; color:var(--green-600); border:1px solid var(--green-500); }
-.badge-inprogress { background:var(--blue-100); color:var(--blue-600); border:1px solid #9db9d4; }
-.badge-notcert { background:var(--red-100); color:var(--red-600); border:1px solid #e08a83; font-weight:800; }
-.legend { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:18px; font-size:12.5px; color:var(--muted); }
-.legend span.badge { margin-right:4px; }
-.filter-bar { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
-.filter-btn { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:7px 16px; font-size:12.5px; font-weight:600; color:var(--muted); cursor:pointer; font:inherit; }
-.filter-btn.active { background:var(--green-800); color:#fff; border-color:var(--green-800); }
-.search-box { flex:1; min-width:200px; padding:8px 14px; border-radius:20px; border:1px solid var(--border); font-size:13px; font:inherit; }
+.class-card { background:var(--card); border:1px solid var(--border); border-radius:10px; margin-bottom:12px; overflow:hidden; transition:box-shadow .15s ease; }
+.class-card:hover { box-shadow:0 2px 10px rgba(15,43,31,0.07); }
+.class-card-top { display:flex; align-items:stretch; }
+.class-header { flex:1; min-width:0; display:flex; justify-content:space-between; align-items:center; gap:24px; padding:16px 20px; background:none; border:none; cursor:pointer; text-align:left; font:inherit; color:inherit; }
+.class-card-actions { flex-shrink:0; display:flex; flex-direction:column; }
+.email-class-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:0 18px; background:var(--green-700); color:#fff; text-decoration:none; font-size:12.5px; font-weight:600; white-space:nowrap; transition:background .15s ease; }
+.email-class-btn:hover { background:var(--green-600); }
+.email-class-btn.disabled { background:#c7cdc9; color:#8a938c; pointer-events:none; cursor:default; }
+.request-reg-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 18px; background:var(--gold-500); color:var(--green-900); border:none; text-decoration:none; font-size:12.5px; font-weight:600; white-space:nowrap; cursor:pointer; font-family:inherit; transition:background .15s ease; }
+.request-reg-btn:hover { background:var(--gold-400); }
+.request-reg-btn.table-btn { flex:none; display:inline-flex; width:auto; padding:6px 14px; font-size:11.5px; border-radius:6px; }
+.class-title-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.chevron { color:var(--gold-500); font-size:13px; transition:transform .18s ease; display:inline-block; }
+.class-header[aria-expanded="true"] .chevron { transform:rotate(90deg); }
+.class-title { font-weight:700; font-size:15.5px; color:var(--green-800); }
+.class-meta { display:flex; gap:16px; flex-wrap:wrap; font-size:12.5px; color:var(--muted); }
+.class-header-seats { min-width:160px; text-align:right; flex-shrink:0; }
+.seat-count { font-size:13px; color:var(--text); margin-bottom:4px; }
+.seat-bar { width:160px; height:6px; border-radius:4px; background:#e7ece8; overflow:hidden; margin-left:auto; }
+.seat-bar-fill { height:100%; background:linear-gradient(90deg,var(--green-500),var(--gold-500)); border-radius:4px; }
+.seat-avail { font-size:11.5px; color:var(--muted); margin-top:4px; }
+.class-body { max-height:0; overflow:hidden; transition:max-height .25s ease; background:#fbfbf9; border-top:1px solid transparent; }
+.class-body.open { border-top:1px solid var(--border); }
+.class-body-inner { padding:16px 20px 20px; }
+.badge { display:inline-block; font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.03em; }
+.badge-upcoming { background:var(--gold-100); color:var(--gold-500); border:1px solid var(--gold-400); }
+.badge-completed { background:#e9f2ec; color:var(--green-600); border:1px solid var(--green-500); }
+.badge-cancelled { background:#fbeaea; color:#b3352c; border:1px solid #e08a83; }
+.roster-table { width:100%; border-collapse:collapse; font-size:13.5px; }
+.roster-table th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); padding:6px 10px; border-bottom:1px solid var(--border); }
+.roster-table td { padding:8px 10px; border-bottom:1px solid #eef1ee; }
+.roster-table tr:last-child td { border-bottom:none; }
+.col-num { color:var(--muted); width:28px; }
+.col-name { font-weight:600; }
+.roster-table a { color:var(--green-600); text-decoration:none; }
+.roster-table a:hover { text-decoration:underline; }
+.empty-roster { color:var(--muted); font-size:13px; font-style:italic; margin:4px 0; }
 .tab-bar { display:flex; gap:6px; border-bottom:2px solid var(--border); margin-bottom:20px; flex-wrap:wrap; }
-.tab-btn { background:none; border:none; padding:10px 18px; font-size:14px; font-weight:600; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; font:inherit; position:relative; }
+.tab-btn { background:none; border:none; padding:10px 18px; font-size:14px; font-weight:600; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; font:inherit; }
 .tab-btn .tab-count { background:var(--border); color:var(--text); font-size:11px; padding:1px 7px; border-radius:20px; margin-left:6px; }
-.tab-btn .tab-flag { background:var(--red-600); color:#fff; font-size:10px; font-weight:700; padding:1px 6px; border-radius:20px; margin-left:5px; }
-.tab-btn .tab-flag-soft { background:var(--gold-500); }
 .tab-btn.active { color:var(--green-800); border-bottom-color:var(--gold-500); }
 .tab-btn.active .tab-count { background:var(--gold-100); color:var(--gold-500); }
 .tab-panel { display:none; }
 .tab-panel.active { display:block; }
 .loc-summary { font-size:13px; color:var(--muted); margin-bottom:14px; }
-.empty-state { color:var(--muted); font-size:13px; font-style:italic; padding:20px; text-align:center; }
-.exclusion-note { max-width:1180px; margin:8px auto 0; padding:0 32px; font-size:11.5px; color:var(--muted); }
+.loc-table { width:100%; border-collapse:collapse; background:var(--card); border-radius:10px; overflow:hidden; box-shadow:0 1px 4px rgba(15,43,31,0.06); }
+.loc-table thead th { background:var(--green-800); color:#fff; text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; padding:10px 16px; }
+.loc-table tbody td { padding:12px 16px; border-bottom:1px solid var(--border); font-size:13.5px; vertical-align:top; }
+.loc-table tbody tr:last-child td { border-bottom:none; }
+.loc-class-title { font-weight:700; color:var(--green-800); }
+.loc-class-sub { font-size:12px; color:var(--muted); margin-top:3px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.agco-controls { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+.agco-search { flex:1; min-width:220px; padding:9px 14px; border:1px solid var(--border); border-radius:8px; font-size:13.5px; font-family:inherit; }
+.agco-status-filter { padding:9px 14px; border:1px solid var(--border); border-radius:8px; font-size:13.5px; font-family:inherit; background:var(--card); }
+.agco-table { width:100%; border-collapse:collapse; background:var(--card); border-radius:10px; overflow:hidden; box-shadow:0 1px 4px rgba(15,43,31,0.06); }
+.agco-table thead th { background:var(--green-800); color:#fff; text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; padding:10px 16px; }
+.agco-table tbody td { padding:12px 16px; border-bottom:1px solid var(--border); font-size:13.5px; vertical-align:top; }
+.agco-table tbody tr:last-child td { border-bottom:none; }
+.agco-empty { color:var(--muted); font-size:13px; font-style:italic; margin:14px 4px; }
+.program-tag { display:inline-block; font-size:10.5px; font-weight:700; padding:2px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.03em; background:#eef1ee; color:var(--green-700); border:1px solid var(--border); white-space:nowrap; }
+.program-tag.raven { background:var(--gold-100); color:var(--gold-500); border-color:var(--gold-400); }
 footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
-@media (max-width:980px) { .summary-grid{grid-template-columns:repeat(3,1fr);} }
-@media (max-width:600px) { .summary-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:720px) { .summary-grid{grid-template-columns:repeat(2,1fr);} .class-card-top{flex-direction:column;} .class-header{flex-direction:column;align-items:flex-start;} .class-header-seats{text-align:left;width:100%;} .seat-bar{margin-left:0;} .class-card-actions{flex-direction:row;} .email-class-btn,.request-reg-btn{padding:10px;} }
 </style></head><body>
 <div class="header"><div class="header-inner">
   <div class="eyebrow">AGRI-SERVICE, LLC &middot; Training Department</div>
-  <h1>Forklift Certification Expiration Report</h1>
-  <div class="sub">Export Date: Sep 01, 2026 MDT &nbsp;&middot;&nbsp; Scope: All Above units &amp; Units</div>
+  <h1>Training Class Enrollment Report</h1>
+  <div class="sub">Open Seat Report exported Sep 03, 2026 MDT &nbsp;&middot;&nbsp; In-Class Event Report exported Sep 03, 2026 MDT</div>
 </div></div>
 <div class="summary-grid">
-  <div class="summary-card"><div class="num">86</div><div class="label">Total Employees</div></div>
-  <div class="summary-card alert"><div class="num">27</div><div class="label">Not Certified</div></div>
-  <div class="summary-card alert"><div class="num">0</div><div class="label">In Progress</div></div>
-  <div class="summary-card alert"><div class="num">0</div><div class="label">Expired</div></div>
-  <div class="summary-card"><div class="num">0</div><div class="label">Expiring &le; 90 Days</div></div>
-  <div class="summary-card"><div class="num">59</div><div class="label">Current</div></div>
+  <div class="summary-card"><div class="num">7</div><div class="label">Upcoming Classes</div></div>
+  <div class="summary-card"><div class="num">22</div><div class="label">Total Registered</div></div>
+  <div class="summary-card"><div class="num">56</div><div class="label">Open Seats</div></div>
+  <div class="summary-card"><div class="num">7</div><div class="label">Stores Represented</div></div>
 </div>
-<div class="exclusion-note">Excluded from this report as non-employee/equipment records: FT Tractor.</div>
+<div class="main-tab-bar">
+  <button type="button" class="main-tab-btn active" data-maintab="all-classes">All Classes <span class="main-tab-count">7</span></button>
+  <button type="button" class="main-tab-btn" data-maintab="store-enrollment">Enrollment by Store <span class="main-tab-count">7</span></button>
+  <button type="button" class="main-tab-btn" data-maintab="agco-open-seats">AGCO Open Seat Report <span class="main-tab-count">53</span></button>
+</div>
 <main>
-  <section>
-    <div class="section-title alert-title">&#9888; Needs Attention &mdash; 27 without a valid certificate<div class="rule"></div></div>
-    <div class="section-desc">Not Certified and In Progress employees have no valid forklift certification on file today and are the biggest compliance risk, followed by Expired, then certificates Expiring within 90 days.</div>
-    <div class="table-wrap"><table class="data-table" id="tbl-priority">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-priority',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-priority',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-priority',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-priority',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-priority',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-priority',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="notcert" data-store="Heyburn">
+  <section id="all-classes" class="main-tab-panel active">
+    <div class="section-title">All Classes<div class="rule"></div></div>
+    <div class="section-desc">Click a class to view its enrolled roster. Use "Email Class" to message everyone currently registered, or "Request Registration" to ask the training team to sign someone up.</div>
+    
+    <div class="class-card" data-city="Blackfoot">
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-0" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">2026 Fendt Track Tractors Level 4</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Sep 15, 2026 &ndash; Sep 17, 2026</span>
+              <span class="meta-item">&#128205; Blackfoot</span>
+              <span class="meta-item">&#127891; Andrew Kendall</span>
+            </div>
+          </div>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>4</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:33%"></div></div>
+            <div class="seat-avail">8 seats open</div>
+          </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=christopherdolcini@agri-service.com,chaysehanson@agri-service.com,georgeupton@agri-service.com,jasonweimer@agri-service.com&amp;subject=2026%20Fendt%20Track%20Tractors%20Level%204%20%E2%80%94%20Sep%2015%2C%202026%20-%20Sep%2017%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="2026 Fendt Track Tractors Level 4" data-city="Blackfoot" data-dates="Sep 15, 2026 - Sep 17, 2026">&#128221; Request Registration</button>
+        </div>
+      </div>
+      <div class="class-body" id="class-0">
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
-      <td class="col-name">Bair, Cody</td>
-      <td>Sales</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
+      <td class="col-name">Chris Dolcini</td>
+      <td class="col-store">07 - Sugar City</td>
+      <td class="col-email"><a href="mailto:christopherdolcini@agri-service.com">christopherdolcini@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">2</td>
-      <td class="col-name">Bingham, Peter</td>
-      <td>Sales</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Blackfoot">
+      <td class="col-name">Chayse Hanson</td>
+      <td class="col-store">01 - Twin Falls</td>
+      <td class="col-email"><a href="mailto:chaysehanson@agri-service.com">chaysehanson@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">3</td>
-      <td class="col-name">Brooks, Kip</td>
-      <td>Parts</td>
-      <td>Blackfoot</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
+      <td class="col-name">George Upton</td>
+      <td class="col-store">11 - Blackfoot</td>
+      <td class="col-email"><a href="mailto:georgeupton@agri-service.com">georgeupton@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">4</td>
-      <td class="col-name">Carver, Aiden</td>
-      <td>Service</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Twin Falls">
+      <td class="col-name">Jason Weimer</td>
+      <td class="col-store">07 - Sugar City</td>
+      <td class="col-email"><a href="mailto:jasonweimer@agri-service.com">jasonweimer@agri-service.com</a></td>
+    </tr></tbody></table></div>
+      </div>
+    </div>
+    <div class="class-card" data-city="Heyburn">
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-1" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">2026 Trimble PTx Steering 1</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Oct 14, 2026 &ndash; Oct 15, 2026</span>
+              <span class="meta-item">&#128205; Heyburn</span>
+              <span class="meta-item">&#127891; Andrew Kendall</span>
+            </div>
+          </div>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>3</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:25%"></div></div>
+            <div class="seat-avail">9 seats open</div>
+          </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=gilbertalvarado@agri-service.com,terryhanson@agri-service.com,lancewalker@agri-service.com&amp;subject=2026%20Trimble%20PTx%20Steering%201%20%E2%80%94%20Oct%2014%2C%202026%20-%20Oct%2015%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="2026 Trimble PTx Steering 1" data-city="Heyburn" data-dates="Oct 14, 2026 - Oct 15, 2026">&#128221; Request Registration</button>
+        </div>
+      </div>
+      <div class="class-body" id="class-1">
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Gilbert Alvarado-Rios</td>
+      <td class="col-store">01 - Twin Falls</td>
+      <td class="col-email"><a href="mailto:gilbertalvarado@agri-service.com">gilbertalvarado@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Terry Hanson</td>
+      <td class="col-store">01 - Twin Falls</td>
+      <td class="col-email"><a href="mailto:terryhanson@agri-service.com">terryhanson@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Lance Walker</td>
+      <td class="col-store">01 - Twin Falls</td>
+      <td class="col-email"><a href="mailto:lancewalker@agri-service.com">lancewalker@agri-service.com</a></td>
+    </tr></tbody></table></div>
+      </div>
+    </div>
+    <div class="class-card" data-city="Pasco">
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-2" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">2026 Fendt Track Tractors Level 4</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Nov 3, 2026 &ndash; Nov 5, 2026</span>
+              <span class="meta-item">&#128205; Pasco</span>
+              <span class="meta-item">&#127891; Andrew Kendall</span>
+            </div>
+          </div>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>4</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:33%"></div></div>
+            <div class="seat-avail">8 seats open</div>
+          </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=jamesbruinekool@agri-service.com,robincrowner@agri-service.com,jaycobscott@agri-service.com,kevinwillman@agri-service.com&amp;subject=2026%20Fendt%20Track%20Tractors%20Level%204%20%E2%80%94%20Nov%203%2C%202026%20-%20Nov%205%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="2026 Fendt Track Tractors Level 4" data-city="Pasco" data-dates="Nov 3, 2026 - Nov 5, 2026">&#128221; Request Registration</button>
+        </div>
+      </div>
+      <div class="class-body" id="class-2">
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">James Bruinekool</td>
+      <td class="col-store">13 - Pasco</td>
+      <td class="col-email"><a href="mailto:jamesbruinekool@agri-service.com">jamesbruinekool@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Robin Crowner</td>
+      <td class="col-store">13 - Pasco</td>
+      <td class="col-email"><a href="mailto:robincrowner@agri-service.com">robincrowner@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Jaycob Scott</td>
+      <td class="col-store">13 - Pasco</td>
+      <td class="col-email"><a href="mailto:jaycobscott@agri-service.com">jaycobscott@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">Kevin Willman</td>
+      <td class="col-store">13 - Pasco</td>
+      <td class="col-email"><a href="mailto:kevinwillman@agri-service.com">kevinwillman@agri-service.com</a></td>
+    </tr></tbody></table></div>
+      </div>
+    </div>
+    <div class="class-card" data-city="Blackfoot">
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-3" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">2026 Fendt Track Tractors Level 4</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Nov 17, 2026 &ndash; Nov 19, 2026</span>
+              <span class="meta-item">&#128205; Blackfoot</span>
+              <span class="meta-item">&#127891; Andrew Kendall</span>
+            </div>
+          </div>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>7</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:58%"></div></div>
+            <div class="seat-avail">5 seats open</div>
+          </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=loganbuck@agri-service.com,dakotagilbert@agri-service.com,terryhanson@agri-service.com,mikelkincaid@agri-service.com,zanelemmon@agri-service.com,jaimemartinez@agri-service.com,patrickswenson@agri-service.com&amp;subject=2026%20Fendt%20Track%20Tractors%20Level%204%20%E2%80%94%20Nov%2017%2C%202026%20-%20Nov%2019%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="2026 Fendt Track Tractors Level 4" data-city="Blackfoot" data-dates="Nov 17, 2026 - Nov 19, 2026">&#128221; Request Registration</button>
+        </div>
+      </div>
+      <div class="class-body" id="class-3">
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Logan Buck</td>
+      <td class="col-store">04 - Heyburn</td>
+      <td class="col-email"><a href="mailto:loganbuck@agri-service.com">loganbuck@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Dakota Gilbert</td>
+      <td class="col-store">11 - Blackfoot</td>
+      <td class="col-email"><a href="mailto:dakotagilbert@agri-service.com">dakotagilbert@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Terry Hanson</td>
+      <td class="col-store">01 - Twin Falls</td>
+      <td class="col-email"><a href="mailto:terryhanson@agri-service.com">terryhanson@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">Mike Kincaid</td>
+      <td class="col-store">04 - Heyburn</td>
+      <td class="col-email"><a href="mailto:mikelkincaid@agri-service.com">mikelkincaid@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">5</td>
-      <td class="col-name">Coriell, Mark</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
+      <td class="col-name">Zane Lemmon</td>
+      <td class="col-store">07 - Sugar City</td>
+      <td class="col-email"><a href="mailto:zanelemmon@agri-service.com">zanelemmon@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">6</td>
-      <td class="col-name">Cravens, Jon</td>
-      <td>Parts</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
+      <td class="col-name">Jaime Martinez</td>
+      <td class="col-store">11 - Blackfoot</td>
+      <td class="col-email"><a href="mailto:jaimemartinez@agri-service.com">jaimemartinez@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">7</td>
-      <td class="col-name">Crowner, Robin</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">8</td>
-      <td class="col-name">Danz, Paul</td>
-      <td>Trucking</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">9</td>
-      <td class="col-name">Dub, Kelly</td>
-      <td>Service</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">10</td>
-      <td class="col-name">Gardiner, Jeffrey</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Blackfoot">
-      <td class="col-num">11</td>
-      <td class="col-name">Hatch, Russell</td>
-      <td>Trucking</td>
-      <td>Blackfoot</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">12</td>
-      <td class="col-name">Kincaid, Mike</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">13</td>
-      <td class="col-name">Maxfield, Darius</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Sugar City">
-      <td class="col-num">14</td>
-      <td class="col-name">Merrill, Dugan</td>
-      <td>Sales</td>
-      <td>Sugar City</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">15</td>
-      <td class="col-name">Orton, Kevin</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Blackfoot">
-      <td class="col-num">16</td>
-      <td class="col-name">Parris-Miller, Cody</td>
-      <td>Parts</td>
-      <td>Blackfoot</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Field Support">
-      <td class="col-num">17</td>
-      <td class="col-name">Perkins, Anna</td>
-      <td>Administration</td>
-      <td>Field Support</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Field Support">
-      <td class="col-num">18</td>
-      <td class="col-name">Schagel, Addison</td>
-      <td>Administration</td>
-      <td>Field Support</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">19</td>
-      <td class="col-name">Scott, Jaycob</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">20</td>
-      <td class="col-name">Sewell, Rick</td>
-      <td>Administration</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Field Support">
-      <td class="col-num">21</td>
-      <td class="col-name">Spencer, Casey</td>
-      <td>Trucking</td>
-      <td>Field Support</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pullman">
-      <td class="col-num">22</td>
-      <td class="col-name">Thompson, Devin</td>
-      <td>Parts</td>
-      <td>Pullman</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">23</td>
-      <td class="col-name">Valencia Villarreal, Victor</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">24</td>
-      <td class="col-name">Wallace, Paden</td>
-      <td>Sales</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">25</td>
-      <td class="col-name">Wheeler, John</td>
-      <td>Parts</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">26</td>
-      <td class="col-name">Willman, Kevin</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Marsing">
-      <td class="col-num">27</td>
-      <td class="col-name">Withington, Takoda</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr></tbody>
-    </table></div>
+      <td class="col-name">Patrick Swenson</td>
+      <td class="col-store">10 - Marsing</td>
+      <td class="col-email"><a href="mailto:patrickswenson@agri-service.com">patrickswenson@agri-service.com</a></td>
+    </tr></tbody></table></div>
+      </div>
+    </div>
+    <div class="class-card" data-city="Heyburn">
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-4" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">Parts Solutions for PTx Guidance ILT</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Dec 9, 2026</span>
+              <span class="meta-item">&#128205; Heyburn</span>
+              <span class="meta-item">&#127891; Andrew Kendall</span>
+            </div>
+          </div>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>3</strong> / 6 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:50%"></div></div>
+            <div class="seat-avail">3 seats open</div>
+          </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=Tylerdeuel@agri-service.com,benhunsaker@agri-service.com,rjjimenez@agri-service.com&amp;subject=Parts%20Solutions%20for%20PTx%20Guidance%20ILT%20%E2%80%94%20Dec%209%2C%202026" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="Parts Solutions for PTx Guidance ILT" data-city="Heyburn" data-dates="Dec 9, 2026">&#128221; Request Registration</button>
+        </div>
+      </div>
+      <div class="class-body" id="class-4">
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Tyler Deuel</td>
+      <td class="col-store">01 - Twin Falls</td>
+      <td class="col-email"><a href="mailto:Tylerdeuel@agri-service.com">Tylerdeuel@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Ben Hunsaker</td>
+      <td class="col-store">11 - Blackfoot</td>
+      <td class="col-email"><a href="mailto:benhunsaker@agri-service.com">benhunsaker@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">RJ Jimenez-Noguez</td>
+      <td class="col-store">11 - Blackfoot</td>
+      <td class="col-email"><a href="mailto:rjjimenez@agri-service.com">rjjimenez@agri-service.com</a></td>
+    </tr></tbody></table></div>
+      </div>
+    </div>
+    <div class="class-card" data-city="Heyburn">
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-5" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">Lifting and Rigging</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Feb 3, 2027</span>
+              <span class="meta-item">&#128205; Heyburn</span>
+              
+            </div>
+          </div>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>0</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:0%"></div></div>
+            <div class="seat-avail">12 seats open</div>
+          </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn disabled" href="#" aria-disabled="true" tabindex="-1" title="No students enrolled">&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="Lifting and Rigging" data-city="Heyburn" data-dates="Feb 3, 2027">&#128221; Request Registration</button>
+        </div>
+      </div>
+      <div class="class-body" id="class-5">
+        <div class="class-body-inner"><p class="empty-roster">No one is currently enrolled in this session.</p></div>
+      </div>
+    </div>
+    <div class="class-card" data-city="Pasco">
+      <div class="class-card-top">
+        <button class="class-header" data-target="class-6" aria-expanded="false">
+          <div class="class-header-main">
+            <div class="class-title-row">
+              <span class="chevron">&#9656;</span>
+              <span class="class-title">Lifting and Rigging</span>
+              <span class="badge badge-upcoming">Upcoming</span>
+            </div>
+            <div class="class-meta">
+              <span class="meta-item">&#128197; Mar 3, 2027</span>
+              <span class="meta-item">&#128205; Pasco</span>
+              <span class="meta-item">&#127891; Anna Perkins, Ken Haider, Andrew Kendall</span>
+            </div>
+          </div>
+          <div class="class-header-seats">
+            <div class="seat-count"><strong>1</strong> / 12 enrolled</div>
+            <div class="seat-bar"><div class="seat-bar-fill" style="width:8%"></div></div>
+            <div class="seat-avail">11 seats open</div>
+          </div>
+        </button>
+        <div class="class-card-actions">
+          <a class="email-class-btn" href="mailto:?bcc=simoncastillo@agri-service.com&amp;subject=Lifting%20and%20Rigging%20%E2%80%94%20Mar%203%2C%202027" >&#128231; Email Class</a>
+          <button type="button" class="request-reg-btn" data-title="Lifting and Rigging" data-city="Pasco" data-dates="Mar 3, 2027">&#128221; Request Registration</button>
+        </div>
+      </div>
+      <div class="class-body" id="class-6">
+        <div class="class-body-inner"><table class="roster-table"><thead><tr><th>#</th><th>Name</th><th>Store / Location</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Simon Castillo</td>
+      <td class="col-store">16 - Moses Lake</td>
+      <td class="col-email"><a href="mailto:simoncastillo@agri-service.com">simoncastillo@agri-service.com</a></td>
+    </tr></tbody></table></div>
+      </div>
+    </div>
   </section>
-  <section>
-    <div class="section-title">All Employees<div class="rule"></div></div>
-    <div class="section-desc">Full list of forklift certification records. Click a column header to sort, or filter/search below. A low completion % next to a certificate expiration date is fine &mdash; that's a valid cert with a renewal course in progress.</div>
-    <div class="legend">
-      <span><span class="badge badge-notcert">Not Certified</span> no completion, no certificate</span>
-      <span><span class="badge badge-inprogress">In Progress</span> partial completion, no certificate yet</span>
-      <span><span class="badge badge-expired">Expired</span> certificate on file, past its expiration</span>
-      <span><span class="badge badge-expiring">Expiring Soon</span> valid, expires within 90 days</span>
-      <span><span class="badge badge-current">Current</span> valid, more than 90 days remaining</span>
-    </div>
-    <div class="filter-bar" id="filter-bar">
-      <button class="filter-btn active" data-filter="all">All (86)</button>
-      <button class="filter-btn" data-filter="notcert">Not Certified (27)</button>
-      <button class="filter-btn" data-filter="inprogress">In Progress (0)</button>
-      <button class="filter-btn" data-filter="expired">Expired (0)</button>
-      <button class="filter-btn" data-filter="expiring">Expiring Soon (0)</button>
-      <button class="filter-btn" data-filter="current">Current (59)</button>
-      <input type="text" id="search-input" class="search-box" placeholder="Search name, store, department...">
-    </div>
-    <div class="table-wrap"><table class="data-table" id="tbl-all">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-all',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-all',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-all',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-all',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-all',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-all',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="current" data-store="Ontario">
+  <section id="store-enrollment" class="main-tab-panel">
+    <div class="section-title">Enrollment by Store<div class="rule"></div></div>
+    <div class="section-desc">Select a store to see which employees from that location are registered for training, and which class.</div>
+    <div class="tab-bar"><button class="tab-btn active" data-tab="loc-0">Twin Falls <span class="tab-count">6</span></button><button class="tab-btn " data-tab="loc-1">Heyburn <span class="tab-count">2</span></button><button class="tab-btn " data-tab="loc-2">Sugar City <span class="tab-count">3</span></button><button class="tab-btn " data-tab="loc-3">Marsing <span class="tab-count">1</span></button><button class="tab-btn " data-tab="loc-4">Blackfoot <span class="tab-count">5</span></button><button class="tab-btn " data-tab="loc-5">Pasco <span class="tab-count">4</span></button><button class="tab-btn " data-tab="loc-6">Moses Lake <span class="tab-count">1</span></button></div>
+    <div class="tab-panel active" id="loc-0">
+      <div class="loc-summary">6 students enrolled from Twin Falls</div>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
       <td class="col-num">1</td>
-      <td class="col-name">Adams, Brittney</td>
-      <td>Parts</td>
-      <td>Ontario</td>
-      <td data-sort="2029-04-14">Apr 14, 2029<div class="sub-note">in 956 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
+      <td class="col-name">Chayse Hanson</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:chaysehanson@agri-service.com">chaysehanson@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">2</td>
-      <td class="col-name">Alvarado, Lupe</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>0%<div class="sub-note">renewal in progress</div></td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
+      <td class="col-name">Gilbert Alvarado-Rios</td>
+      <td>
+        <div class="loc-class-title">2026 Trimble PTx Steering 1</div>
+        <div class="loc-class-sub">Oct 14, 2026 &ndash; Oct 15, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:gilbertalvarado@agri-service.com">gilbertalvarado@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">3</td>
-      <td class="col-name">Anderson, Patrick</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="2029-08-31">Aug 31, 2029<div class="sub-note">in 1095 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
+      <td class="col-name">Lance Walker</td>
+      <td>
+        <div class="loc-class-title">2026 Trimble PTx Steering 1</div>
+        <div class="loc-class-sub">Oct 14, 2026 &ndash; Oct 15, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:lancewalker@agri-service.com">lancewalker@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">4</td>
-      <td class="col-name">Bair, Cody</td>
-      <td>Sales</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
+      <td class="col-name">Terry Hanson</td>
+      <td>
+        <div class="loc-class-title">2026 Trimble PTx Steering 1</div>
+        <div class="loc-class-sub">Oct 14, 2026 &ndash; Oct 15, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:terryhanson@agri-service.com">terryhanson@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">5</td>
-      <td class="col-name">Belloli, Taylor</td>
-      <td>Parts</td>
-      <td>Heyburn</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
+      <td class="col-name">Terry Hanson</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:terryhanson@agri-service.com">terryhanson@agri-service.com</a></td>
+    </tr><tr>
       <td class="col-num">6</td>
-      <td class="col-name">Bingham, Peter</td>
-      <td>Sales</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">7</td>
-      <td class="col-name">Black, Alan</td>
-      <td>Sales</td>
-      <td>Sugar City</td>
-      <td data-sort="2029-06-25">Jun 25, 2029<div class="sub-note">in 1028 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">8</td>
-      <td class="col-name">Black, Brad</td>
-      <td>Parts</td>
-      <td>Sugar City</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">9</td>
-      <td class="col-name">Briggs, Con</td>
-      <td>Sales</td>
-      <td>Sugar City</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Blackfoot">
-      <td class="col-num">10</td>
-      <td class="col-name">Brooks, Kip</td>
-      <td>Parts</td>
-      <td>Blackfoot</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">11</td>
-      <td class="col-name">Bruinekool, James</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">12</td>
-      <td class="col-name">Buck, Logan</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">13</td>
-      <td class="col-name">Cady, Dylan</td>
-      <td>Sales</td>
-      <td>Marsing</td>
-      <td data-sort="2029-03-26">Mar 26, 2029<div class="sub-note">in 937 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Ontario">
-      <td class="col-num">14</td>
-      <td class="col-name">Capron, Dan</td>
-      <td>Sales</td>
-      <td>Ontario</td>
-      <td data-sort="2029-02-04">Feb 4, 2029<div class="sub-note">in 887 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">15</td>
-      <td class="col-name">Carver, Aiden</td>
-      <td>Service</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Moses Lake">
-      <td class="col-num">16</td>
-      <td class="col-name">Castillo, Simon</td>
-      <td>Service</td>
-      <td>Moses Lake</td>
-      <td data-sort="2029-07-19">Jul 19, 2029<div class="sub-note">in 1052 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Twin Falls">
-      <td class="col-num">17</td>
-      <td class="col-name">Coriell, Mark</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">18</td>
-      <td class="col-name">Cravens, Jon</td>
-      <td>Parts</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">19</td>
-      <td class="col-name">Crowner, Robin</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">20</td>
-      <td class="col-name">Damon, Michael</td>
-      <td>Parts</td>
-      <td>Pasco</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>0%<div class="sub-note">renewal in progress</div></td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">21</td>
-      <td class="col-name">Danz, Paul</td>
-      <td>Trucking</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">22</td>
-      <td class="col-name">Davis, Brenden</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">23</td>
-      <td class="col-name">Dolcini, Chris</td>
-      <td>Service</td>
-      <td>Sugar City</td>
-      <td data-sort="2029-01-27">Jan 27, 2029<div class="sub-note">in 879 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">24</td>
-      <td class="col-name">Dooling, Matthew</td>
-      <td>Administration</td>
-      <td>Marsing</td>
-      <td data-sort="2029-04-13">Apr 13, 2029<div class="sub-note">in 955 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Pullman">
-      <td class="col-num">25</td>
-      <td class="col-name">Druffel, Brad</td>
-      <td>Parts</td>
-      <td>Pullman</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">26</td>
-      <td class="col-name">Dub, Kelly</td>
-      <td>Service</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Moses Lake">
-      <td class="col-num">27</td>
-      <td class="col-name">Escamilla, Jovanny</td>
-      <td>Parts</td>
-      <td>Moses Lake</td>
-      <td data-sort="2029-05-06">May 6, 2029<div class="sub-note">in 978 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">28</td>
-      <td class="col-name">Figueroa-Gomez, Jose</td>
-      <td>Service</td>
-      <td>Blackfoot</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">29</td>
-      <td class="col-name">Friend, Dave</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="2029-05-25">May 25, 2029<div class="sub-note">in 997 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">30</td>
-      <td class="col-name">Gardiner, Jeffrey</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">31</td>
-      <td class="col-name">Gentry, Rich</td>
-      <td>Parts</td>
-      <td>Marsing</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">32</td>
-      <td class="col-name">Gilbert, Dakota</td>
-      <td>Service</td>
-      <td>Blackfoot</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">33</td>
-      <td class="col-name">Groff, Anthony</td>
-      <td>Service</td>
-      <td>Blackfoot</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Field Support">
-      <td class="col-num">34</td>
-      <td class="col-name">Haider, Ken</td>
-      <td>Service</td>
-      <td>Field Support</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>0%<div class="sub-note">renewal in progress</div></td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">35</td>
-      <td class="col-name">Hansen, Joyce</td>
-      <td>Service</td>
-      <td>Sugar City</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">36</td>
-      <td class="col-name">Hanson, Chayse</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">37</td>
-      <td class="col-name">Hanson, Terry</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Blackfoot">
-      <td class="col-num">38</td>
-      <td class="col-name">Hatch, Russell</td>
-      <td>Trucking</td>
-      <td>Blackfoot</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">39</td>
-      <td class="col-name">Hermes, Sean</td>
-      <td>Sales</td>
-      <td>Blackfoot</td>
-      <td data-sort="2029-06-16">Jun 16, 2029<div class="sub-note">in 1019 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">40</td>
-      <td class="col-name">Hotchkiss, Kaleb</td>
-      <td>Sales</td>
-      <td>Marsing</td>
-      <td data-sort="2029-04-13">Apr 13, 2029<div class="sub-note">in 955 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">41</td>
-      <td class="col-name">Hunsaker, Ben</td>
-      <td>Parts</td>
-      <td>Blackfoot</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Field Support">
-      <td class="col-num">42</td>
-      <td class="col-name">Kendall, Andrew</td>
-      <td>Service</td>
-      <td>Field Support</td>
-      <td data-sort="2028-12-09">Dec 9, 2028<div class="sub-note">in 830 days</div></td>
-      <td>0%<div class="sub-note">renewal in progress</div></td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">43</td>
-      <td class="col-name">Kincaid, Mike</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">44</td>
-      <td class="col-name">Lemmon, Zane</td>
-      <td>Service</td>
-      <td>Sugar City</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">45</td>
-      <td class="col-name">Love, Phillip</td>
-      <td>Parts</td>
-      <td>Pasco</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">46</td>
-      <td class="col-name">Martin, Gary</td>
-      <td>Parts</td>
-      <td>Heyburn</td>
-      <td data-sort="2029-01-14">Jan 14, 2029<div class="sub-note">in 866 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">47</td>
-      <td class="col-name">Martinez, Jaime</td>
-      <td>Service</td>
-      <td>Blackfoot</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">48</td>
-      <td class="col-name">Maxfield, Darius</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">49</td>
-      <td class="col-name">McGuire, Marsha</td>
-      <td>Parts</td>
-      <td>Marsing</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">50</td>
-      <td class="col-name">McNall, Ken</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="2029-02-25">Feb 25, 2029<div class="sub-note">in 908 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Sugar City">
-      <td class="col-num">51</td>
-      <td class="col-name">Merrill, Dugan</td>
-      <td>Sales</td>
-      <td>Sugar City</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Walla Walla">
-      <td class="col-num">52</td>
-      <td class="col-name">Monyak, Jon</td>
-      <td>Parts</td>
-      <td>Walla Walla</td>
-      <td data-sort="2029-01-29">Jan 29, 2029<div class="sub-note">in 881 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Moses Lake">
-      <td class="col-num">53</td>
-      <td class="col-name">Mothershead, BJ</td>
-      <td>Parts</td>
-      <td>Moses Lake</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">54</td>
-      <td class="col-name">Nichols, Morgan</td>
-      <td>Parts</td>
-      <td>Sugar City</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">55</td>
-      <td class="col-name">Orton, Kevin</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Blackfoot">
-      <td class="col-num">56</td>
-      <td class="col-name">Parris-Miller, Cody</td>
-      <td>Parts</td>
-      <td>Blackfoot</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Field Support">
-      <td class="col-num">57</td>
-      <td class="col-name">Perkins, Anna</td>
-      <td>Administration</td>
-      <td>Field Support</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">58</td>
-      <td class="col-name">Pfeifer, Mckinnon</td>
-      <td>Parts</td>
-      <td>Heyburn</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">59</td>
-      <td class="col-name">Poole, Tonya</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Field Support">
-      <td class="col-num">60</td>
-      <td class="col-name">Price, Dylan</td>
-      <td>Parts</td>
-      <td>Field Support</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">61</td>
-      <td class="col-name">Ramirez, Rudy</td>
-      <td>Parts</td>
-      <td>Twin Falls</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Field Support">
-      <td class="col-num">62</td>
-      <td class="col-name">Roloff, Jacob</td>
-      <td>Administration</td>
-      <td>Field Support</td>
-      <td data-sort="2029-02-26">Feb 26, 2029<div class="sub-note">in 909 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Moses Lake">
-      <td class="col-num">63</td>
-      <td class="col-name">Rosman, Rick</td>
-      <td>Service</td>
-      <td>Moses Lake</td>
-      <td data-sort="2029-01-26">Jan 26, 2029<div class="sub-note">in 878 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">64</td>
-      <td class="col-name">Scafe, John</td>
-      <td>Service</td>
-      <td>Sugar City</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Field Support">
-      <td class="col-num">65</td>
-      <td class="col-name">Schagel, Addison</td>
-      <td>Administration</td>
-      <td>Field Support</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">66</td>
-      <td class="col-name">Scott, Jaycob</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">67</td>
-      <td class="col-name">Sewell, Rick</td>
-      <td>Administration</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">68</td>
-      <td class="col-name">Sheen, Ray</td>
-      <td>Parts</td>
-      <td>Twin Falls</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">69</td>
-      <td class="col-name">Smith, Jessica</td>
-      <td>Parts</td>
-      <td>Heyburn</td>
-      <td data-sort="2029-01-13">Jan 13, 2029<div class="sub-note">in 865 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Field Support">
-      <td class="col-num">70</td>
-      <td class="col-name">Spencer, Casey</td>
-      <td>Trucking</td>
-      <td>Field Support</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">71</td>
-      <td class="col-name">Sugai, Anthony</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="2029-04-14">Apr 14, 2029<div class="sub-note">in 956 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">72</td>
-      <td class="col-name">Swenson, Patrick</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="2029-04-14">Apr 14, 2029<div class="sub-note">in 956 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">73</td>
-      <td class="col-name">Tauveve, Aaron</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>0%<div class="sub-note">renewal in progress</div></td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Pullman">
-      <td class="col-num">74</td>
-      <td class="col-name">Thompson, Devin</td>
-      <td>Parts</td>
-      <td>Pullman</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">75</td>
-      <td class="col-name">Trumpy, Brad</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">76</td>
-      <td class="col-name">Upton, George</td>
-      <td>Service</td>
-      <td>Blackfoot</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">77</td>
-      <td class="col-name">Valencia Villarreal, Victor</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Field Support">
-      <td class="col-num">78</td>
-      <td class="col-name">Volle, Alex</td>
-      <td>Administration</td>
-      <td>Field Support</td>
-      <td data-sort="2029-08-04">Aug 4, 2029<div class="sub-note">in 1068 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">79</td>
-      <td class="col-name">Walker, Lance</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">80</td>
-      <td class="col-name">Wallace, Paden</td>
-      <td>Sales</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">81</td>
-      <td class="col-name">Walther, Brenna</td>
-      <td>Sales</td>
-      <td>Blackfoot</td>
-      <td data-sort="2029-06-15">Jun 15, 2029<div class="sub-note">in 1018 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">82</td>
-      <td class="col-name">Weimer, Jason</td>
-      <td>Service</td>
-      <td>Sugar City</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">83</td>
-      <td class="col-name">Wheeler, John</td>
-      <td>Parts</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Ontario">
-      <td class="col-num">84</td>
-      <td class="col-name">Whittaker, Michelle</td>
-      <td>Parts</td>
-      <td>Ontario</td>
-      <td data-sort="2029-01-15">Jan 15, 2029<div class="sub-note">in 867 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">85</td>
-      <td class="col-name">Willman, Kevin</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Marsing">
-      <td class="col-num">86</td>
-      <td class="col-name">Withington, Takoda</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr></tbody>
-    </table></div>
+      <td class="col-name">Tyler Deuel</td>
+      <td>
+        <div class="loc-class-title">Parts Solutions for PTx Guidance ILT</div>
+        <div class="loc-class-sub">Dec 9, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:Tylerdeuel@agri-service.com">Tylerdeuel@agri-service.com</a></td>
+    </tr></tbody></table>
+    </div><div class="tab-panel " id="loc-1">
+      <div class="loc-summary">2 students enrolled from Heyburn</div>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Logan Buck</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:loganbuck@agri-service.com">loganbuck@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Mike Kincaid</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:mikelkincaid@agri-service.com">mikelkincaid@agri-service.com</a></td>
+    </tr></tbody></table>
+    </div><div class="tab-panel " id="loc-2">
+      <div class="loc-summary">3 students enrolled from Sugar City</div>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Chris Dolcini</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:christopherdolcini@agri-service.com">christopherdolcini@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Jason Weimer</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:jasonweimer@agri-service.com">jasonweimer@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Zane Lemmon</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:zanelemmon@agri-service.com">zanelemmon@agri-service.com</a></td>
+    </tr></tbody></table>
+    </div><div class="tab-panel " id="loc-3">
+      <div class="loc-summary">1 student enrolled from Marsing</div>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Patrick Swenson</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:patrickswenson@agri-service.com">patrickswenson@agri-service.com</a></td>
+    </tr></tbody></table>
+    </div><div class="tab-panel " id="loc-4">
+      <div class="loc-summary">5 students enrolled from Blackfoot</div>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Ben Hunsaker</td>
+      <td>
+        <div class="loc-class-title">Parts Solutions for PTx Guidance ILT</div>
+        <div class="loc-class-sub">Dec 9, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:benhunsaker@agri-service.com">benhunsaker@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Dakota Gilbert</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:dakotagilbert@agri-service.com">dakotagilbert@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">George Upton</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Sep 15, 2026 &ndash; Sep 17, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:georgeupton@agri-service.com">georgeupton@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">Jaime Martinez</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 17, 2026 &ndash; Nov 19, 2026 &middot; &#128205; Blackfoot &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:jaimemartinez@agri-service.com">jaimemartinez@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">5</td>
+      <td class="col-name">RJ Jimenez-Noguez</td>
+      <td>
+        <div class="loc-class-title">Parts Solutions for PTx Guidance ILT</div>
+        <div class="loc-class-sub">Dec 9, 2026 &middot; &#128205; Heyburn &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:rjjimenez@agri-service.com">rjjimenez@agri-service.com</a></td>
+    </tr></tbody></table>
+    </div><div class="tab-panel " id="loc-5">
+      <div class="loc-summary">4 students enrolled from Pasco</div>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">James Bruinekool</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 3, 2026 &ndash; Nov 5, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:jamesbruinekool@agri-service.com">jamesbruinekool@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">2</td>
+      <td class="col-name">Jaycob Scott</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 3, 2026 &ndash; Nov 5, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:jaycobscott@agri-service.com">jaycobscott@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">3</td>
+      <td class="col-name">Kevin Willman</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 3, 2026 &ndash; Nov 5, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:kevinwillman@agri-service.com">kevinwillman@agri-service.com</a></td>
+    </tr><tr>
+      <td class="col-num">4</td>
+      <td class="col-name">Robin Crowner</td>
+      <td>
+        <div class="loc-class-title">2026 Fendt Track Tractors Level 4</div>
+        <div class="loc-class-sub">Nov 3, 2026 &ndash; Nov 5, 2026 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:robincrowner@agri-service.com">robincrowner@agri-service.com</a></td>
+    </tr></tbody></table>
+    </div><div class="tab-panel " id="loc-6">
+      <div class="loc-summary">1 student enrolled from Moses Lake</div>
+      <table class="loc-table"><thead><tr><th>#</th><th>Student</th><th>Class Enrolled</th><th>Email</th></tr></thead><tbody><tr>
+      <td class="col-num">1</td>
+      <td class="col-name">Simon Castillo</td>
+      <td>
+        <div class="loc-class-title">Lifting and Rigging</div>
+        <div class="loc-class-sub">Mar 3, 2027 &middot; &#128205; Pasco &middot; <span class="badge badge-upcoming">Upcoming</span></div>
+      </td>
+      <td class="col-email"><a href="mailto:simoncastillo@agri-service.com">simoncastillo@agri-service.com</a></td>
+    </tr></tbody></table>
+    </div>
   </section>
-  <section class="tab-group">
-    <div class="section-title">By Store<div class="rule"></div></div>
-    <div class="section-desc">Select a store to see forklift certification status for that location. A red count flags employees without a valid certificate; a gold count flags certificates expiring soon only.</div>
-    <div class="tab-bar"><button class="tab-btn active" data-tab="store-0">Field Support <span class="tab-count">8</span><span class="tab-flag">3</span></button><button class="tab-btn " data-tab="store-1">Twin Falls <span class="tab-count">8</span><span class="tab-flag">1</span></button><button class="tab-btn " data-tab="store-2">Heyburn <span class="tab-count">11</span><span class="tab-flag">5</span></button><button class="tab-btn " data-tab="store-3">Sugar City <span class="tab-count">10</span><span class="tab-flag">1</span></button><button class="tab-btn " data-tab="store-4">Marsing <span class="tab-count">10</span><span class="tab-flag">1</span></button><button class="tab-btn " data-tab="store-5">Blackfoot <span class="tab-count">11</span><span class="tab-flag">3</span></button><button class="tab-btn " data-tab="store-6">Pasco <span class="tab-count">14</span><span class="tab-flag">8</span></button><button class="tab-btn " data-tab="store-7">Moses Lake <span class="tab-count">8</span><span class="tab-flag">4</span></button><button class="tab-btn " data-tab="store-8">Walla Walla <span class="tab-count">1</span></button><button class="tab-btn " data-tab="store-9">Ontario <span class="tab-count">3</span></button><button class="tab-btn " data-tab="store-10">Pullman <span class="tab-count">2</span><span class="tab-flag">1</span></button></div>
-    <div class="tab-panel active" id="store-0">
-      <div class="loc-summary">8 employees at Field Support &middot; 3 without a valid certificate</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-0">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-0',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-0',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-0',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-0',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-0',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-0',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="notcert" data-store="Field Support">
-      <td class="col-num">1</td>
-      <td class="col-name">Perkins, Anna</td>
-      <td>Administration</td>
-      <td>Field Support</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Field Support">
-      <td class="col-num">2</td>
-      <td class="col-name">Schagel, Addison</td>
-      <td>Administration</td>
-      <td>Field Support</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Field Support">
-      <td class="col-num">3</td>
-      <td class="col-name">Spencer, Casey</td>
-      <td>Trucking</td>
-      <td>Field Support</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Field Support">
-      <td class="col-num">4</td>
-      <td class="col-name">Haider, Ken</td>
-      <td>Service</td>
-      <td>Field Support</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>0%<div class="sub-note">renewal in progress</div></td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Field Support">
-      <td class="col-num">5</td>
-      <td class="col-name">Kendall, Andrew</td>
-      <td>Service</td>
-      <td>Field Support</td>
-      <td data-sort="2028-12-09">Dec 9, 2028<div class="sub-note">in 830 days</div></td>
-      <td>0%<div class="sub-note">renewal in progress</div></td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Field Support">
-      <td class="col-num">6</td>
-      <td class="col-name">Price, Dylan</td>
-      <td>Parts</td>
-      <td>Field Support</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Field Support">
-      <td class="col-num">7</td>
-      <td class="col-name">Roloff, Jacob</td>
-      <td>Administration</td>
-      <td>Field Support</td>
-      <td data-sort="2029-02-26">Feb 26, 2029<div class="sub-note">in 909 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Field Support">
-      <td class="col-num">8</td>
-      <td class="col-name">Volle, Alex</td>
-      <td>Administration</td>
-      <td>Field Support</td>
-      <td data-sort="2029-08-04">Aug 4, 2029<div class="sub-note">in 1068 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
-    </div><div class="tab-panel " id="store-1">
-      <div class="loc-summary">8 employees at Twin Falls &middot; 1 without a valid certificate</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-1">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-1',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-1',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-1',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-1',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-1',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-1',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="notcert" data-store="Twin Falls">
-      <td class="col-num">1</td>
-      <td class="col-name">Coriell, Mark</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">2</td>
-      <td class="col-name">Alvarado, Lupe</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>0%<div class="sub-note">renewal in progress</div></td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">3</td>
-      <td class="col-name">Hanson, Chayse</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">4</td>
-      <td class="col-name">Hanson, Terry</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">5</td>
-      <td class="col-name">Ramirez, Rudy</td>
-      <td>Parts</td>
-      <td>Twin Falls</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">6</td>
-      <td class="col-name">Sheen, Ray</td>
-      <td>Parts</td>
-      <td>Twin Falls</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">7</td>
-      <td class="col-name">Tauveve, Aaron</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>0%<div class="sub-note">renewal in progress</div></td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Twin Falls">
-      <td class="col-num">8</td>
-      <td class="col-name">Walker, Lance</td>
-      <td>Service</td>
-      <td>Twin Falls</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
-    </div><div class="tab-panel " id="store-2">
-      <div class="loc-summary">11 employees at Heyburn &middot; 5 without a valid certificate</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-2">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-2',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-2',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-2',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-2',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-2',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-2',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">1</td>
-      <td class="col-name">Bair, Cody</td>
-      <td>Sales</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">2</td>
-      <td class="col-name">Bingham, Peter</td>
-      <td>Sales</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">3</td>
-      <td class="col-name">Kincaid, Mike</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">4</td>
-      <td class="col-name">Maxfield, Darius</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Heyburn">
-      <td class="col-num">5</td>
-      <td class="col-name">Orton, Kevin</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">6</td>
-      <td class="col-name">Belloli, Taylor</td>
-      <td>Parts</td>
-      <td>Heyburn</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">7</td>
-      <td class="col-name">Buck, Logan</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">8</td>
-      <td class="col-name">Martin, Gary</td>
-      <td>Parts</td>
-      <td>Heyburn</td>
-      <td data-sort="2029-01-14">Jan 14, 2029<div class="sub-note">in 866 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">9</td>
-      <td class="col-name">Pfeifer, Mckinnon</td>
-      <td>Parts</td>
-      <td>Heyburn</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">10</td>
-      <td class="col-name">Poole, Tonya</td>
-      <td>Service</td>
-      <td>Heyburn</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Heyburn">
-      <td class="col-num">11</td>
-      <td class="col-name">Smith, Jessica</td>
-      <td>Parts</td>
-      <td>Heyburn</td>
-      <td data-sort="2029-01-13">Jan 13, 2029<div class="sub-note">in 865 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
-    </div><div class="tab-panel " id="store-3">
-      <div class="loc-summary">10 employees at Sugar City &middot; 1 without a valid certificate</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-3">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-3',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-3',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-3',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-3',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-3',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-3',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="notcert" data-store="Sugar City">
-      <td class="col-num">1</td>
-      <td class="col-name">Merrill, Dugan</td>
-      <td>Sales</td>
-      <td>Sugar City</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">2</td>
-      <td class="col-name">Black, Alan</td>
-      <td>Sales</td>
-      <td>Sugar City</td>
-      <td data-sort="2029-06-25">Jun 25, 2029<div class="sub-note">in 1028 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">3</td>
-      <td class="col-name">Black, Brad</td>
-      <td>Parts</td>
-      <td>Sugar City</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">4</td>
-      <td class="col-name">Briggs, Con</td>
-      <td>Sales</td>
-      <td>Sugar City</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">5</td>
-      <td class="col-name">Dolcini, Chris</td>
-      <td>Service</td>
-      <td>Sugar City</td>
-      <td data-sort="2029-01-27">Jan 27, 2029<div class="sub-note">in 879 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">6</td>
-      <td class="col-name">Hansen, Joyce</td>
-      <td>Service</td>
-      <td>Sugar City</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">7</td>
-      <td class="col-name">Lemmon, Zane</td>
-      <td>Service</td>
-      <td>Sugar City</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">8</td>
-      <td class="col-name">Nichols, Morgan</td>
-      <td>Parts</td>
-      <td>Sugar City</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">9</td>
-      <td class="col-name">Scafe, John</td>
-      <td>Service</td>
-      <td>Sugar City</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Sugar City">
-      <td class="col-num">10</td>
-      <td class="col-name">Weimer, Jason</td>
-      <td>Service</td>
-      <td>Sugar City</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
-    </div><div class="tab-panel " id="store-4">
-      <div class="loc-summary">10 employees at Marsing &middot; 1 without a valid certificate</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-4">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-4',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-4',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-4',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-4',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-4',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-4',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="notcert" data-store="Marsing">
-      <td class="col-num">1</td>
-      <td class="col-name">Withington, Takoda</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">2</td>
-      <td class="col-name">Anderson, Patrick</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="2029-08-31">Aug 31, 2029<div class="sub-note">in 1095 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">3</td>
-      <td class="col-name">Cady, Dylan</td>
-      <td>Sales</td>
-      <td>Marsing</td>
-      <td data-sort="2029-03-26">Mar 26, 2029<div class="sub-note">in 937 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">4</td>
-      <td class="col-name">Dooling, Matthew</td>
-      <td>Administration</td>
-      <td>Marsing</td>
-      <td data-sort="2029-04-13">Apr 13, 2029<div class="sub-note">in 955 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">5</td>
-      <td class="col-name">Friend, Dave</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="2029-05-25">May 25, 2029<div class="sub-note">in 997 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">6</td>
-      <td class="col-name">Gentry, Rich</td>
-      <td>Parts</td>
-      <td>Marsing</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">7</td>
-      <td class="col-name">Hotchkiss, Kaleb</td>
-      <td>Sales</td>
-      <td>Marsing</td>
-      <td data-sort="2029-04-13">Apr 13, 2029<div class="sub-note">in 955 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">8</td>
-      <td class="col-name">McGuire, Marsha</td>
-      <td>Parts</td>
-      <td>Marsing</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">9</td>
-      <td class="col-name">Sugai, Anthony</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="2029-04-14">Apr 14, 2029<div class="sub-note">in 956 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Marsing">
-      <td class="col-num">10</td>
-      <td class="col-name">Swenson, Patrick</td>
-      <td>Service</td>
-      <td>Marsing</td>
-      <td data-sort="2029-04-14">Apr 14, 2029<div class="sub-note">in 956 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
-    </div><div class="tab-panel " id="store-5">
-      <div class="loc-summary">11 employees at Blackfoot &middot; 3 without a valid certificate</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-5">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-5',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-5',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-5',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-5',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-5',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-5',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="notcert" data-store="Blackfoot">
-      <td class="col-num">1</td>
-      <td class="col-name">Brooks, Kip</td>
-      <td>Parts</td>
-      <td>Blackfoot</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Blackfoot">
-      <td class="col-num">2</td>
-      <td class="col-name">Hatch, Russell</td>
-      <td>Trucking</td>
-      <td>Blackfoot</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Blackfoot">
-      <td class="col-num">3</td>
-      <td class="col-name">Parris-Miller, Cody</td>
-      <td>Parts</td>
-      <td>Blackfoot</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">4</td>
-      <td class="col-name">Figueroa-Gomez, Jose</td>
-      <td>Service</td>
-      <td>Blackfoot</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">5</td>
-      <td class="col-name">Gilbert, Dakota</td>
-      <td>Service</td>
-      <td>Blackfoot</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">6</td>
-      <td class="col-name">Groff, Anthony</td>
-      <td>Service</td>
-      <td>Blackfoot</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">7</td>
-      <td class="col-name">Hermes, Sean</td>
-      <td>Sales</td>
-      <td>Blackfoot</td>
-      <td data-sort="2029-06-16">Jun 16, 2029<div class="sub-note">in 1019 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">8</td>
-      <td class="col-name">Hunsaker, Ben</td>
-      <td>Parts</td>
-      <td>Blackfoot</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">9</td>
-      <td class="col-name">Martinez, Jaime</td>
-      <td>Service</td>
-      <td>Blackfoot</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">10</td>
-      <td class="col-name">Upton, George</td>
-      <td>Service</td>
-      <td>Blackfoot</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Blackfoot">
-      <td class="col-num">11</td>
-      <td class="col-name">Walther, Brenna</td>
-      <td>Sales</td>
-      <td>Blackfoot</td>
-      <td data-sort="2029-06-15">Jun 15, 2029<div class="sub-note">in 1018 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
-    </div><div class="tab-panel " id="store-6">
-      <div class="loc-summary">14 employees at Pasco &middot; 8 without a valid certificate</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-6">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-6',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-6',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-6',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-6',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-6',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-6',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">1</td>
-      <td class="col-name">Cravens, Jon</td>
-      <td>Parts</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">2</td>
-      <td class="col-name">Crowner, Robin</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">3</td>
-      <td class="col-name">Danz, Paul</td>
-      <td>Trucking</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">4</td>
-      <td class="col-name">Gardiner, Jeffrey</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">5</td>
-      <td class="col-name">Scott, Jaycob</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">6</td>
-      <td class="col-name">Valencia Villarreal, Victor</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">7</td>
-      <td class="col-name">Wheeler, John</td>
-      <td>Parts</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Pasco">
-      <td class="col-num">8</td>
-      <td class="col-name">Willman, Kevin</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">9</td>
-      <td class="col-name">Bruinekool, James</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">10</td>
-      <td class="col-name">Damon, Michael</td>
-      <td>Parts</td>
-      <td>Pasco</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>0%<div class="sub-note">renewal in progress</div></td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">11</td>
-      <td class="col-name">Davis, Brenden</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">12</td>
-      <td class="col-name">Love, Phillip</td>
-      <td>Parts</td>
-      <td>Pasco</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">13</td>
-      <td class="col-name">McNall, Ken</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="2029-02-25">Feb 25, 2029<div class="sub-note">in 908 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Pasco">
-      <td class="col-num">14</td>
-      <td class="col-name">Trumpy, Brad</td>
-      <td>Service</td>
-      <td>Pasco</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
-    </div><div class="tab-panel " id="store-7">
-      <div class="loc-summary">8 employees at Moses Lake &middot; 4 without a valid certificate</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-7">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-7',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-7',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-7',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-7',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-7',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-7',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">1</td>
-      <td class="col-name">Carver, Aiden</td>
-      <td>Service</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">2</td>
-      <td class="col-name">Dub, Kelly</td>
-      <td>Service</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">3</td>
-      <td class="col-name">Sewell, Rick</td>
-      <td>Administration</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="notcert" data-store="Moses Lake">
-      <td class="col-num">4</td>
-      <td class="col-name">Wallace, Paden</td>
-      <td>Sales</td>
-      <td>Moses Lake</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Moses Lake">
-      <td class="col-num">5</td>
-      <td class="col-name">Castillo, Simon</td>
-      <td>Service</td>
-      <td>Moses Lake</td>
-      <td data-sort="2029-07-19">Jul 19, 2029<div class="sub-note">in 1052 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Moses Lake">
-      <td class="col-num">6</td>
-      <td class="col-name">Escamilla, Jovanny</td>
-      <td>Parts</td>
-      <td>Moses Lake</td>
-      <td data-sort="2029-05-06">May 6, 2029<div class="sub-note">in 978 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Moses Lake">
-      <td class="col-num">7</td>
-      <td class="col-name">Mothershead, BJ</td>
-      <td>Parts</td>
-      <td>Moses Lake</td>
-      <td data-sort="2027-01-08">Jan 8, 2027<div class="sub-note">in 129 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Moses Lake">
-      <td class="col-num">8</td>
-      <td class="col-name">Rosman, Rick</td>
-      <td>Service</td>
-      <td>Moses Lake</td>
-      <td data-sort="2029-01-26">Jan 26, 2029<div class="sub-note">in 878 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
-    </div><div class="tab-panel " id="store-8">
-      <div class="loc-summary">1 employee at Walla Walla</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-8">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-8',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-8',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-8',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-8',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-8',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-8',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="current" data-store="Walla Walla">
-      <td class="col-num">1</td>
-      <td class="col-name">Monyak, Jon</td>
-      <td>Parts</td>
-      <td>Walla Walla</td>
-      <td data-sort="2029-01-29">Jan 29, 2029<div class="sub-note">in 881 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
-    </div><div class="tab-panel " id="store-9">
-      <div class="loc-summary">3 employees at Ontario</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-9">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-9',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-9',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-9',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-9',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-9',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-9',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="current" data-store="Ontario">
-      <td class="col-num">1</td>
-      <td class="col-name">Adams, Brittney</td>
-      <td>Parts</td>
-      <td>Ontario</td>
-      <td data-sort="2029-04-14">Apr 14, 2029<div class="sub-note">in 956 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Ontario">
-      <td class="col-num">2</td>
-      <td class="col-name">Capron, Dan</td>
-      <td>Sales</td>
-      <td>Ontario</td>
-      <td data-sort="2029-02-04">Feb 4, 2029<div class="sub-note">in 887 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr><tr data-status="current" data-store="Ontario">
-      <td class="col-num">3</td>
-      <td class="col-name">Whittaker, Michelle</td>
-      <td>Parts</td>
-      <td>Ontario</td>
-      <td data-sort="2029-01-15">Jan 15, 2029<div class="sub-note">in 867 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
-    </div><div class="tab-panel " id="store-10">
-      <div class="loc-summary">2 employees at Pullman &middot; 1 without a valid certificate</div>
-      <div class="table-wrap"><table class="data-table" id="tbl-store-10">
-      <thead><tr>
-        <th class="col-num">#</th>
-        <th onclick="sortTable('tbl-store-10',1)">Employee<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-10',2)">Department<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-10',3)">Store<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-10',4)">Certificate Expiration<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-10',5)">% Completed<span class="sort-arrow"></span></th>
-        <th onclick="sortTable('tbl-store-10',6)">Status<span class="sort-arrow"></span></th>
-      </tr></thead>
-      <tbody><tr data-status="notcert" data-store="Pullman">
-      <td class="col-num">1</td>
-      <td class="col-name">Thompson, Devin</td>
-      <td>Parts</td>
-      <td>Pullman</td>
-      <td data-sort="9999-99-99">&mdash;</td>
-      <td>0%</td>
-      <td data-sort="0"><span class="badge badge-notcert">Not Certified</span></td>
-    </tr><tr data-status="current" data-store="Pullman">
-      <td class="col-num">2</td>
-      <td class="col-name">Druffel, Brad</td>
-      <td>Parts</td>
-      <td>Pullman</td>
-      <td data-sort="2028-01-08">Jan 8, 2028<div class="sub-note">in 494 days</div></td>
-      <td>100%</td>
-      <td data-sort="4"><span class="badge badge-current">Current</span></td>
-    </tr></tbody>
-    </table></div>
+  <section id="agco-open-seats" class="main-tab-panel">
+    <div class="section-title">AGCO Open Seat Report<div class="rule"></div></div>
+    <div class="section-desc">Live seat availability across AGCO Academy's national technical training catalog as of 8-27-26 &mdash; 53 sessions, 49 with open seats. From the Technical Training Catalog. Search by class or location, or filter by seat status. Use "Request" to ask the training team to sign someone up for a session.</div>
+    <div class="agco-controls">
+      <input type="text" id="agco-search" class="agco-search" placeholder="Search by class title or location..." oninput="agcoFilterTable()">
+      <select id="agco-status-filter" class="agco-status-filter" onchange="agcoFilterTable()">
+        <option value="all">All classes</option>
+        <option value="open">Open seats only</option>
+        <option value="full">Full only</option>
+      </select>
     </div>
+    <table class="agco-table" id="agco-table">
+      <thead><tr><th>Program</th><th>Class</th><th>Location</th><th>Dates</th><th>Seats</th><th>Action</th></tr></thead>
+      <tbody><tr data-search="level 5 professional: electrical &amp; hydraulics woodstock on - agco woodstock pdc 1400 commerce way unit c woodstock on n4v 0c5 agco" data-status="full">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5</td>
+      <td>Sep 1, 2026 &ndash; Sep 4, 2026</td>
+      <td><span class="badge badge-cancelled">Full</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5" data-dates="Sep 1, 2026 - Sep 4, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics woodstock on - agco woodstock pdc 1400 commerce way unit c woodstock on n4v 0c5 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5</td>
+      <td>Sep 8, 2026 &ndash; Sep 11, 2026</td>
+      <td><span class="badge badge-upcoming">1 open (7/8)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5" data-dates="Sep 8, 2026 - Sep 11, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: massey ferguson hhp (5s - 9s series) (2026) mont-joli qc - centre de formation professionelle mont-joli - mitis -2445 rue principale st. joseph-de-lepage, qc g5h 3n5 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)</div><div class="loc-class-sub">&#128204; French class at Mont Joli</div></td>
+      <td>Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5</td>
+      <td>Sep 8, 2026 &ndash; Sep 10, 2026</td>
+      <td><span class="badge badge-upcoming">6 open (9/15)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)" data-city="Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5" data-dates="Sep 8, 2026 - Sep 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf &amp; ft planters (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF &amp; FT Planters (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Sep 9, 2026 &ndash; Sep 10, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF &amp; FT Planters (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Sep 9, 2026 - Sep 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: raven fendt 900 rogator liquid application technology edgewood md - agco assemby center 103 fulfillment drive, edgewood md 21040 raven" data-status="open">
+      <td><span class="program-tag raven">Raven</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</div></td>
+      <td>Edgewood MD - AGCO Assemby Center 103 Fulfillment Drive, Edgewood MD 21040</td>
+      <td>Sep 15, 2026 &ndash; Sep 17, 2026</td>
+      <td><span class="badge badge-completed">7 open (3/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology" data-city="Edgewood MD - AGCO Assemby Center 103 Fulfillment Drive, Edgewood MD 21040" data-dates="Sep 15, 2026 - Sep 17, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 4 foundation: technology hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 4 Foundation: Technology</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Sep 22, 2026 &ndash; Sep 24, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 4 Foundation: Technology" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Sep 22, 2026 - Sep 24, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics jackson mn - agco jackson training center 202 industrial park, jackson mn 56143 agco" data-status="full">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Sep 22, 2026 &ndash; Sep 25, 2026</td>
+      <td><span class="badge badge-cancelled">Full</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143" data-dates="Sep 22, 2026 - Sep 25, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics mont-joli qc - centre de formation professionelle mont-joli - mitis -2445 rue principale st. joseph-de-lepage, qc g5h 3n5 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div><div class="loc-class-sub">&#128204; French class at Mont Joli</div></td>
+      <td>Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5</td>
+      <td>Oct 6, 2026 &ndash; Oct 9, 2026</td>
+      <td><span class="badge badge-upcoming">5 open (10/15)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5" data-dates="Oct 6, 2026 - Oct 9, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson low horsepower duluth ga - agco global learning center (glc) 4570 river green parkway suite 140 duluth ga 30096 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson Low Horsepower</div></td>
+      <td>Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096</td>
+      <td>Oct 6, 2026 &ndash; Oct 8, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson Low Horsepower" data-city="Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096" data-dates="Oct 6, 2026 - Oct 8, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 4 foundation: technology champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 4 Foundation: Technology</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Oct 6, 2026 &ndash; Oct 8, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 4 Foundation: Technology" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Oct 6, 2026 - Oct 8, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Oct 6, 2026 &ndash; Oct 9, 2026</td>
+      <td><span class="badge badge-upcoming">4 open (6/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Oct 6, 2026 - Oct 9, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: fendt wheel tractors hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Fendt Wheel Tractors</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Oct 6, 2026 &ndash; Oct 8, 2026</td>
+      <td><span class="badge badge-completed">8 open (2/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Fendt Wheel Tractors" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Oct 6, 2026 - Oct 8, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf &amp; ft planters (2026) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF &amp; FT Planters (2026)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Oct 13, 2026 &ndash; Oct 14, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF &amp; FT Planters (2026)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Oct 13, 2026 - Oct 14, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: fendt wheel tractors (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Fendt Wheel Tractors (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Oct 13, 2026 &ndash; Oct 15, 2026</td>
+      <td><span class="badge badge-upcoming">4 open (6/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Fendt Wheel Tractors (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Oct 13, 2026 - Oct 15, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: massey ferguson hhp (5s - 9s series) (2026) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Oct 13, 2026 &ndash; Oct 15, 2026</td>
+      <td><span class="badge badge-completed">6 open (4/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Oct 13, 2026 - Oct 15, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: terragator c series (2026) jackson mn - agco jackson training center 202 industrial park, jackson mn 56143 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: TerraGator C Series (2026)</div></td>
+      <td>Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Oct 13, 2026 &ndash; Oct 15, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: TerraGator C Series (2026)" data-city="Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143" data-dates="Oct 13, 2026 - Oct 15, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 3: application of technical theory hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 3: Application of Technical Theory</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Oct 19, 2026 &ndash; Oct 23, 2026</td>
+      <td><span class="badge badge-completed">27 open (3/30)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 3: Application of Technical Theory" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Oct 19, 2026 - Oct 23, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics jackson mn - agco jackson training center 202 industrial park, jackson mn 56143 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Oct 19, 2026 &ndash; Oct 22, 2026</td>
+      <td><span class="badge badge-upcoming">2 open (8/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143" data-dates="Oct 19, 2026 - Oct 22, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf low horsepower tractors (2026) edgewood md - agco assemby center 103 fulfillment drive, edgewood md 21040 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF Low Horsepower Tractors (2026)</div></td>
+      <td>Edgewood MD - AGCO Assemby Center 103 Fulfillment Drive, Edgewood MD 21040</td>
+      <td>Oct 27, 2026 &ndash; Oct 29, 2026</td>
+      <td><span class="badge badge-completed">8 open (2/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF Low Horsepower Tractors (2026)" data-city="Edgewood MD - AGCO Assemby Center 103 Fulfillment Drive, Edgewood MD 21040" data-dates="Oct 27, 2026 - Oct 29, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="full">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Nov 2, 2026 &ndash; Nov 5, 2026</td>
+      <td><span class="badge badge-cancelled">Full</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Nov 2, 2026 - Nov 5, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: engines &amp; powertrain hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="full">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Engines &amp; Powertrain</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Nov 2, 2026 &ndash; Nov 5, 2026</td>
+      <td><span class="badge badge-cancelled">Full</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Engines &amp; Powertrain" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Nov 2, 2026 - Nov 5, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: ideal combines champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: IDEAL Combines</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 2, 2026 &ndash; Nov 4, 2026</td>
+      <td><span class="badge badge-completed">8 open (2/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: IDEAL Combines" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 2, 2026 - Nov 4, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: fendt 900 rogator (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Fendt 900 Rogator (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 3, 2026 &ndash; Nov 5, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Fendt 900 Rogator (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 3, 2026 - Nov 5, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson hhp (5s - 9s series) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 3, 2026 &ndash; Nov 5, 2026</td>
+      <td><span class="badge badge-completed">8 open (2/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 3, 2026 - Nov 5, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: ideal combines (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: IDEAL Combines (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 4, 2026 &ndash; Nov 6, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: IDEAL Combines (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 4, 2026 - Nov 6, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 5 professional: electrical &amp; hydraulics mont-joli qc - centre de formation professionelle mont-joli - mitis -2445 rue principale st. joseph-de-lepage, qc g5h 3n5 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 5 Professional: Electrical &amp; Hydraulics</div><div class="loc-class-sub">&#128204; French class at Mont Joli</div></td>
+      <td>Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5</td>
+      <td>Nov 10, 2026 &ndash; Nov 13, 2026</td>
+      <td><span class="badge badge-upcoming">3 open (12/15)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 5 Professional: Electrical &amp; Hydraulics" data-city="Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5" data-dates="Nov 10, 2026 - Nov 13, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf 500r sprayer (2026) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF 500R Sprayer (2026)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Nov 10, 2026 &ndash; Nov 12, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF 500R Sprayer (2026)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Nov 10, 2026 - Nov 12, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf low horsepower tractors (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF Low Horsepower Tractors (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 10, 2026 &ndash; Nov 12, 2026</td>
+      <td><span class="badge badge-completed">7 open (3/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF Low Horsepower Tractors (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 10, 2026 - Nov 12, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: massey ferguson hhp (5s - 9s series) (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Nov 10, 2026 &ndash; Nov 12, 2026</td>
+      <td><span class="badge badge-completed">8 open (2/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Massey Ferguson HHP (5S - 9S Series) (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Nov 10, 2026 - Nov 12, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson hhp (5s - 9s series) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Nov 17, 2026 &ndash; Nov 19, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Nov 17, 2026 - Nov 19, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: terragator c series (2026) jackson mn - agco jackson training center 202 industrial park, jackson mn 56143 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: TerraGator C Series (2026)</div></td>
+      <td>Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Nov 17, 2026 &ndash; Nov 19, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: TerraGator C Series (2026)" data-city="Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143" data-dates="Nov 17, 2026 - Nov 19, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: raven fendt 900 rogator liquid application technology woodstock on - agco woodstock pdc 1400 commerce way unit c woodstock on n4v 0c5 raven" data-status="open">
+      <td><span class="program-tag raven">Raven</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</div></td>
+      <td>Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5</td>
+      <td>Nov 17, 2026 &ndash; Nov 19, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology" data-city="Woodstock ON - AGCO Woodstock PDC 1400 Commerce Way Unit C Woodstock ON N4V 0C5" data-dates="Nov 17, 2026 - Nov 19, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: ft momentum planters hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: FT Momentum Planters</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Nov 18, 2026 &ndash; Nov 19, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: FT Momentum Planters" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Nov 18, 2026 - Nov 19, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: fendt wheel tractors (2026) mont-joli qc - centre de formation professionelle mont-joli - mitis -2445 rue principale st. joseph-de-lepage, qc g5h 3n5 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Fendt Wheel Tractors (2026)</div><div class="loc-class-sub">&#128204; French class at Mont Joli</div></td>
+      <td>Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5</td>
+      <td>Dec 1, 2026 &ndash; Dec 3, 2026</td>
+      <td><span class="badge badge-completed">10 open (5/15)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Fendt Wheel Tractors (2026)" data-city="Mont-Joli QC - Centre de formation professionelle Mont-Joli - Mitis -2445 rue principale St. Joseph-de-Lepage, QC G5H 3N5" data-dates="Dec 1, 2026 - Dec 3, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: square balers (2026) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Square Balers (2026)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 1, 2026 &ndash; Dec 2, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Square Balers (2026)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 1, 2026 - Dec 2, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson hhp (5s - 9s series) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 1, 2026 &ndash; Dec 3, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 1, 2026 - Dec 3, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf low horsepower tractors (2026) duluth ga - agco global learning center (glc) 4570 river green parkway suite 140 duluth ga 30096 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF Low Horsepower Tractors (2026)</div></td>
+      <td>Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096</td>
+      <td>Dec 2, 2026 &ndash; Dec 4, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF Low Horsepower Tractors (2026)" data-city="Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096" data-dates="Dec 2, 2026 - Dec 4, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: mf commercial round balers 4100v hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: MF Commercial Round Balers 4100V</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 3, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: MF Commercial Round Balers 4100V" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 3, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: mf rb146/156 round balers hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: MF RB146/156 Round Balers</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 4, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: MF RB146/156 Round Balers" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 4, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson low horsepower duluth ga - agco global learning center (glc) 4570 river green parkway suite 140 duluth ga 30096 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson Low Horsepower</div></td>
+      <td>Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096</td>
+      <td>Dec 7, 2026 &ndash; Dec 9, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson Low Horsepower" data-city="Duluth GA - AGCO Global Learning Center (GLC) 4570 River Green Parkway Suite 140 Duluth GA 30096" data-dates="Dec 7, 2026 - Dec 9, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: fendt 900 rogator (2026) jackson mn - agco jackson training center 202 industrial park, jackson mn 56143 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: Fendt 900 Rogator (2026)</div></td>
+      <td>Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Dec 8, 2026 &ndash; Dec 10, 2026</td>
+      <td><span class="badge badge-completed">7 open (3/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: Fendt 900 Rogator (2026)" data-city="Jackson MN - AGCO Jackson Training Center 202 Industrial Park, Jackson MN 56143" data-dates="Dec 8, 2026 - Dec 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf &amp; ft planters (2026) champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF &amp; FT Planters (2026)</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Dec 8, 2026 &ndash; Dec 9, 2026</td>
+      <td><span class="badge badge-completed">7 open (3/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF &amp; FT Planters (2026)" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Dec 8, 2026 - Dec 9, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: fendt wheel tractors hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Fendt Wheel Tractors</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 8, 2026 &ndash; Dec 10, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Fendt Wheel Tractors" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 8, 2026 - Dec 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: mf windrowers (2026) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: MF Windrowers (2026)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 8, 2026 &ndash; Dec 9, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: MF Windrowers (2026)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 8, 2026 - Dec 9, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: massey ferguson hhp (5s - 9s series) hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 8, 2026 &ndash; Dec 10, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: Massey Ferguson HHP (5S - 9S Series)" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 8, 2026 - Dec 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: ideal combines (2026) jackson mn - agco jackson engineering center 202 industrial park, jackson mn 56143 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: IDEAL Combines (2026)</div></td>
+      <td>Jackson MN - AGCO Jackson Engineering Center 202 Industrial Park, Jackson MN 56143</td>
+      <td>Dec 9, 2026 &ndash; Dec 11, 2026</td>
+      <td><span class="badge badge-completed">7 open (3/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: IDEAL Combines (2026)" data-city="Jackson MN - AGCO Jackson Engineering Center 202 Industrial Park, Jackson MN 56143" data-dates="Dec 9, 2026 - Dec 11, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: ft momentum planters champaign il - parkland college - 2400 west bradley avenue, champaign, il 61821-1899 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: FT Momentum Planters</div></td>
+      <td>Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899</td>
+      <td>Dec 10, 2026 &ndash; Dec 11, 2026</td>
+      <td><span class="badge badge-completed">9 open (1/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: FT Momentum Planters" data-city="Champaign IL - Parkland College - 2400 West Bradley Avenue, Champaign, IL 61821-1899" data-dates="Dec 10, 2026 - Dec 11, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: mf commercial round balers 4100v hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: MF Commercial Round Balers 4100V</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 10, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: MF Commercial Round Balers 4100V" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 10, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 6 expert: mf rb146/156 round balers hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 6 Expert: MF RB146/156 Round Balers</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 11, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 6 Expert: MF RB146/156 Round Balers" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 11, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="2026 level 4 foundation: technology hesston ks - agco hesston training center 420 west lincoln blvd hesston ks 67062 agco" data-status="open">
+      <td><span class="program-tag">AGCO</span></td>
+      <td><div class="loc-class-title">2026 Level 4 Foundation: Technology</div></td>
+      <td>Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062</td>
+      <td>Dec 15, 2026 &ndash; Dec 17, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="2026 Level 4 Foundation: Technology" data-city="Hesston KS - AGCO Hesston Training Center 420 West Lincoln BLVD Hesston KS 67062" data-dates="Dec 15, 2026 - Dec 17, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: raven fendt 900 rogator liquid application technology naca__ dealer facility raven" data-status="open">
+      <td><span class="program-tag raven">Raven</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</div><div class="loc-class-sub">&#128204; Trochu</div></td>
+      <td>NACA__ Dealer Facility</td>
+      <td>Dec 15, 2026 &ndash; Dec 17, 2026</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology" data-city="NACA__ Dealer Facility" data-dates="Dec 15, 2026 - Dec 17, 2026">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: raven fendt 900 rogator liquid application technology naca__ dealer facility raven" data-status="open">
+      <td><span class="program-tag raven">Raven</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology</div><div class="loc-class-sub">&#128204; Full Line - Saskatoon</div></td>
+      <td>NACA__ Dealer Facility</td>
+      <td>Date TBD</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: RAVEN Fendt 900 Rogator Liquid Application Technology" data-city="NACA__ Dealer Facility" data-dates="Date TBD">&#128221; Request</button></td>
+    </tr><tr data-search="level 4 foundation: raven terragator amp, r1/r2, 720 granular application technology naca__ dealer facility raven" data-status="open">
+      <td><span class="program-tag raven">Raven</span></td>
+      <td><div class="loc-class-title">Level 4 Foundation: RAVEN Terragator AMP, R1/R2, 720 Granular Application Technology</div><div class="loc-class-sub">&#128204; AgWest</div></td>
+      <td>NACA__ Dealer Facility</td>
+      <td>Date TBD</td>
+      <td><span class="badge badge-completed">10 open (0/10)</span></td>
+      <td><button type="button" class="request-reg-btn table-btn" data-title="Level 4 Foundation: RAVEN Terragator AMP, R1/R2, 720 Granular Application Technology" data-city="NACA__ Dealer Facility" data-dates="Date TBD">&#128221; Request</button></td>
+    </tr></tbody>
+    </table>
+    <p class="agco-empty" id="agco-empty" style="display:none;">No classes match your search.</p>
   </section>
 </main>
-<footer>Generated for AGRI-SERVICE, LLC &middot; Source: Forklift_Expiration_Report_6a96e41e8144e.csv &middot; Report built Sep 1, 2026</footer>
+<footer>Generated for Agri-Service, LLC &middot; Source: Open Seat Report, In-Class Event Report &amp; Technical Training Catalog</footer>
 <script>
-function sortTable(id, col) {
-  var table = document.getElementById(id);
-  var tbody = table.tBodies[0];
-  var rows = Array.prototype.slice.call(tbody.rows);
-  var asc = table.getAttribute('data-sort-col') != col || table.getAttribute('data-sort-dir') !== 'asc';
-  rows.sort(function(a, b) {
-    var av = a.cells[col].getAttribute('data-sort') || a.cells[col].textContent.trim();
-    var bv = b.cells[col].getAttribute('data-sort') || b.cells[col].textContent.trim();
-    var an = parseFloat(av), bn = parseFloat(bv);
-    if (!isNaN(an) && !isNaN(bn)) { return asc ? an - bn : bn - an; }
-    return asc ? av.localeCompare(bv) : bv.localeCompare(av);
+document.querySelectorAll('.class-header').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var body = document.getElementById(btn.dataset.target);
+    var isOpen = body.classList.contains('open');
+    if (isOpen) { body.style.maxHeight = null; body.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+    else { body.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; btn.setAttribute('aria-expanded','true'); }
   });
-  rows.forEach(function(r) { tbody.appendChild(r); });
-  table.setAttribute('data-sort-col', col);
-  table.setAttribute('data-sort-dir', asc ? 'asc' : 'desc');
-}
+});
 document.querySelectorAll('.tab-btn').forEach(function(btn) {
   btn.addEventListener('click', function() {
     var tabId = btn.dataset.tab;
-    var group = btn.closest('.tab-group') || document;
-    group.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    group.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById(tabId).classList.add('active');
   });
 });
-document.querySelectorAll('.filter-btn').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    var status = btn.dataset.filter;
-    var table = document.getElementById('tbl-all');
-    document.querySelectorAll('#filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    Array.prototype.slice.call(table.tBodies[0].rows).forEach(function(r) {
-      var show = (status === 'all') || (r.getAttribute('data-status') === status);
-      r.style.display = show ? '' : 'none';
-    });
-    applySearch();
+document.querySelectorAll('.request-reg-btn').forEach(function(btn) {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var title = btn.dataset.title, city = btn.dataset.city, dates = btn.dataset.dates;
+    var name = window.prompt('Who needs to be registered for "' + title + '" (' + dates + ')?');
+    if (!name || !name.trim()) return;
+    var subject = 'Registration Request: ' + title + ' — ' + dates;
+    var body = 'Please register the following person for this class:\n\n' +
+      'Name: ' + name.trim() + '\n\n' +
+      'Class: ' + title + '\n' +
+      'Location: ' + city + '\n' +
+      'Dates: ' + dates;
+    var href = 'mailto:andrewkendall@agri-service.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = href;
   });
 });
-function applySearch() {
-  var q = document.getElementById('search-input').value.toLowerCase();
-  var table = document.getElementById('tbl-all');
-  var activeFilter = document.querySelector('#filter-bar .filter-btn.active').dataset.filter;
-  Array.prototype.slice.call(table.tBodies[0].rows).forEach(function(r) {
-    var matchesFilter = (activeFilter === 'all') || (r.getAttribute('data-status') === activeFilter);
-    var matchesSearch = r.textContent.toLowerCase().indexOf(q) !== -1;
-    r.style.display = (matchesFilter && matchesSearch) ? '' : 'none';
+document.querySelectorAll('.main-tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var target = btn.dataset.maintab;
+    document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.main-tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(target).classList.add('active');
   });
+});
+function agcoFilterTable() {
+  var q = document.getElementById('agco-search').value.trim().toLowerCase();
+  var statusF = document.getElementById('agco-status-filter').value;
+  var rows = document.querySelectorAll('#agco-table tbody tr');
+  var shown = 0;
+  rows.forEach(function(tr) {
+    var matchQ = !q || tr.dataset.search.indexOf(q) !== -1;
+    var matchS = statusF === 'all' || tr.dataset.status === statusF;
+    var show = matchQ && matchS;
+    tr.style.display = show ? '' : 'none';
+    if (show) shown++;
+  });
+  var emptyEl = document.getElementById('agco-empty');
+  if (emptyEl) emptyEl.style.display = shown === 0 ? 'block' : 'none';
 }
-document.getElementById('search-input').addEventListener('input', applySearch);
 </script>
 </body></html>
